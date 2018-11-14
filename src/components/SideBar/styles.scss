@@ -1,0 +1,65 @@
+@import '../../theme/palette';
+
+.sidebar {
+    /*positioning*/
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+
+    /*container options*/
+    display: flex;
+    flex-direction: column;
+
+    /*colors*/
+    background: $main-blue;
+
+    & a {
+        text-decoration: none;
+
+        & div {
+            height: 3rem;
+            line-height: 3rem;
+            font-size: 1.1rem;
+            padding-left: 0.3rem;
+            color: #fff;
+            background-color: transparent;
+            cursor: pointer;
+            transition: background-color 0.4s;
+
+            &:hover {
+                background-color: #ffffff3f;
+            }
+        }
+
+        & svg {
+            width: 30px;
+            padding: 5px 0 -5px;
+            margin: 0 10px;
+        }
+    }
+}
+
+.header {
+    height: 5rem;
+    width: 100%;
+    padding: 0 10px;
+
+    & svg {
+        display: inline-block;
+        height: 30%;
+        margin: 0 auto;
+        cursor: pointer;
+
+        &:first-of-type {
+            width: 50%;
+            height: 90%;
+        }
+
+        &:last-of-type {
+            height: 80%;
+            margin: 0 0 0 40px;
+        }
+    }
+}

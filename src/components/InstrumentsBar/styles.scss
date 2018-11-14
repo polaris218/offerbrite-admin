@@ -1,0 +1,42 @@
+@import '../../theme/palette';
+
+.instruments {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    height: 6.5rem;
+    width: 100%;
+    border: 1px solid red;
+
+    & input {
+        margin: 0 10px;
+        width: 50%;
+        height: 40%;
+        border-radius: 5px;
+        border: 1px solid #dbdbdb;
+        // background-image: url('../../theme/assets/search-icon.svg');
+        background-repeat: no-repeat;
+        background-size: 12px 12px;
+        background-position: 2% 50%;
+        padding-left: 3%;
+    }
+
+    & .button {
+        display: flex;
+        border: 1px solid $main-blue;
+        border-radius: 5px;
+        width: 10%;
+    }
+}
+
+/* selects */
+.selectContainer {
+    width: 100%;
+    height: 50%;
+}
+
+.select {
+    display: inline-block;
+    margin: 10px;
+    width: calc(20% - 20px);
+}
