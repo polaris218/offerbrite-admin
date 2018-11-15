@@ -41,16 +41,18 @@ export default class InstrumentsBar extends Component {
                     <span>Filter</span>
                 </div>
                 <input type="text" />
-                <div className="selectContainer">
-                    {selects.map((item, index) => (
-                        <Select
-                            className="select"
-                            options={item}
-                            placeholder={selectNames[index]}
-                            key={index}
-                        />
-                    ))}
-                </div>
+                {selects ? (
+                    <div className="selectContainer">
+                        {selects.map((item, index) => (
+                            <Select
+                                className="select"
+                                options={item}
+                                placeholder={selectNames[index]}
+                                key={index}
+                            />
+                        ))}
+                    </div>
+                ) : null}
             </div>
         );
     }

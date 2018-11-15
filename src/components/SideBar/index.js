@@ -8,7 +8,9 @@ export default class SideBar extends Component {
             <div className="sidebar">
                 <section className="header">
                     {/* Offerbrite logo */}
-                    {/* <NavLink to="#"> */}
+                    {/* <NavLink activeStyle={{
+                        backgroundColor: '#ffffff3f'
+                    }} to="#"> */}
                     <svg
                         width="123"
                         height="52"
@@ -57,7 +59,13 @@ export default class SideBar extends Component {
                         />
                     </svg>
                 </section>
-                <NavLink to="#">
+                <NavLink
+                    activeStyle={{
+                        backgroundColor: '#ffffff3f',
+                    }}
+                    to="/"
+                    exact
+                >
                     <div>
                         <svg
                             width="16"
@@ -74,7 +82,12 @@ export default class SideBar extends Component {
                         Users
                     </div>
                 </NavLink>
-                <NavLink to="#">
+                <NavLink
+                    activeStyle={{
+                        backgroundColor: '#ffffff3f',
+                    }}
+                    to="/companies"
+                >
                     <div>
                         <svg
                             width="20"
@@ -91,7 +104,12 @@ export default class SideBar extends Component {
                         Companies
                     </div>
                 </NavLink>
-                <NavLink to="#">
+                <NavLink
+                    activeStyle={{
+                        backgroundColor: '#ffffff3f',
+                    }}
+                    to="/offers"
+                >
                     <div>
                         <svg
                             width="18"
@@ -108,7 +126,12 @@ export default class SideBar extends Component {
                         Offers
                     </div>
                 </NavLink>
-                <NavLink to="#">
+                <NavLink
+                    activeStyle={{
+                        backgroundColor: '#ffffff3f',
+                    }}
+                    to="#"
+                >
                     <div>
                         <svg
                             width="16"
@@ -125,7 +148,12 @@ export default class SideBar extends Component {
                         Notifications
                     </div>
                 </NavLink>
-                <NavLink to="#">
+                <NavLink
+                    activeStyle={{
+                        backgroundColor: '#ffffff3f',
+                    }}
+                    to="#"
+                >
                     <div>
                         <svg
                             width="19"
@@ -142,7 +170,12 @@ export default class SideBar extends Component {
                         Charts
                     </div>
                 </NavLink>
-                <NavLink to="#">
+                <NavLink
+                    activeStyle={{
+                        backgroundColor: '#ffffff3f',
+                    }}
+                    to="#"
+                >
                     <div>
                         <svg
                             width="14"
@@ -159,7 +192,12 @@ export default class SideBar extends Component {
                         Analytics
                     </div>
                 </NavLink>
-                <NavLink to="#">
+                <NavLink
+                    activeStyle={{
+                        backgroundColor: '#ffffff3f',
+                    }}
+                    to="#"
+                >
                     <div>
                         <svg
                             width="16"

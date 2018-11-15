@@ -15,7 +15,7 @@ export default class HeaderBar extends Component {
         return (
             <div className="headerbar">
                 <div className="userlabel">
-                    <img src={avatar} />
+                    <img src={avatar} alt="avatar" />
                     <p>
                         {name}
                         {/* arrow */}

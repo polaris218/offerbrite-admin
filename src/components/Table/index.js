@@ -1,6 +1,6 @@
 //Core
 import React, { Component } from 'react';
-import {} from 'prop-types';
+import { shape, arrayOf, object, string } from 'prop-types';
 
 //Instruments
 import ReactTable from 'react-table';
@@ -9,144 +9,19 @@ import checkboxHOC from 'react-table/lib/hoc/selectTable';
 const CheckboxTable = checkboxHOC(ReactTable);
 
 export default class Table extends Component {
+    static propTypes = {
+        data: arrayOf(object),
+        columns: arrayOf(
+            shape({
+                accessor: string.isRequired,
+                Header: string.isRequired,
+            }),
+        ),
+    };
+
     state = {
         selection: [],
         selectAll: false,
-        data: [
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-            {
-                _id: Math.random(),
-                name: 'Oleksa',
-                email: 'roquefore@gmail.com',
-                country: 'Oleksa',
-                categories: 'blalbalasd',
-            },
-        ],
     };
 
     toggleSelection = (key, shift, row) => {
@@ -218,8 +93,9 @@ export default class Table extends Component {
     };
 
     render() {
+        const { columns, data } = this.props;
         const { toggleSelection, toggleAll, isSelected } = this;
-        const { selectAll, data } = this.state;
+        const { selectAll } = this.state;
 
         const checkboxProps = {
             selectAll,
@@ -227,46 +103,25 @@ export default class Table extends Component {
             toggleSelection,
             toggleAll,
             selectType: 'checkbox',
+            getTrProps: (s, r) => {
+                const selected = this.isSelected(r.original._id);
+                return {
+                    style: {
+                        backgroundColor: selected ? '#d7e9ff' : 'inherit',
+                        padding: '5px 0',
+                        textAlign: 'center',
+                    },
+                };
+            },
         };
 
         return (
             <CheckboxTable
                 ref={(r) => (this.checkboxTable = r)}
                 data={data}
-                columns={[
-                    {
-                        accessor: '_id',
-                        Header: 'Id',
-                    },
-                    {
-                        accessor: 'name',
-                        Header: 'Name',
-                    },
-                    {
-                        accessor: 'email',
-                        Header: 'Email',
-                    },
-                    {
-                        accessor: 'country',
-                        Header: 'Country',
-                    },
-                    {
-                        accessor: 'categories',
-                        Header: 'Categories',
-                    },
-                ]}
+                columns={columns}
                 className="table -highlight"
                 defaultPageSize={10}
-                getTrProps={(state, rowInfo, column, instance) => {
-                    console.log(rowInfo);
-
-                    return {
-                        style: {
-                            padding: '5px 0',
-                            textAlign: 'center',
-                        },
-                    };
-                }}
                 getTheadTrProps={(state, rowInfo, column, instance) => {
                     return {
                         style: {

@@ -13,6 +13,7 @@ export default class Users extends Component {
             <div>
                 <SideBar />
                 <HeaderBar
+                    //!---WARNING - hardcoded data below
                     name="James Bond"
                     avatar="https://cdn4.iconfinder.com/data/icons/logos-3/426/react_js-512.png"
                     text="Managing of users"
@@ -80,7 +81,174 @@ export default class Users extends Component {
                         'Categories',
                     ]}
                 />
-                <Table />
+
+                <Table
+                    //!--WARNING - harcoded data below
+                    data={[
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                        {
+                            _id: Math.random(),
+                            name: 'Oleksa',
+                            email: 'roquefore@gmail.com',
+                            country: 'Oleksa',
+                            categories: 'blalbalasd',
+                        },
+                    ]}
+                    columns={[
+                        {
+                            accessor: '_id',
+                            Header: 'Id',
+                        },
+                        {
+                            accessor: 'name',
+                            Header: 'Name',
+                        },
+                        {
+                            accessor: 'email',
+                            Header: 'Email',
+                        },
+                        {
+                            accessor: 'country',
+                            Header: 'Country',
+                        },
+                        {
+                            accessor: 'categories',
+                            Header: 'Categories',
+                        },
+                    ]}
+                />
             </div>
         );
     }
