@@ -1,14 +1,28 @@
 //Core
 import React, { Component } from 'react';
-
-// //Styles
-// import Styles from './styles.scss';
+import { string, arrayOf, shape } from 'prop-types';
 
 //Instruments
 import Select from 'react-select';
 
 export default class InstrumentsBar extends Component {
+    static propTypes = {
+        selectNames: arrayOf(string),
+
+        //ARRAY of ARRAYS of OBJECTS
+        selects: arrayOf(
+            arrayOf(
+                shape({
+                    value: string.isRequired,
+                    label: string.isRequired,
+                }),
+            ),
+        ),
+    };
+
     render() {
+        const { selects, selectNames } = this.props;
+
         return (
             <div className="instruments">
                 <div className="button">
@@ -24,15 +38,18 @@ export default class InstrumentsBar extends Component {
                             fill="#0461EC"
                         />
                     </svg>
-                    Filter
+                    <span>Filter</span>
                 </div>
                 <input type="text" />
                 <div className="selectContainer">
-                    <Select className="select" />
-                    <Select className="select" />
-                    <Select className="select" />
-                    <Select className="select" />
-                    <Select className="select" />
+                    {selects.map((item, index) => (
+                        <Select
+                            className="select"
+                            options={item}
+                            placeholder={selectNames[index]}
+                            key={index}
+                        />
+                    ))}
                 </div>
             </div>
         );

@@ -1,0 +1,36 @@
+.headerbar {
+    width: 95%;
+    margin: 20px auto 0;
+    padding: 20px auto;
+
+    & .userlabel {
+        display: flex;
+        width: 17%;
+        margin-left: 83%;
+        border-radius: 5px;
+        border: 1px solid $light-grey;
+        background: $background;
+        cursor: pointer;
+
+        & > img {
+            width: 20%;
+            height: 100%;
+            border-radius: 360px;
+            margin: 0.3rem;
+        }
+
+        & > p {
+            line-height: 100%;
+            margin-left: 0.8rem;
+        }
+
+        & svg {
+            height: 90%;
+            margin: 0 0.8rem;
+        }
+    }
+
+    & > p {
+        font-size: 27px;
+    }
+}

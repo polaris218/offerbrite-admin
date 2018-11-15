@@ -2,6 +2,7 @@
 @import './components/SideBar/styles.scss';
 @import './components/InstrumentsBar/styles.scss';
 @import './components/Table/styles.scss';
+@import './components/HeaderBar/styles.scss';
 
 * {
     box-sizing: border-box;
@@ -9,7 +10,7 @@
 }
 
 body {
-    background-color: $white;
+    background-color: $background;
     padding-left: 200px;
 
     font-family: roboto mono, roboto, system-ui;

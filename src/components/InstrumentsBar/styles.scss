@@ -1,12 +1,10 @@
-@import '../../theme/palette';
-
 .instruments {
     display: flex;
     flex-wrap: wrap;
-    padding: 10px;
+    padding: 10px 0;
     height: 6.5rem;
-    width: 100%;
-    border: 1px solid red;
+    width: 95%;
+    margin: auto;
 
     & input {
         margin: 0 10px;
@@ -14,7 +12,7 @@
         height: 40%;
         border-radius: 5px;
         border: 1px solid #dbdbdb;
-        // background-image: url('../../theme/assets/search-icon.svg');
+        background-image: url('./theme/assets/search-icon.svg');
         background-repeat: no-repeat;
         background-size: 12px 12px;
         background-position: 2% 50%;
@@ -23,20 +21,38 @@
 
     & .button {
         display: flex;
+        max-height: 40%;
+        justify-content: space-around;
         border: 1px solid $main-blue;
+        padding: 5px 1.5%;
+        background: $light-blue;
+        color: $main-blue;
         border-radius: 5px;
         width: 10%;
+        cursor: pointer;
+
+        & svg {
+            height: 100%;
+        }
+
+        & span {
+            height: 100%;
+        }
     }
 }
 
 /* selects */
 .selectContainer {
     width: 100%;
-    height: 50%;
+    height: 60%;
+    margin-top: 10px;
+    padding: 5px;
+    background: $white;
+    border-radius: 5px;
 }
 
 .select {
     display: inline-block;
-    margin: 10px;
+    margin: 0 10px;
     width: calc(20% - 20px);
 }

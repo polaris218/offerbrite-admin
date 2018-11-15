@@ -1,5 +1,6 @@
 //Core
 import React, { Component } from 'react';
+import {} from 'prop-types';
 
 //Instruments
 import ReactTable from 'react-table';
@@ -254,8 +255,27 @@ export default class Table extends Component {
                         Header: 'Categories',
                     },
                 ]}
-                className="-highlight table"
+                className="table -highlight"
                 defaultPageSize={10}
+                getTrProps={(state, rowInfo, column, instance) => {
+                    console.log(rowInfo);
+
+                    return {
+                        style: {
+                            padding: '5px 0',
+                            textAlign: 'center',
+                        },
+                    };
+                }}
+                getTheadTrProps={(state, rowInfo, column, instance) => {
+                    return {
+                        style: {
+                            padding: '5px 0',
+                            backgroundColor: '#F5F5F7',
+                            borderBottom: '1px solid #DBDBDB',
+                        },
+                    };
+                }}
                 {...checkboxProps}
             />
         );
