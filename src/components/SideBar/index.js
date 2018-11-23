@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import NavItem from 'components/NavItem';
 import styles from './styles.module.scss';
 import logo from 'assets/images/logo.svg';
-import menuButtonIcon from 'assets/icons/menu-button.svg';
 import navigation from './navigation';
 
 const buttonClasses = {
@@ -26,7 +25,6 @@ class SideBar extends Component {
 
   componentDidMount() {
     window.addEventListener('resize', e => {
-      console.log(e.target.innerWidth);
       if (e.target.innerWidth < 1560) {
         this.hideSideBar();
       }

@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 
 import Header from 'components/Header';
 import SideBar from 'components/SideBar';
+import Spinner from 'components/UI/Spinner';
 
 import Settings from 'containers/Settings';
 
@@ -17,6 +18,7 @@ class App extends Component {
       <BrowserRouter>
         <div className={styles.App}>
           <SideBar />
+          <Spinner />
           <div className={styles.App__content}>
             <Header />
             <Route exact path="/users" component={Users} />
