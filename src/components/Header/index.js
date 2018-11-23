@@ -10,26 +10,41 @@ class Header extends Component {
     isDropDownVisible: false,
   };
 
-  handleDropDownToggle = () => {
+  onToggleDropDown = () => {
     this.setState(prevState => ({
       isDropDownVisible: !prevState.isDropDownVisible,
     }));
   };
 
+  handleLogoutClick = () => {
+    // @TODO: run logout func
+    this.onToggleDropDown();
+  };
+
   render() {
     const { adminUser } = this.props;
+    const { isDropDownVisible } = this.state;
 
     return (
       <div className={styles.Header}>
         <div className={styles.Header__dropdown}>
           <div
             className={styles.Header__dropdown__row}
-            onClick={this.handleDropDownToggle}
+            onClick={this.onToggleDropDown}
           >
             {adminUser.name}
             <div className={styles.Header__dropdown__arrow}>
               <img src={arrowDownIcon} alt="Arrow icon" />
             </div>
+          </div>
+          <div
+            className={[
+              styles.Header__dropdown__row,
+              isDropDownVisible ? null : styles.Header__dropdown__row__hidden,
+            ].join(' ')}
+            onClick={this.handleLogoutClick}
+          >
+            Logout
           </div>
         </div>
       </div>

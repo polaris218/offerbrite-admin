@@ -3,10 +3,17 @@
 .Header {
   padding-right: 48px;
   padding-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  height: 7rem;
+  position: relative;
 
   &__dropdown {
-    display: flex;
-    justify-content: flex-end;
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 48px;
+    z-index: 3;
   }
 
   &__dropdown__row {
@@ -18,8 +25,21 @@
     padding: 1.5rem 2.5rem;
     border-radius: 4px;
     border: 1px solid $colorGray;
-  }
+    transition: all 0.2s;
+    background-color: $colorGrayLight;
 
-  &__dropdown__arrow {
+    &:first-of-type {
+      position: relative;
+      z-index: 5;
+    }
+
+    &:hover {
+      background-color: $colorGray;
+    }
+
+    &__hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
   }
 }
