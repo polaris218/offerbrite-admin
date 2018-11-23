@@ -1,0 +1,25 @@
+@import '../../resources.scss';
+
+.Header {
+  padding-right: 48px;
+  padding-top: 12px;
+
+  &__dropdown {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__dropdown__row {
+    width: 14.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2.5rem;
+    border-radius: 4px;
+    border: 1px solid $colorGray;
+  }
+
+  &__dropdown__arrow {
+  }
+}

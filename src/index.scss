@@ -1,32 +1,50 @@
-@import './theme/palette';
-@import './components/SideBar/styles.scss';
-@import './components/InstrumentsBar/styles.scss';
-@import './components/Table/styles.scss';
-@import './components/HeaderBar/styles.scss';
+@import './resources.scss';
 
-* {
-    box-sizing: border-box;
-    outline: 0;
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+
+  @include respond(xxl) {
+    font-size: 87.5%;
+  }
+
+  @include respond(xl) {
+    font-size: 82.5%;
+  }
+
+  @include respond(lg) {
+    font-size: 75%;
+  }
+
+  @include respond(md) {
+    font-size: 67.5%;
+  }
+
+  @include respond(sm) {
+    font-size: 62.5%;
+  }
 }
 
 body {
-    background-color: $background;
-    padding-left: 200px;
-
-    font-family: roboto mono, roboto, system-ui;
-
-    /* Зачаровать шрифты */
-    font-smoothing: antialiased;
-    font-variant-ligatures: none;
-
-    /**
-    * Хак для мобильного сафари, чтобы при поворотах он не склеивал и не терял контент.
-    * Префиксы установлены вручную, так как на момент 13.03.2018
-    * autoprefixer этого не делал автоматически.
-    */
-    -moz-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-
-    min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  background-color: $colorLightGray;
+  color: $colorGrayDark;
+  width: 100%;
 }
+
+::selection {
+  background-color: $colorPrimaryMedium;
+  color: $colorWhite;
+}
+
+// :global .textLine {
+//   display: block;
+// }
