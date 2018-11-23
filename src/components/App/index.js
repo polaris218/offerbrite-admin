@@ -4,6 +4,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Header from 'components/Header';
 import SideBar from 'components/SideBar';
 
+import Settings from 'containers/Settings';
+
 import styles from './styles.module.scss';
 
 const Dashboard = () => <h2>Dashboard</h2>;
@@ -20,6 +22,7 @@ class App extends Component {
             <Route exact path="/users" component={Users} />
             <Route exact path="/surveys" component={Dashboard} />
             <Route path="/surveys/new" component={SurveyNew} />
+            <Route path="/settings" component={Settings} />
           </div>
         </div>
       </BrowserRouter>
