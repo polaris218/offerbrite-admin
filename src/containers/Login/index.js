@@ -11,8 +11,14 @@ import logo from 'assets/images/logo-blue.svg';
 import { actions as sessionActions } from 'reducers/session';
 
 class Login extends Component {
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.login();
+  }
+
   render() {
-    const { login, password, onChangeText, rememberSession, onToggleRememberSession } = this.props;
+    const { username, password, onChangeText, rememberSession, onToggleRememberSession, login } = this.props;
     return (
       <div className={styles.Login}>
         <div className={styles.Login__logo}>
@@ -22,8 +28,8 @@ class Login extends Component {
         <form className={styles.Login__form}>
           <div className={styles.Login__form__container}>
             <Input
-              onChange={e => onChangeText(e, 'login')}
-              value={login}
+              onChange={e => onChangeText(e, 'username')}
+              value={username}
               type="text"
               placeholder="Login"
             />
@@ -45,8 +51,8 @@ class Login extends Component {
             <Button
               orange
               block
-              disabled={login.length === 0 || password.length === 0}
-              onClick={() => { }}
+              disabled={username.length === 0 || password.length === 0}
+              onClick={this.handleSubmit}
             >
               Enter
             </Button>
@@ -58,7 +64,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  login: state.session.login,
+  username: state.session.username,
   password: state.session.password,
   rememberSession: state.session.rememberSession,
 });
@@ -66,6 +72,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onChangeText: (text, inputName) => dispatch(sessionActions.onChangeText(text, inputName)),
   onToggleRememberSession: () => dispatch(sessionActions.onToggleRememberSession()),
+  login: () => dispatch(sessionActions.login()),
 });
 
 export default connect(

@@ -1,7 +1,7 @@
 import types from './types';
 
 const initialState = {
-  login: '',
+  username: '',
   password: '',
   rememberSession: true,
   adminUser: {
