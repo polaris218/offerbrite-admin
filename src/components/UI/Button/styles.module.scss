@@ -10,14 +10,47 @@
   border: 0;
   border-radius: 4px;
   transition: all 0.2s;
-  background-color: $colorPrimary;
   cursor: pointer;
 
-  &:hover {
-    background-color: $colorPrimaryMedium;
+  &_block {
+    width: 100%;
   }
 
-  &:active {
-    background-color: $colorPrimaryLight;
+  &_blue {
+    background-color: $colorPrimary;
+
+    &:hover {
+      background-color: $colorPrimaryMedium;
+    }
+
+    &:active {
+      background-color: $colorPrimaryLight;
+    }
+  }
+
+  &_orange {
+    background-color: $colorSecondary;
+
+    &:hover {
+      background-color: $colorSecondaryMedium;
+    }
+
+    &:active {
+      background-color: $colorSecondaryLight;
+    }
+  }
+
+  &_disabled {
+    background-color: $colorGray;
+    color: $colorGrayMedium;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: $colorGray;
+    }
+
+    &:active {
+      background-color: $colorGray;
+    }
   }
 }

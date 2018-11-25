@@ -7,32 +7,32 @@ import settingsIcon from 'assets/icons/settings-icon.png';
 
 export default [
   {
-    to: '/users',
+    to: '/admin/users',
     title: 'Users',
     icon: usersIcon,
   },
   {
-    to: '/companies',
+    to: '/admin/companies',
     title: 'Companies',
     icon: companiesIcon,
   },
   {
-    to: '/offers',
+    to: '/admin/offers',
     title: 'Offers',
     icon: offersIcon,
   },
   {
-    to: '/notifications',
+    to: '/admin/notifications',
     title: 'Notifications',
     icon: notificationsIcon,
   },
   {
-    to: '/analytics',
+    to: '/admin/analytics',
     title: 'Analytics',
     icon: analyticsIcon,
   },
   {
-    to: '/settings',
+    to: '/admin/settings',
     title: 'Settings',
     icon: settingsIcon,
   },

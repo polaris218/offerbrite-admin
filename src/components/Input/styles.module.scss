@@ -1,0 +1,27 @@
+@import '../../resources.scss';
+
+.Input {
+  width: 255px;
+  height: 48px;
+  margin: 10px auto;
+
+  &__element {
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid $colorGray;
+    outline: none;
+    transition: all 0.3s;
+    padding: 0 20px;
+    font-size: 1.25rem;
+    color: inherit;
+
+    &::placeholder {
+      color: $colorGray;
+    }
+  }
+
+  &__element_focused {
+    border: 1px solid $colorPrimary;
+  }
+}
