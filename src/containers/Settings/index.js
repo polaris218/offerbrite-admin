@@ -112,7 +112,9 @@ class Settings extends Component {
                   minRows={admins.length}
                   showPaginationBottom={false}
                 />
-                <Button onClick={() => alert('Hi')}>Add admin</Button>
+                <div className={styles.Settings__content__button}>
+                  <Button onClick={() => alert('Hi')}>Add admin</Button>
+                </div>
               </Fragment> :
               <StaticTable columns={tablesSettings} />
           }

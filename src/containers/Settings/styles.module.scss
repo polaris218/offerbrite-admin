@@ -5,6 +5,10 @@
     padding-left: $sidePaddingSmall;
     padding-right: $sidePaddingLarge;
   }
+
+  &__content__button {
+    margin-top: 2rem;
+  }
 }
 
 .AdminsTable__cell {
