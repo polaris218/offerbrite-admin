@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// import ReactTable from 'react-table';
+import ReactTable from 'react-table';
 import PageTitle from 'components/PageTitle';
 import TabBar from 'components/UI/TabBar';
 import Tab from 'components/UI/Tab';
@@ -12,6 +12,7 @@ import Button from 'components/UI/Button';
 import styles from './styles.module.scss';
 
 import { actions as settingsActions } from 'reducers/settings';
+import { actions as adminsActions } from 'reducers/admins';
 
 const tabs = {
   _1: 'Admins',
@@ -30,6 +31,7 @@ class Settings extends Component {
   render() {
     const { activeTab } = this.state;
     const {
+      admins,
       usersTable,
       companiesTable,
       offersTable,
@@ -61,6 +63,29 @@ class Settings extends Component {
       },
     ];
 
+    const adminsTableColumns = [
+      {
+        Header: 'Name',
+        Cell: props => props.value,
+        accessor: 'login',
+        headerClassName: 'withBorderRight',
+      },
+      {
+        Header: 'Password',
+        Cell: props => props.value,
+        accessor: 'password',
+        sortable: false,
+        headerClassName: styles.AdminsTable__cell__header,
+      },
+      {
+        Cell: props => props.value,
+        accessor: 'id',
+        sortable: false,
+        className: 'alignRight',
+        headerClassName: styles.AdminsTable__cell__header,
+      },
+    ];
+
     return (
       <div className={styles.Settings}>
         <PageTitle title="Settings" />
@@ -79,7 +104,16 @@ class Settings extends Component {
         <div className={styles.Settings__content}>
           {
             activeTab === tabs._1 ?
-              <Button onClick={() => alert('Hi')}>Add admin</Button> :
+              <Fragment>
+                <ReactTable
+                  className="-highlight"
+                  data={admins}
+                  columns={adminsTableColumns}
+                  minRows={admins.length}
+                  showPaginationBottom={false}
+                />
+                <Button onClick={() => alert('Hi')}>Add admin</Button>
+              </Fragment> :
               <StaticTable columns={tablesSettings} />
           }
         </div>
@@ -89,6 +123,7 @@ class Settings extends Component {
 }
 
 const mapStateToProps = state => ({
+  admins: state.admins.admins,
   usersTable: state.settings.users,
   companiesTable: state.settings.companies,
   offersTable: state.settings.offers,

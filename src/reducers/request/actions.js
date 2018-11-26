@@ -1,14 +1,14 @@
 import types from './types';
 
-export const requestStart = () => ({
+export const start = () => ({
   type: types.REQUEST_START,
 });
 
-export const requestSuccess = () => ({
+export const success = () => ({
   type: types.REQUEST_SUCCESS,
 });
 
-export const requestFail = error => ({
+export const fail = error => ({
   type: types.REQUEST_FAIL,
   payload: { error },
 });

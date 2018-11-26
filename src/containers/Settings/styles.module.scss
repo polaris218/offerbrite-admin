@@ -6,3 +6,20 @@
     padding-right: $sidePaddingLarge;
   }
 }
+
+.AdminsTable__cell {
+  font-size: 1.25rem;
+  padding: 1.5rem 2rem;
+  background-color: $colorWhite;
+  
+  
+  &_outer {
+    text-align: right;
+    background-color: $colorWhite;
+  }
+
+  &__header {
+    background-color: $colorGrayLight;
+    box-shadow: none;
+  }
+}

@@ -7,3 +7,8 @@ export const login = ({ username, password }) => axios({
   url: endpoints.LOGIN,
   auth: { username, password }
 });
+
+export const getAdmins = () => axios({
+  method: 'GET',
+  url: endpoints.GET_ADMINS,
+});

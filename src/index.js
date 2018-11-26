@@ -8,7 +8,9 @@ import * as serviceWorker from './serviceWorker';
 
 import App from 'components/App';
 import reducers from 'reducers';
+import '../node_modules/react-table/react-table.css';
 import 'index.scss';
+// import './index.css';
 
 const middleware = [reduxThunk, logger];
 

@@ -46,6 +46,28 @@ body {
   color: $colorWhite;
 }
 
-// :global .textLine {
-//   display: block;
-// }
+// GLOBAL REACT-TABLE COMPONENT CUSTOMIZATION
+:global .ReactTable .rt-thead.-header {
+  box-shadow: none;
+}
+
+:global .ReactTable .rt-td {
+  padding: 1.25rem 1.5rem;
+  background-color: $colorWhite;
+  font-size: 1.25rem;
+  border-right: 0;
+}
+
+:global .alignRight {
+  text-align: right;
+}
+
+:global .ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td {
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  font-size: 1.25rem;
+}
+
+:global .ReactTable .rt-tbody .rt-td {
+  border-right: 0;
+}
