@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Input from 'components/Input';
 import Checkbox from 'components/Checkbox';
@@ -12,13 +13,19 @@ import { actions as sessionActions } from 'reducers/session';
 
 class Login extends Component {
 
+  componentDidUpdate(prevProps) {
+    if (!prevProps.isAuthenticated && this.props.isAuthenticated) {
+      this.props.history.replace('/admin/users');
+    }
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.login();
   }
 
   render() {
-    const { username, password, onChangeText, rememberSession, onToggleRememberSession, login } = this.props;
+    const { username, password, onChangeText, rememberSession, onToggleRememberSession } = this.props;
     return (
       <div className={styles.Login}>
         <div className={styles.Login__logo}>
@@ -63,11 +70,17 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  username: state.session.username,
-  password: state.session.password,
-  rememberSession: state.session.rememberSession,
-});
+const mapStateToProps = state => {
+  const { username, password, rememberSession, admin } = state.session;
+  const isAuthenticated = admin.name && admin.token;
+
+  return {
+    username,
+    password,
+    rememberSession,
+    isAuthenticated,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   onChangeText: (text, inputName) => dispatch(sessionActions.onChangeText(text, inputName)),
@@ -75,7 +88,14 @@ const mapDispatchToProps = dispatch => ({
   login: () => dispatch(sessionActions.login()),
 });
 
-export default connect(
+Login.propTypes = {
+  username: PropTypes.string,
+  password: PropTypes.string,
+  rememberSession: PropTypes.bool,
+  isAuthenticated: PropTypes.bool,
+};
+
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(Login));

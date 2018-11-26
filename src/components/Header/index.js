@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 import arrowDownIcon from 'assets/icons/arrow-down.svg';
+
+import { actions as sessionActions } from 'reducers/session';
 
 class Header extends Component {
   state = {
@@ -17,12 +20,13 @@ class Header extends Component {
   };
 
   handleLogoutClick = () => {
-    // @TODO: run logout func
     this.onToggleDropDown();
+    this.props.history.replace('/admin/login');
+    this.props.logout();
   };
 
   render() {
-    const { adminUser } = this.props;
+    const { admin } = this.props;
     const { isDropDownVisible } = this.state;
 
     return (
@@ -32,7 +36,7 @@ class Header extends Component {
             className={styles.Header__dropdown__row}
             onClick={this.onToggleDropDown}
           >
-            {adminUser.name}
+            {admin.name}
             <div className={styles.Header__dropdown__arrow}>
               <img src={arrowDownIcon} alt="Arrow icon" />
             </div>
@@ -53,11 +57,15 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  adminUser: PropTypes.object,
+  admin: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  adminUser: state.session.adminUser,
+  admin: state.session.admin,
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(sessionActions.logout()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

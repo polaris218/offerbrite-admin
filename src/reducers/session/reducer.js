@@ -4,8 +4,9 @@ const initialState = {
   username: '',
   password: '',
   rememberSession: true,
-  adminUser: {
-    name: 'James Bond',
+  admin: {
+    name: '',
+    token: ''
   },
 };
 
@@ -17,6 +18,11 @@ export default (state = initialState, action) => {
       return { ...state, [inputName]: text };
     case types.ON_TOGGLE_REMEMBER_SESSION:
       return { ...state, rememberSession: !state.rememberSession };
+    case types.LOGIN_SUCCESS:
+      const { name, token } = action.payload;
+      return { ...state, admin: { name, token } };
+    case types.LOGOUT:
+      return initialState;
     default:
       return state;
   }
