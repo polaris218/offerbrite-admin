@@ -6,12 +6,15 @@ import SideBar from 'components/SideBar';
 import Spinner from 'components/UI/Spinner';
 
 import Login from 'containers/Login';
+import Users from 'containers/Users';
+import Companies from 'containers/Companies';
+import Offers from 'containers/Offers';
+import Notifications from 'containers/Notifications';
+import Analytics from 'containers/Analytics';
 import Settings from 'containers/Settings';
 import Reports from 'containers/Reports';
 
 import styles from './styles.module.scss';
-
-const Users = () => <h2>Users</h2>;
 
 class App extends Component {
   render() {
@@ -29,6 +32,10 @@ class App extends Component {
                 <div className={styles.App__content}>
                   <Header />
                   <Route path="/admin/users" component={Users} />
+                  <Route path="/admin/companies" component={Companies} />
+                  <Route path="/admin/offers" component={Offers} />
+                  <Route path="/admin/notifications" component={Notifications} />
+                  <Route path="/admin/analytics" component={Analytics} />
                   <Route path="/admin/settings" component={Settings} />
                   <Route path="/admin/reports" component={Reports} />
                 </div>
