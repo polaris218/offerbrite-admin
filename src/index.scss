@@ -47,6 +47,10 @@ body {
 }
 
 // GLOBAL REACT-TABLE COMPONENT CUSTOMIZATION
+:global .ReactTable .rt-table, .ReactTable .rt-tbody {
+  overflow: visible;
+}
+
 :global .ReactTable .rt-thead.-header {
   box-shadow: none;
 }
@@ -58,10 +62,6 @@ body {
   border-right: 0;
 }
 
-:global .alignRight {
-  text-align: right;
-}
-
 :global .ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td {
   padding: 1.25rem 1.5rem;
   text-align: left;
@@ -70,4 +70,8 @@ body {
 
 :global .ReactTable .rt-tbody .rt-td {
   border-right: 0;
+}
+
+:global .ReactTable .rt-th, .ReactTable .rt-td {
+  overflow: visible;
 }

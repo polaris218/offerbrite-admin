@@ -9,6 +9,7 @@ import Tab from 'components/UI/Tab';
 import StaticTable from 'components/UI/StaticTable';
 import Checkbox from 'components/Checkbox';
 import Button from 'components/UI/Button';
+import DotsMenu from 'components/DotsMenu';
 import styles from './styles.module.scss';
 
 import { actions as settingsActions } from 'reducers/settings';
@@ -78,10 +79,15 @@ class Settings extends Component {
         headerClassName: styles.AdminsTable__cell__header,
       },
       {
-        Cell: props => props.value,
+        Cell: props => (
+          <DotsMenu
+            onEdit={() => alert(`edit id = ${props.value}`)}
+            onDelete={() => alert(`delete id = ${props.value}`)}
+          />
+        ),
         accessor: 'id',
         sortable: false,
-        className: 'alignRight',
+        style: { display: 'flex', justifyContent: 'flex-end' },
         headerClassName: styles.AdminsTable__cell__header,
       },
     ];

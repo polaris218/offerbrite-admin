@@ -15,12 +15,7 @@
   font-size: 1.25rem;
   padding: 1.5rem 2rem;
   background-color: $colorWhite;
-  
-  
-  &_outer {
-    text-align: right;
-    background-color: $colorWhite;
-  }
+  display: flex;
 
   &__header {
     background-color: $colorGrayLight;
