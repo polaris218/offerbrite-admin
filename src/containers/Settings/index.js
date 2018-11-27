@@ -9,7 +9,9 @@ import Tab from 'components/UI/Tab';
 import StaticTable from 'components/UI/StaticTable';
 import Checkbox from 'components/Checkbox';
 import Button from 'components/UI/Button';
+import Modal from 'components/UI/Modal';
 import DotsMenu from 'components/DotsMenu';
+import AdminForm from 'components/AdminForm';
 import styles from './styles.module.scss';
 
 import { actions as settingsActions } from 'reducers/settings';
@@ -23,14 +25,24 @@ const tabs = {
 class Settings extends Component {
   state = {
     activeTab: tabs._1,
+    isAdminFormVisible: false,
   }
 
   handleTabClick = tab => {
     this.setState({ activeTab: tab });
   }
 
+  handleEdit = adminId => {
+    this.onToggleAdminFor();
+    // TODO: set admin to edit
+  }
+
+  onToggleAdminForm = () => {
+    this.setState(prevState => ({ isAdminFormVisible: !prevState.isAdminFormVisible }));
+  }
+
   render() {
-    const { activeTab } = this.state;
+    const { activeTab, isAdminFormVisible } = this.state;
     const {
       admins,
       usersTable,
@@ -83,6 +95,7 @@ class Settings extends Component {
           <DotsMenu
             onEdit={() => alert(`edit id = ${props.value}`)}
             onDelete={() => alert(`delete id = ${props.value}`)}
+            id={props.value}
           />
         ),
         accessor: 'id',
@@ -111,6 +124,15 @@ class Settings extends Component {
           {
             activeTab === tabs._1 ?
               <Fragment>
+                <Modal
+                  isVisible={isAdminFormVisible}
+                  onClose={this.onToggleAdminForm}
+                  header="Create admin"
+                >
+                  <AdminForm
+                    onSubmit={() => { }}
+                  />
+                </Modal>
                 <ReactTable
                   className="-highlight"
                   data={admins}
@@ -119,7 +141,7 @@ class Settings extends Component {
                   showPaginationBottom={false}
                 />
                 <div className={styles.Settings__content__button}>
-                  <Button onClick={() => alert('Hi')}>Add admin</Button>
+                  <Button onClick={this.onToggleAdminForm}>Add admin</Button>
                 </div>
               </Fragment> :
               <StaticTable columns={tablesSettings} />
