@@ -3,10 +3,12 @@ import { reducer as sessionReducer } from './session';
 import { reducer as requestReducer } from './request';
 import { reducer as settingsReducer } from './settings';
 import { reducer as adminsReducer } from './admins';
+import { reducer as reportsReducer } from './reports';
 
 export default combineReducers({
   session: sessionReducer,
   request: requestReducer,
   settings: settingsReducer,
   admins: adminsReducer,
+  reports: reportsReducer,
 });
