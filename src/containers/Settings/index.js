@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ReactTable from 'react-table';
+import { AdminsTable } from 'components/Tables';
 import PageTitle from 'components/PageTitle';
 import TabBar from 'components/UI/TabBar';
 import Tab from 'components/UI/Tab';
@@ -76,34 +77,7 @@ class Settings extends Component {
       },
     ];
 
-    const adminsTableColumns = [
-      {
-        Header: 'Name',
-        Cell: props => props.value,
-        accessor: 'login',
-        headerClassName: 'withBorderRight',
-      },
-      {
-        Header: 'Password',
-        Cell: props => props.value,
-        accessor: 'password',
-        sortable: false,
-        headerClassName: styles.AdminsTable__cell__header,
-      },
-      {
-        Cell: props => (
-          <DotsMenu
-            onEdit={() => alert(`edit id = ${props.value}`)}
-            onDelete={() => alert(`delete id = ${props.value}`)}
-            id={props.value}
-          />
-        ),
-        accessor: 'id',
-        sortable: false,
-        style: { display: 'flex', justifyContent: 'flex-end' },
-        headerClassName: styles.AdminsTable__cell__header,
-      },
-    ];
+
 
     return (
       <div className={styles.Settings}>
@@ -120,33 +94,25 @@ class Settings extends Component {
             onClick={() => this.handleTabClick(tabs._2)}
           />
         </TabBar>
-        <div className={styles.Settings__content}>
-          {
-            activeTab === tabs._1 ?
-              <Fragment>
-                <Modal
-                  isVisible={isAdminFormVisible}
-                  onClose={this.onToggleAdminForm}
-                  header="Create admin"
-                >
-                  <AdminForm
-                    onSubmit={() => { }}
-                  />
-                </Modal>
-                <ReactTable
-                  className="-highlight"
-                  data={admins}
-                  columns={adminsTableColumns}
-                  minRows={admins.length}
-                  showPaginationBottom={false}
+        {
+          activeTab === tabs._1 ?
+            <Fragment>
+              <Modal
+                isVisible={isAdminFormVisible}
+                onClose={this.onToggleAdminForm}
+                header="Create admin"
+              >
+                <AdminForm
+                  onSubmit={() => { }}
                 />
-                <div className={styles.Settings__content__button}>
-                  <Button onClick={this.onToggleAdminForm}>Add admin</Button>
-                </div>
-              </Fragment> :
-              <StaticTable columns={tablesSettings} />
-          }
-        </div>
+              </Modal>
+              <AdminsTable data={admins} />
+              <div className={styles.Settings__content__button}>
+                <Button onClick={this.onToggleAdminForm}>Add admin</Button>
+              </div>
+            </Fragment> :
+            <StaticTable columns={tablesSettings} />
+        }
       </div>
     );
   }

@@ -75,3 +75,8 @@ body {
 :global .ReactTable .rt-th, .ReactTable .rt-td {
   overflow: visible;
 }
+
+:global .Table__cell__header {
+  background-color: $colorGrayLight;
+  box-shadow: none;
+}
