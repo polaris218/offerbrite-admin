@@ -4,6 +4,7 @@ import offersIcon from 'assets/icons/offers-icon.png';
 import notificationsIcon from 'assets/icons/notifications-icon.png';
 import analyticsIcon from 'assets/icons/analytics-icon.png';
 import settingsIcon from 'assets/icons/settings-icon.png';
+import reportsIcon from 'assets/icons/reports-icon.png';
 
 export default [
   {
@@ -35,5 +36,11 @@ export default [
     to: '/admin/settings',
     title: 'Settings',
     icon: settingsIcon,
+  },
+  {
+    to: '/admin/reports',
+    title: 'Reports',
+    icon: reportsIcon,
+    withBadge: true,
   },
 ];

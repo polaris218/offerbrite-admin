@@ -7,12 +7,12 @@ import Spinner from 'components/UI/Spinner';
 
 import Login from 'containers/Login';
 import Settings from 'containers/Settings';
+import Reports from 'containers/Reports';
 
 import styles from './styles.module.scss';
 
-const Dashboard = () => <h2>Dashboard</h2>;
-const SurveyNew = () => <h2>SurveyNew</h2>;
 const Users = () => <h2>Users</h2>;
+
 class App extends Component {
   render() {
     return (
@@ -29,9 +29,8 @@ class App extends Component {
                 <div className={styles.App__content}>
                   <Header />
                   <Route path="/admin/users" component={Users} />
-                  <Route path="/admin/surveys" component={Dashboard} />
-                  <Route path="/admin/surveys/new" component={SurveyNew} />
                   <Route path="/admin/settings" component={Settings} />
+                  <Route path="/admin/reports" component={Reports} />
                 </div>
               </div>
             )}

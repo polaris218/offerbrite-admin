@@ -59,10 +59,9 @@ class SideBar extends Component {
 
   render() {
     const { isSideBarHidden, buttonClasses } = this.state;
-    console.log(isSideBarHidden);
 
     const navItems = isSideBarHidden
-      ? navigation.map(item => ({ to: item.to, icon: item.icon }))
+      ? navigation.map(item => ({ to: item.to, icon: item.icon, withBadge: item.withBadge }))
       : navigation;
 
     return (
