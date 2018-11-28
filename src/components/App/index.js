@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Header from 'components/Header';
 import SideBar from 'components/SideBar';
 import Spinner from 'components/UI/Spinner';
+import Content from 'components/UI/Content';
 
 import Login from 'containers/Login';
 import Users from 'containers/Users';
@@ -31,13 +32,15 @@ class App extends Component {
                 <Spinner />
                 <div className={styles.App__content}>
                   <Header />
-                  <Route path="/admin/users" component={Users} />
-                  <Route path="/admin/companies" component={Companies} />
-                  <Route path="/admin/offers" component={Offers} />
-                  <Route path="/admin/notifications" component={Notifications} />
-                  <Route path="/admin/analytics" component={Analytics} />
-                  <Route path="/admin/settings" component={Settings} />
-                  <Route path="/admin/reports" component={Reports} />
+                  <Content>
+                    <Route path="/admin/users" component={Users} />
+                    <Route path="/admin/companies" component={Companies} />
+                    <Route path="/admin/offers" component={Offers} />
+                    <Route path="/admin/notifications" component={Notifications} />
+                    <Route path="/admin/analytics" component={Analytics} />
+                    <Route path="/admin/settings" component={Settings} />
+                    <Route path="/admin/reports" component={Reports} />
+                  </Content>
                 </div>
               </div>
             )}

@@ -10,15 +10,3 @@
     margin-top: 2rem;
   }
 }
-
-.AdminsTable__cell {
-  font-size: 1.25rem;
-  padding: 1.5rem 2rem;
-  background-color: $colorWhite;
-  display: flex;
-
-  &__header {
-    background-color: $colorGrayLight;
-    box-shadow: none;
-  }
-}
