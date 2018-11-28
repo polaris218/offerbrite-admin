@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import NavItem from 'components/NavItem';
 import styles from './styles.module.scss';
@@ -59,6 +60,7 @@ class SideBar extends Component {
 
   render() {
     const { isSideBarHidden, buttonClasses } = this.state;
+    const { reportsList } = this.props;
 
     const navItems = isSideBarHidden
       ? navigation.map(item => ({ to: item.to, icon: item.icon, withBadge: item.withBadge }))
@@ -95,9 +97,16 @@ class SideBar extends Component {
         </div>
         <nav className={styles.SideBar__navigation}>
           <ul style={{ listStyle: 'none' }}>
-            {navItems.map(item => (
-              <NavItem hidden={isSideBarHidden} {...item} />
-            ))}
+            {
+              navItems.map((item, index) => (
+                <NavItem
+                  key={index}
+                  hidden={isSideBarHidden}
+                  {...item}
+                  count={item.withBadge ? reportsList.length : null}
+                />
+              ))
+            }
           </ul>
         </nav>
       </aside>
@@ -105,4 +114,8 @@ class SideBar extends Component {
   }
 }
 
-export default SideBar;
+const mapStateToProps = state => ({
+  reportsList: state.reports.reportsList,
+});
+
+export default connect(mapStateToProps, null, null, { pure: false })(SideBar);
