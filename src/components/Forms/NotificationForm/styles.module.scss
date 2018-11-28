@@ -1,0 +1,14 @@
+@import '../../../resources.scss';
+
+.NotificationForm {
+  background-color: $colorWhite;
+
+  &__form {
+    width: 60rem;
+  }
+
+  &__form__button {
+    max-width: 50%;
+    margin: 0 auto;
+  }
+}

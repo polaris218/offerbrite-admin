@@ -12,7 +12,7 @@ import Checkbox from 'components/Checkbox';
 import Button from 'components/UI/Button';
 import Modal from 'components/UI/Modal';
 import DotsMenu from 'components/DotsMenu';
-import AdminForm from 'components/AdminForm';
+import { AdminForm } from 'components/Forms';
 import styles from './styles.module.scss';
 
 import { actions as settingsActions } from 'reducers/settings';

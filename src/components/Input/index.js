@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
-import { timingSafeEqual } from 'crypto';
 
 class Input extends Component {
   state = {
@@ -15,18 +14,31 @@ class Input extends Component {
 
   render() {
     const { isFocused } = this.state;
+    const { label, inputType } = this.props;
 
     return (
-      <div className={styles.Input}>
-        <input
-          className={[
-            styles.Input__element,
-            isFocused ? styles.Input__element_focused : null,
-          ].join(' ')}
-          onFocus={this.onToggleFocus}
-          onBlur={this.onToggleFocus}
-          {...this.props}
-        />
+      <div className={[
+        styles.Input,
+        isFocused ? styles.Input_focused : styles.Input_blured,
+      ].join(' ')}>
+        {label && <div className={styles.Input__label}>{label}</div>}
+        {
+          inputType === 'textarea' ?
+            <textarea
+              className={styles.Input__element}
+              onFocus={this.onToggleFocus}
+              onBlur={this.onToggleFocus}
+              {...this.props}
+              rows={5}
+              maxLength={150}
+            /> :
+            <input
+              className={styles.Input__element}
+              onFocus={this.onToggleFocus}
+              onBlur={this.onToggleFocus}
+              {...this.props}
+            />
+        }
       </div>
     );
   }

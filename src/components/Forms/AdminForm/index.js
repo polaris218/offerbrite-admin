@@ -5,7 +5,7 @@ import Input from 'components/Input';
 import Button from 'components/UI/Button';
 import styles from './styles.module.scss';
 
-const AdminForm = ({ onSubmit }) => (
+export const AdminForm = ({ onSubmit }) => (
   <div className={styles.AdminForm}>
     <div className={styles.AdminForm__form}>
       <Input placeholder="Login" />
@@ -16,5 +16,3 @@ const AdminForm = ({ onSubmit }) => (
     </div>
   </div>
 );
-
-export default AdminForm;
