@@ -1,6 +1,27 @@
 @import '../../../resources.scss';
 
 .Dropdown {
+  position: relative;
+  background-color: $colorWhite;
+  cursor: pointer;
+  height: 100%;
+  font-size: 1.25rem;
+
+  &__icon {
+    color: inherit;
+    font-size: 1.5rem;
+  }
+
+  &__icon__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+
+    &_rotated {
+      transform: rotate(180deg);
+    }
+  }
 
   &__row_first {
     width: 255px;
@@ -11,6 +32,11 @@
     padding: 0 15px;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: $colorGrayLight;
+    }
 
     &_opened {
       border-bottom-left-radius: 0;
@@ -26,10 +52,40 @@
   }
 
   &__list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 300;
+    width: 100%;
+    background-color: $colorWhite;
+    border-left: 1px solid $colorGray;
+    border-right: 1px solid $colorGray;
+    border-bottom: 1px solid $colorGray;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    transition: all 0.3s;
+    overflow-y: hidden;
 
+    &_closed {
+      height: 0;
+      border: 0;
+    }
   }
 
   &__list__item {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    transition: all .3s;
 
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $colorGrayLight;
+    }
+
+    &:hover {
+      background-color: $colorGrayLight;
+    }
   }
 }
