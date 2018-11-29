@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import ReactTable from 'react-table';
 import PageTitle from 'components/PageTitle';
+import SearchBar from 'components/SearchBar';
 import Modal from 'components/UI/Modal';
 import styles from './styles.module.scss';
 
@@ -12,6 +13,10 @@ class Offers extends Component {
     return (
       <div className={styles.Offers}>
         <PageTitle title="Offers" />
+        <SearchBar
+          onChange={() => { }}
+          placeholder="Search (offer id, brand name, offer title)"
+        />
       </div>
     );
   }
