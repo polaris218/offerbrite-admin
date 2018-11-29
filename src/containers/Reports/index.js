@@ -6,6 +6,7 @@ import ReactTable from 'react-table';
 import { ReportsTable } from 'components/Tables';
 import PageTitle from 'components/PageTitle';
 import Modal from 'components/UI/Modal';
+import Dropdown from 'components/UI/Dropdown';
 import styles from './styles.module.scss';
 
 class Reports extends Component {
