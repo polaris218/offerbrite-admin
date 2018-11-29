@@ -20,13 +20,30 @@ const fakeAdmins = [
 
 const initialState = {
   admins: fakeAdmins,
+  newAdmin: {
+    email: '',
+    name: '',
+    password: '',
+  },
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+
     case types.GET_ADMINS_SUCCESS:
       const { admins } = action.payload;
       return { ...state, admins };
+
+    case types.ON_CHANGE_NEW_ADMIN_TEXT_FIELD:
+      const { inputName, text } = action.payload;
+      return {
+        ...state,
+        newAdmin: {
+          ...state.newAdmin,
+          [inputName]: text,
+        },
+      };
+
     default:
       return state;
   }

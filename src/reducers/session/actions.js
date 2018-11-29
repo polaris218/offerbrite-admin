@@ -1,5 +1,8 @@
 import types from './types';
-import { login as apiLogin } from 'services/api';
+import {
+  createNewAdmin as apiCreateNewAdmin,
+  login as apiLogin,
+} from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
 

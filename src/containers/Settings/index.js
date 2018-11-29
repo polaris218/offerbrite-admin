@@ -52,6 +52,8 @@ class Settings extends Component {
       onChangeUsersTableSettings,
       onChangeCompaniesTableSettings,
       onChangeOffersTableSettings,
+      onChangeNewAdminTextField,
+      newAdmin,
     } = this.props;
 
     const createCheckboxes = (settings, onClickAction) => settings.map(item => (
@@ -104,6 +106,8 @@ class Settings extends Component {
               >
                 <AdminForm
                   onSubmit={() => { }}
+                  onChange={onChangeNewAdminTextField}
+                  values={newAdmin}
                 />
               </Modal>
               <AdminsTable data={admins} />
@@ -120,12 +124,14 @@ class Settings extends Component {
 
 const mapStateToProps = state => ({
   admins: state.admins.admins,
+  newAdmin: state.admins.newAdmin,
   usersTable: state.settings.users,
   companiesTable: state.settings.companies,
   offersTable: state.settings.offers,
 });
 
 const mapDispatchToProps = dispatch => ({
+  onChangeNewAdminTextField: (event, inputName) => dispatch(adminsActions.onChangeNewAdminTextField(event, inputName)),
   onChangeUsersTableSettings: setting => dispatch(settingsActions.onChangeUsersTableSettings(setting)),
   onChangeCompaniesTableSettings: setting => dispatch(settingsActions.onChangeCompaniesTableSettings(setting)),
   onChangeOffersTableSettings: setting => dispatch(settingsActions.onChangeOffersTableSettings(setting)),
