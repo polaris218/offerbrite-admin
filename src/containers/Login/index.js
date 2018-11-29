@@ -25,7 +25,7 @@ class Login extends Component {
   }
 
   render() {
-    const { username, password, onChangeText, rememberSession, onToggleRememberSession } = this.props;
+    const { email, password, onChangeText, rememberSession, onToggleRememberSession } = this.props;
     return (
       <div className={styles.Login}>
         <div className={styles.Login__logo}>
@@ -35,10 +35,10 @@ class Login extends Component {
         <form className={styles.Login__form}>
           <div className={styles.Login__form__container}>
             <Input
-              onChange={e => onChangeText(e, 'username')}
-              value={username}
+              onChange={e => onChangeText(e, 'email')}
+              value={email}
               type="text"
-              placeholder="Login"
+              placeholder="Email"
             />
             <Input
               onChange={e => onChangeText(e, 'password')}
@@ -58,7 +58,7 @@ class Login extends Component {
             <Button
               orange
               block
-              disabled={username.length === 0 || password.length === 0}
+              disabled={email.length === 0 || password.length === 0}
               onClick={this.handleSubmit}
             >
               Enter
@@ -71,11 +71,11 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-  const { username, password, rememberSession, admin } = state.session;
-  const isAuthenticated = admin.name && admin.token;
+  const { email, password, rememberSession, admin, token } = state.session;
+  const isAuthenticated = admin.id && token;
 
   return {
-    username,
+    email,
     password,
     rememberSession,
     isAuthenticated,
@@ -83,13 +83,13 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onChangeText: (text, inputName) => dispatch(sessionActions.onChangeText(text, inputName)),
+  onChangeText: (e, inputName) => dispatch(sessionActions.onChangeText(e, inputName)),
   onToggleRememberSession: () => dispatch(sessionActions.onToggleRememberSession()),
   login: () => dispatch(sessionActions.login()),
 });
 
 Login.propTypes = {
-  username: PropTypes.string,
+  email: PropTypes.string,
   password: PropTypes.string,
   rememberSession: PropTypes.bool,
   isAuthenticated: PropTypes.bool,

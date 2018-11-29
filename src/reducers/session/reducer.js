@@ -1,13 +1,11 @@
 import types from './types';
 
 const initialState = {
-  username: '',
+  email: '',
   password: '',
   rememberSession: true,
-  admin: {
-    name: '',
-    token: ''
-  },
+  admin: {},
+  token: '',
 };
 
 export default (state = initialState, action) => {
@@ -19,8 +17,8 @@ export default (state = initialState, action) => {
     case types.ON_TOGGLE_REMEMBER_SESSION:
       return { ...state, rememberSession: !state.rememberSession };
     case types.LOGIN_SUCCESS:
-      const { name, token } = action.payload;
-      return { ...state, admin: { name, token } };
+      const { admin, token } = action.payload;
+      return { ...state, admin, token };
     case types.LOGOUT:
       return initialState;
     default:

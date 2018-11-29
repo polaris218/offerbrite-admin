@@ -16,22 +16,33 @@ export const onToggleRememberSession = () => ({
 });
 
 export const login = () => async (dispatch, getState) => {
-  const { username, password } = getState().session;
-  // TEMP
-  localStorage.setItem('admin', 'Test Admin');
-  localStorage.setItem('token', 'asdlkjasldjalsdjlaskjdlkasjd');
+  const { email, password, rememberSession } = getState().session;
+  dispatch(requestActions.start());
 
-  dispatch({
-    type: types.LOGIN_SUCCESS,
-    payload: { name: 'Test Admin', token: 'asdlkjasldjalsdjlaskjdlkasjd' },
-  });
-  // try {
-  // const response = await apiLogin({ username, password });
-  // console.log(response);
-  // } catch (error) {
-  // console.log(error.message);
-  // console.log(error);
-  // }
+  try {
+    const response = await apiLogin({ email, password });
+    const { tokens, user: admin } = response.data;
+    dispatch({
+      type: types.LOGIN_SUCCESS,
+      payload: {
+        token: tokens.access.token,
+        admin,
+      },
+    });
+
+    if (rememberSession) {
+      localStorage.setItem('access', JSON.stringify(tokens.access));
+      localStorage.setItem('refresh', JSON.stringify(tokens.refresh));
+      localStorage.setItem('admin', JSON.stringify(admin));
+    }
+
+    dispatch(requestActions.success());
+    console.log(response);
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    console.log(error.message);
+    console.log(error);
+  }
 };
 
 export const logout = () => {

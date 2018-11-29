@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Header from 'components/Header';
 import SideBar from 'components/SideBar';
@@ -18,37 +19,51 @@ import Reports from 'containers/Reports';
 import styles from './styles.module.scss';
 
 class App extends Component {
+
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <BrowserRouter>
         <Switch>
-          <Redirect exact from="/" to="/admin/login" />
-          <Route exact path="/admin/login" component={Login} />
-          <Route
-            path="/admin"
-            render={() => (
-              <div className={styles.App}>
-                <SideBar />
-                <Spinner />
-                <div className={styles.App__content}>
-                  <Header />
-                  <Content>
-                    <Route path="/admin/users" component={Users} />
-                    <Route path="/admin/companies" component={Companies} />
-                    <Route path="/admin/offers" component={Offers} />
-                    <Route path="/admin/notifications" component={Notifications} />
-                    <Route path="/admin/analytics" component={Analytics} />
-                    <Route path="/admin/settings" component={Settings} />
-                    <Route path="/admin/reports" component={Reports} />
-                  </Content>
-                </div>
-              </div>
-            )}
-          />
+          {
+            !this.props.token ?
+              <Fragment>
+                <Redirect exact from="/" to="/admin/login" />
+                <Route exact path="/admin/login" component={Login} />
+              </Fragment> :
+              <Route
+                path="/admin"
+                render={() => (
+                  <div className={styles.App}>
+                    <SideBar />
+                    <Spinner />
+                    <div className={styles.App__content}>
+                      <Header />
+                      <Content>
+                        <Route path="/admin/users" component={Users} />
+                        <Route path="/admin/companies" component={Companies} />
+                        <Route path="/admin/offers" component={Offers} />
+                        <Route path="/admin/notifications" component={Notifications} />
+                        <Route path="/admin/analytics" component={Analytics} />
+                        <Route path="/admin/settings" component={Settings} />
+                        <Route path="/admin/reports" component={Reports} />
+                      </Content>
+                    </div>
+                  </div>
+                )}
+              />
+          }
         </Switch>
       </BrowserRouter>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  token: state.session.token,
+})
+
+export default connect(mapStateToProps)(App);

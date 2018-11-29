@@ -13,7 +13,7 @@ export const createNewAdmin = data => axios({
 export const login = ({ email, password }) => axios({
   method: 'POST',
   url: endpoints.LOGIN,
-  auth: { email, password }
+  auth: { username: email, password }
 });
 
 export const getAdmins = () => axios({
