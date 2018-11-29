@@ -1,0 +1,42 @@
+@import '../../resources.scss';
+
+.SearchBar {
+  width: 33%;
+  min-width: 200px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  background-color: $colorWhite;
+  transition: all .3s;
+
+  &_focused {
+    border: 1px solid $colorPrimaryMedium;
+  }
+
+  &_blured {
+    border: 1px solid $colorGray;
+  }
+
+  &__icon {
+    margin-left: 1rem;
+    font-size: 2.5rem;
+    color: inherit;
+  }
+
+  &__input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    border: 0;
+    transition: all 0.3s;
+    padding: 5px 15px;
+    font-size: 1.25rem;
+    color: inherit;
+    border-radius: 4px;
+
+    &::placeholder {
+      color: $colorGray;
+    }
+  }
+}
