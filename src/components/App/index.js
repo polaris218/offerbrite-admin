@@ -31,7 +31,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           {
-            !this.props.token ?
+            !this.props.access.token ?
               <Fragment>
                 <Redirect exact from="/" to="/admin/login" />
                 <Route exact path="/admin/login" component={Login} />
@@ -65,7 +65,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  token: state.session.token,
+  access: state.session.access,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -13,12 +13,6 @@ import { actions as sessionActions } from 'reducers/session';
 
 class Login extends Component {
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.isAuthenticated && this.props.isAuthenticated) {
-      this.props.history.replace('/admin/users');
-    }
-  }
-
   handleSubmit = e => {
     e.preventDefault();
     this.props.login();
@@ -71,17 +65,12 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-  const { email, password, rememberSession, admin, access } = state.session;
-  const isAuthenticated = admin.id && access.token;
-  console.log('admin.id', admin.id)
-  console.log('access.token', access.token)
-  console.log('isAuthenticated', Boolean(isAuthenticated));
+  const { email, password, rememberSession } = state.session;
 
   return {
     email,
     password,
     rememberSession,
-    isAuthenticated,
   };
 };
 
