@@ -18,10 +18,12 @@ import Reports from 'containers/Reports';
 
 import styles from './styles.module.scss';
 
+import { actions as sessionActions } from 'reducers/session';
+
 class App extends Component {
 
   componentDidMount() {
-
+    this.props.bootstrap();
   }
 
   render() {
@@ -64,6 +66,10 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   token: state.session.token,
-})
+});
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  bootstrap: () => dispatch(sessionActions.bootstrap()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

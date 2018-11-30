@@ -71,8 +71,11 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-  const { email, password, rememberSession, admin, token } = state.session;
-  const isAuthenticated = admin.id && token;
+  const { email, password, rememberSession, admin, access } = state.session;
+  const isAuthenticated = admin.id && access.token;
+  console.log('admin.id', admin.id)
+  console.log('access.token', access.token)
+  console.log('isAuthenticated', Boolean(isAuthenticated));
 
   return {
     email,

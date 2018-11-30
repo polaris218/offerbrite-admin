@@ -15,7 +15,7 @@ const middleware = [reduxThunk, logger];
 
 // TODO: turn off logger in production mode
 
-const store = createStore(reducers, {}, applyMiddleware(...middleware));
+export const store = createStore(reducers, {}, applyMiddleware(...middleware));
 
 const Root = () => (
   <Provider store={store}>

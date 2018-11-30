@@ -1,10 +1,30 @@
 import types from './types';
 import {
+  checkHealth as apiCheckHealth,
   createNewAdmin as apiCreateNewAdmin,
   login as apiLogin,
 } from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
+
+export const setToken = access => ({
+  type: types.SET_TOKEN,
+  payload: { access },
+});
+
+export const bootstrap = () => async dispatch => {
+  try {
+    const response = await apiCheckHealth();
+    if (response) {
+      const admin = JSON.parse(localStorage.getItem('admin'));
+      await dispatch({ type: types.SET_ADMIN, payload: { admin } });
+    } else {
+      await dispatch(logout());
+    }
+  } catch (error) {
+    await dispatch(logout());
+  }
+};
 
 export const onChangeText = (e, inputName) => ({
   type: types.ON_CHANGE_LOGIN,
@@ -25,7 +45,7 @@ export const login = () => async (dispatch, getState) => {
     dispatch({
       type: types.LOGIN_SUCCESS,
       payload: {
-        token: tokens.access.token,
+        access: tokens.access,
         admin,
       },
     });
