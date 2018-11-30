@@ -36,7 +36,7 @@ class Header extends Component {
             className={styles.Header__dropdown__row}
             onClick={this.onToggleDropDown}
           >
-            {admin.name}
+            {admin.username}
             <div className={styles.Header__dropdown__arrow}>
               <img src={arrowDownIcon} alt="Arrow icon" />
             </div>

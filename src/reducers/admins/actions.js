@@ -18,3 +18,12 @@ export const getAdmins = () => async dispatch => {
     dispatch({ type: types.GET_ADMINS_FAIL });
   }
 };
+
+export const createNewAdmin = () => async (dispatch, getState) => {
+
+};
+
+export const onChangeNewAdminTextField = (event, inputName) => ({
+  type: types.ON_CHANGE_NEW_ADMIN_TEXT_FIELD,
+  payload: { text: event.target.value, inputName },
+});

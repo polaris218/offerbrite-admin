@@ -1,7 +1,30 @@
 import types from './types';
-import { login as apiLogin } from 'services/api';
+import {
+  checkHealth as apiCheckHealth,
+  createNewAdmin as apiCreateNewAdmin,
+  login as apiLogin,
+} from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
+
+export const setToken = access => ({
+  type: types.SET_TOKEN,
+  payload: { access },
+});
+
+export const bootstrap = () => async dispatch => {
+  try {
+    const response = await apiCheckHealth();
+    if (response) {
+      const admin = JSON.parse(localStorage.getItem('admin'));
+      await dispatch({ type: types.SET_ADMIN, payload: { admin } });
+    } else {
+      await dispatch(logout());
+    }
+  } catch (error) {
+    await dispatch(logout());
+  }
+};
 
 export const onChangeText = (e, inputName) => ({
   type: types.ON_CHANGE_LOGIN,
@@ -13,22 +36,33 @@ export const onToggleRememberSession = () => ({
 });
 
 export const login = () => async (dispatch, getState) => {
-  const { username, password } = getState().session;
-  // TEMP
-  localStorage.setItem('admin', 'Test Admin');
-  localStorage.setItem('token', 'asdlkjasldjalsdjlaskjdlkasjd');
+  const { email, password, rememberSession } = getState().session;
+  dispatch(requestActions.start());
 
-  dispatch({
-    type: types.LOGIN_SUCCESS,
-    payload: { name: 'Test Admin', token: 'asdlkjasldjalsdjlaskjdlkasjd' },
-  });
-  // try {
-  // const response = await apiLogin({ username, password });
-  // console.log(response);
-  // } catch (error) {
-  // console.log(error.message);
-  // console.log(error);
-  // }
+  try {
+    const response = await apiLogin({ email, password });
+    const { tokens, user: admin } = response.data;
+    dispatch({
+      type: types.LOGIN_SUCCESS,
+      payload: {
+        access: tokens.access,
+        admin,
+      },
+    });
+
+    if (rememberSession) {
+      localStorage.setItem('access', JSON.stringify(tokens.access));
+      localStorage.setItem('refresh', JSON.stringify(tokens.refresh));
+      localStorage.setItem('admin', JSON.stringify(admin));
+    }
+
+    dispatch(requestActions.success());
+    console.log(response);
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    console.log(error.message);
+    console.log(error);
+  }
 };
 
 export const logout = () => {
