@@ -9,14 +9,19 @@ export const AdminsTable = ({ data }) => {
     {
       Header: 'Name',
       Cell: props => props.value,
-      accessor: 'login',
+      accessor: 'username',
       headerClassName: 'withBorderRight',
     },
     {
-      Header: 'Password',
+      Header: 'Email',
       Cell: props => props.value,
-      accessor: 'password',
-      sortable: false,
+      accessor: 'email',
+      headerClassName: 'Table__cell__header',
+    },
+    {
+      Header: 'Role',
+      Cell: props => props.value,
+      accessor: 'role',
       headerClassName: 'Table__cell__header',
     },
     {
@@ -39,7 +44,7 @@ export const AdminsTable = ({ data }) => {
       className="-highlight"
       data={data}
       columns={adminsTableColumns}
-      minRows={data.length}
+      minRows={5}
       showPaginationBottom={false}
     />
   );

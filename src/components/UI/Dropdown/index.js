@@ -20,7 +20,7 @@ class Dropdown extends Component {
 
   render() {
     const { isOpened } = this.state;
-    const { title, values, onSelect } = this.props;
+    const { title, values } = this.props;
 
     return (
       <div className={styles.Dropdown}>

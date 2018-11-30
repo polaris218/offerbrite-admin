@@ -1,4 +1,5 @@
 import axios from 'axios';
+import queryString from 'query-string';
 
 import endpoints from './endpoints';
 import { store } from '../../index';
@@ -93,10 +94,9 @@ const authRequest = async (url, options = {}) => {
 
 export const checkHealth = () => authRequest(endpoints.CHECK_HEALTH, { method: 'GET' });
 
-export const createNewAdmin = data => axios({
+export const createNewAdmin = data => authRequest(endpoints.CREATE_NEW_ADMIN, {
   method: 'POST',
-  url: endpoints.CREATE_NEW_ADMIN,
-  data,
+  data
 });
 
 export const login = ({ email, password }) => axios({
@@ -105,7 +105,6 @@ export const login = ({ email, password }) => axios({
   auth: { username: email, password }
 });
 
-export const getAdmins = () => axios({
+export const getAdmins = () => authRequest(endpoints.GET_ADMINS, {
   method: 'GET',
-  url: endpoints.GET_ADMINS,
 });

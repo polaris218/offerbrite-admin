@@ -29,12 +29,21 @@ class Settings extends Component {
     isAdminFormVisible: false,
   }
 
+  componentDidMount() {
+    this.props.getAdmins();
+  }
+
+  handleSubmit = () => {
+    this.props.createNewAdmin();
+    this.onToggleAdminForm();
+  }
+
   handleTabClick = tab => {
     this.setState({ activeTab: tab });
   }
 
   handleEdit = adminId => {
-    this.onToggleAdminFor();
+    this.onToggleAdminForm();
     // TODO: set admin to edit
   }
 
@@ -54,6 +63,9 @@ class Settings extends Component {
       onChangeOffersTableSettings,
       onChangeNewAdminTextField,
       newAdmin,
+      admin,
+      onChangeRole,
+      createNewAdmin,
     } = this.props;
 
     const createCheckboxes = (settings, onClickAction) => settings.map(item => (
@@ -84,38 +96,48 @@ class Settings extends Component {
     return (
       <div className={styles.Settings}>
         <PageTitle title="Settings" />
-        <TabBar>
-          <Tab
-            active={activeTab === tabs._1}
-            title={tabs._1}
-            onClick={() => this.handleTabClick(tabs._1)}
-          />
-          <Tab
-            active={activeTab === tabs._2}
-            title={tabs._2}
-            onClick={() => this.handleTabClick(tabs._2)}
-          />
-        </TabBar>
         {
-          activeTab === tabs._1 ?
+          admin.role === 'super-admin' ?
             <Fragment>
-              <Modal
-                isVisible={isAdminFormVisible}
-                onClose={this.onToggleAdminForm}
-                header="Create admin"
-              >
-                <AdminForm
-                  onSubmit={() => { }}
-                  onChange={onChangeNewAdminTextField}
-                  values={newAdmin}
+              <TabBar>
+                <Tab
+                  active={activeTab === tabs._1}
+                  title={tabs._1}
+                  onClick={() => this.handleTabClick(tabs._1)}
                 />
-              </Modal>
-              <AdminsTable data={admins} />
-              <div className={styles.Settings__content__button}>
-                <Button onClick={this.onToggleAdminForm}>Add admin</Button>
-              </div>
+                <Tab
+                  active={activeTab === tabs._2}
+                  title={tabs._2}
+                  onClick={() => this.handleTabClick(tabs._2)}
+                />
+              </TabBar>
+              {
+                activeTab === tabs._1 ?
+                  <Fragment>
+                    <Modal
+                      isVisible={isAdminFormVisible}
+                      onClose={this.onToggleAdminForm}
+                      header="Create admin"
+                    >
+                      <AdminForm
+                        onSubmit={this.handleSubmit}
+                        onChange={onChangeNewAdminTextField}
+                        values={newAdmin}
+                        admin={newAdmin}
+                        onSelectRole={onChangeRole}
+                      />
+                    </Modal>
+                    <AdminsTable data={admins} />
+                    <div className={styles.Settings__content__button}>
+                      <Button onClick={this.onToggleAdminForm}>Add admin</Button>
+                    </div>
+                  </Fragment> :
+                  <StaticTable columns={tablesSettings} />
+              }
             </Fragment> :
-            <StaticTable columns={tablesSettings} />
+            <div style={{ marginTop: '2rem' }}>
+              <StaticTable columns={tablesSettings} />
+            </div>
         }
       </div>
     );
@@ -123,6 +145,7 @@ class Settings extends Component {
 }
 
 const mapStateToProps = state => ({
+  admin: state.session.admin,
   admins: state.admins.admins,
   newAdmin: state.admins.newAdmin,
   usersTable: state.settings.users,
@@ -135,6 +158,9 @@ const mapDispatchToProps = dispatch => ({
   onChangeUsersTableSettings: setting => dispatch(settingsActions.onChangeUsersTableSettings(setting)),
   onChangeCompaniesTableSettings: setting => dispatch(settingsActions.onChangeCompaniesTableSettings(setting)),
   onChangeOffersTableSettings: setting => dispatch(settingsActions.onChangeOffersTableSettings(setting)),
+  onChangeRole: role => dispatch(adminsActions.onChangeRole(role)),
+  createNewAdmin: () => dispatch(adminsActions.createNewAdmin()),
+  getAdmins: () => dispatch(adminsActions.getAdmins()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

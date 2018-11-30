@@ -24,6 +24,8 @@ const initialState = {
     email: '',
     name: '',
     password: '',
+    selectedRole: 'admin',
+    roles: ['admin', 'super-admin'],
   },
 };
 
@@ -42,6 +44,15 @@ export default (state = initialState, action) => {
           ...state.newAdmin,
           [inputName]: text,
         },
+      };
+
+    case types.ON_CHANGE_ROLE:
+      return {
+        ...state,
+        newAdmin: {
+          ...state.newAdmin,
+          selectedRole: action.payload.role,
+        }
       };
 
     default:
