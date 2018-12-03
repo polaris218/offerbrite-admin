@@ -103,7 +103,7 @@ class SideBar extends Component {
                   key={index}
                   hidden={isSideBarHidden}
                   {...item}
-                  count={item.withBadge ? reportsList.length : null}
+                  count={item.withBadge && reportsList.length > 0 ? reportsList.length : null}
                 />
               ))
             }

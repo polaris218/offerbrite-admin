@@ -113,3 +113,7 @@ export const deleteAdmin = adminId => authRequest(endpoints.DELETE_ADMIN, {
   method: 'DELETE',
   data: { id: adminId },
 });
+
+export const getReports = (limit, skip) => authRequest(endpoints.GET_REPORTS(limit, skip), {
+  method: 'GET',
+});

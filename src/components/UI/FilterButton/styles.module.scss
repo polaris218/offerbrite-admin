@@ -1,0 +1,34 @@
+@import '../../../resources.scss';
+
+.Button {
+  width: 150px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  background-color: $colorWhite;
+  transition: all .3s;
+  outline: none;
+  border: 1px solid $colorGray;
+
+  &:focus {
+    border: 1px solid $colorPrimaryMedium;
+  }
+
+  &_active {
+    border: 1px solid $colorPrimaryMedium;
+    background-color: $colorPrimaryLight;
+  }
+
+  &__icon {
+    font-size: 30px;
+    color: inherit;
+    transition: all 0.3s;
+    transform: rotate(180deg);
+  }
+
+  &__icon_active {
+    transform: rotate(0deg);
+  }
+}

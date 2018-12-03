@@ -19,11 +19,19 @@ import Reports from 'containers/Reports';
 import styles from './styles.module.scss';
 
 import { actions as sessionActions } from 'reducers/session';
+import { actions as reportsActions } from 'reducers/reports';
 
 class App extends Component {
 
   componentDidMount() {
     this.props.bootstrap();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.access.token && this.props.access.token) {
+      console.log('Authenticated!!!');
+      this.props.getReports();
+    }
   }
 
   render() {
@@ -70,6 +78,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   bootstrap: () => dispatch(sessionActions.bootstrap()),
+  getReports: () => dispatch(reportsActions.getReports()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

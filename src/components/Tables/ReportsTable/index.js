@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import selectTableHOC from "react-table/lib/hoc/selectTable";
 
 import ReactTable from 'react-table';
 import DotsMenu from 'components/DotsMenu';
@@ -10,38 +9,38 @@ export const ReportsTable = ({ data }) => {
   const columns = [
     {
       Header: 'Date',
-      accessor: 'date',
-      Cell: props => props.value,
-      headerClassName: 'withBorderRight',
+      accessor: 'reports.createdAt',
+      Cell: props => new Date(props.value).toDateString(),
+      // headerClassName: 'withBorderRight',
     },
     {
       Header: 'User id',
       Cell: props => props.value,
-      accessor: 'userId',
+      accessor: 'user.id',
       sortable: false,
       headerClassName: 'Table__cell__header',
     },
     {
       Header: 'User name',
-      accessor: 'username',
+      accessor: 'user.username',
       Cell: props => props.value,
       headerClassName: 'Table__cell__header',
     },
     {
       Header: 'Email',
-      accessor: 'email',
+      accessor: 'user.email',
       Cell: props => props.value,
       headerClassName: 'Table__cell__header',
     },
     {
       Header: 'Reason',
-      accessor: 'reason',
+      accessor: 'reports.reason',
       Cell: props => props.value,
       headerClassName: 'Table__cell__header',
     },
     {
       Header: 'Offer title',
-      accessor: 'title',
+      accessor: 'offer.title',
       Cell: props => props.value,
       headerClassName: 'Table__cell__header',
     },
@@ -73,5 +72,3 @@ export const ReportsTable = ({ data }) => {
 ReportsTable.propTypes = {
 
 };
-
-// export const ReportsTable = selectTableHOC(Table);
