@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import DotsMenu from 'components/DotsMenu';
 
-export const AdminsTable = ({ data }) => {
+export const AdminsTable = ({ data, onDelete }) => {
   const adminsTableColumns = [
     {
       Header: 'Name',
@@ -28,7 +28,7 @@ export const AdminsTable = ({ data }) => {
       Cell: props => (
         <DotsMenu
           onEdit={() => alert(`edit id = ${props.value}`)}
-          onDelete={() => alert(`delete id = ${props.value}`)}
+          onDelete={() => onDelete(props.value)}
           id={props.value}
         />
       ),

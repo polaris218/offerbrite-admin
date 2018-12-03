@@ -9,6 +9,7 @@ export default {
   GET_ACCESS_TOKEN: `${API_URL}/auth/token`,
 
   GET_ADMINS: `${API_URL}/users/admin/all`,
+  DELETE_ADMIN: `${API_URL}/users/admin`,
 
   CHECK_HEALTH: `${API_URL}/health-check`,
 };

@@ -2,6 +2,7 @@ import types from './types';
 import {
   getAdmins as apiGetAdmins,
   createNewAdmin as apiCreateNewAdmin,
+  deleteAdmin as apiDeleteAdmin,
 } from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
@@ -48,3 +49,17 @@ export const onChangeRole = role => ({
   type: types.ON_CHANGE_ROLE,
   payload: { role },
 });
+
+export const deleteAdmin = adminId => async dispatch => {
+  dispatch(requestActions.start());
+
+  try {
+    const response = await apiDeleteAdmin(adminId);
+    if (response.data) {
+      dispatch(getAdmins());
+    }
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    console.log(error);
+  }
+}

@@ -108,3 +108,8 @@ export const login = ({ email, password }) => axios({
 export const getAdmins = () => authRequest(endpoints.GET_ADMINS, {
   method: 'GET',
 });
+
+export const deleteAdmin = adminId => authRequest(endpoints.DELETE_ADMIN, {
+  method: 'DELETE',
+  data: { id: adminId },
+});

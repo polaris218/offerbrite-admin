@@ -65,7 +65,7 @@ class Settings extends Component {
       newAdmin,
       admin,
       onChangeRole,
-      createNewAdmin,
+      deleteAdmin,
     } = this.props;
 
     const createCheckboxes = (settings, onClickAction) => settings.map(item => (
@@ -127,7 +127,10 @@ class Settings extends Component {
                         onSelectRole={onChangeRole}
                       />
                     </Modal>
-                    <AdminsTable data={admins} />
+                    <AdminsTable
+                      data={admins}
+                      onDelete={deleteAdmin}
+                    />
                     <div className={styles.Settings__content__button}>
                       <Button onClick={this.onToggleAdminForm}>Add admin</Button>
                     </div>
@@ -161,6 +164,7 @@ const mapDispatchToProps = dispatch => ({
   onChangeRole: role => dispatch(adminsActions.onChangeRole(role)),
   createNewAdmin: () => dispatch(adminsActions.createNewAdmin()),
   getAdmins: () => dispatch(adminsActions.getAdmins()),
+  deleteAdmin: adminId => dispatch(adminsActions.deleteAdmin(adminId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

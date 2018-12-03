@@ -45,8 +45,8 @@ class DotsMenu extends Component {
         </div>
         {
           isMenuVisible &&
-          <div className={styles.DotsMenu__menu} onClick={this.handleClickEdit}>
-            <div className={styles.DotsMenu__menu__item}>
+          <div className={styles.DotsMenu__menu}>
+            <div className={styles.DotsMenu__menu__item} onClick={this.handleClickEdit}>
               <MdCreate className={styles.DotsMenu__menu__item__icon} />
               Edit
             </div>
