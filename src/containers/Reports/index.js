@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Parser from 'html-react-parser';
 import ReactTable from 'react-table';
 import { ReportsTable } from 'components/Tables';
 import PageTitle from 'components/PageTitle';
@@ -31,7 +32,14 @@ class Reports extends Component {
   }
 
   handleSearch = e => {
-    const filteredData = this.props.reportsList.filter(item => item.offer.title.includes(e.target.value));
+    const searchTarget = e.target.value.toLowerCase();
+    const filteredData = this.props.reportsList.filter(item => {
+      const lowerTitle = item.offer.title.toLowerCase();
+      if (this.state.selectedReason) {
+        return lowerTitle.includes(searchTarget) && item.reports.reason === this.state.selectedReason;
+      }
+      return lowerTitle.includes(searchTarget);
+    });
     this.setState({ filteredData });
   }
 

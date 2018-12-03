@@ -7,28 +7,16 @@
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  background-color: $colorWhite;
+  background-color: $colorGray;
   transition: all .3s;
   outline: none;
   border: 1px solid $colorGray;
-
-  &:focus {
-    border: 1px solid $colorPrimaryMedium;
-  }
+  color: $colorGrayDark;
 
   &_active {
-    border: 1px solid $colorPrimaryMedium;
-    background-color: $colorPrimaryLight;
-  }
-
-  &__icon {
-    font-size: 30px;
-    color: inherit;
-    transition: all 0.3s;
-    transform: rotate(180deg);
-  }
-
-  &__icon_active {
-    transform: rotate(0deg);
+    border: 1px solid $colorPink;
+    background-color: $colorWhite;
+    color: $colorPink;
+    cursor: pointer;
   }
 }
