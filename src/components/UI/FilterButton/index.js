@@ -12,10 +12,7 @@ const FilterButton = ({ active, onClick }) => (
       active ? styles.Button_active : null,
     ].join(' ')}
   >
-    <MdFilterList className={[
-      styles.Button__icon,
-      active ? styles.Button__icon_active : null,
-    ].join(' ')} />
+    Reset
   </button>
 );
 
