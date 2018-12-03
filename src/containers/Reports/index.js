@@ -36,7 +36,7 @@ class Reports extends Component {
   }
 
   handleOffFilter = () => {
-    this.setState({ filteredData: null });
+    this.setState({ filteredData: null, selectedReason: '' });
   }
 
   render() {
