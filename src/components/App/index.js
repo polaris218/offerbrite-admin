@@ -19,6 +19,7 @@ import Reports from 'containers/Reports';
 import styles from './styles.module.scss';
 
 import { actions as sessionActions } from 'reducers/session';
+import { actions as settingsActions } from 'reducers/settings';
 import { actions as reportsActions } from 'reducers/reports';
 
 class App extends Component {
@@ -30,6 +31,10 @@ class App extends Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.access.token && this.props.access.token) {
       console.log('Authenticated!!!');
+      const storedSettings = localStorage.getItem('settings');
+      if (storedSettings) {
+        this.props.setSettingsFromStorage(storedSettings);
+      }
       this.props.getReports();
     }
   }
@@ -78,6 +83,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   bootstrap: () => dispatch(sessionActions.bootstrap()),
+  setSettingsFromStorage: settings => dispatch(settingsActions.setSettingsFromStorage(settings)),
   getReports: () => dispatch(reportsActions.getReports()),
 });
 

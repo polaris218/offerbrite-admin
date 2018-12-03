@@ -66,7 +66,9 @@ export const login = () => async (dispatch, getState) => {
 };
 
 export const logout = () => {
-  localStorage.clear();
+  localStorage.removeItem('access');
+  localStorage.removeItem('admin');
+  localStorage.removeItem('refresh');
 
   return { type: types.LOGOUT };
 };
