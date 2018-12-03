@@ -1,20 +1,15 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Parser from 'html-react-parser';
-import ReactTable from 'react-table';
 import { ReportsTable } from 'components/Tables';
 import PageTitle from 'components/PageTitle';
 import SearchBar from 'components/SearchBar';
-import Modal from 'components/UI/Modal';
 import InstrumentsPanel from 'components/UI/InstrumentsPanel';
 import Dropdown from 'components/UI/Dropdown';
 import FilterButton from 'components/UI/FilterButton';
 import styles from './styles.module.scss';
 
 import { actions as reportsActions } from 'reducers/reports';
-import Settings from 'containers/Settings';
 
 class Reports extends Component {
   state = {
