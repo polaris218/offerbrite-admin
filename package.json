@@ -10,6 +10,7 @@
     "query-string": "^6.2.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-highlight-words": "^0.14.0",
     "react-icons": "^3.2.2",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",

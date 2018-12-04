@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Highlighter from 'react-highlight-words';
 import ReactTable from 'react-table';
 import DotsMenu from 'components/DotsMenu';
 import styles from './styles.module.scss';
 
-export const ReportsTable = ({ data }) => {
+export const ReportsTable = ({ data, searchWords }) => {
   const columns = [
     {
       Header: 'Date',
       accessor: 'reports.createdAt',
       Cell: props => new Date(props.value).toDateString(),
-      // headerClassName: 'withBorderRight',
     },
     {
       Header: 'User id',
@@ -23,7 +23,14 @@ export const ReportsTable = ({ data }) => {
     {
       Header: 'User name',
       accessor: 'user.username',
-      Cell: props => props.value,
+      Cell: props => props.value ?
+        <Highlighter
+          highlightClassName="search_highlight"
+          searchWords={searchWords}
+          autoEscape={true}
+          textToHighlight={props.value}
+        /> :
+        props.value,
       headerClassName: 'Table__cell__header',
     },
     {
@@ -41,7 +48,14 @@ export const ReportsTable = ({ data }) => {
     {
       Header: 'Offer title',
       accessor: 'offer.title',
-      Cell: props => props.value,
+      Cell: props => (
+        <Highlighter
+          highlightClassName="search_highlight"
+          searchWords={searchWords}
+          autoEscape={true}
+          textToHighlight={props.value}
+        />
+      ),
       headerClassName: 'Table__cell__header',
     },
     {
@@ -70,5 +84,6 @@ export const ReportsTable = ({ data }) => {
 };
 
 ReportsTable.propTypes = {
-
+  searchWords: PropTypes.arrayOf(PropTypes.string),
+  data: PropTypes.arrayOf(PropTypes.object),
 };

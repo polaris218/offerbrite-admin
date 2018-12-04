@@ -12,8 +12,17 @@ import styles from './styles.module.scss';
 import { actions as reportsActions } from 'reducers/reports';
 
 class Reports extends Component {
+  state = {
+    searchWords: ''
+  }
+
   componentDidMount() {
     this.props.getReports();
+  }
+
+  handleSearch = e => {
+    this.props.onFilterBySearch(e);
+    this.setState({ searchWords: e.target.value });
   }
 
   render() {
@@ -25,6 +34,7 @@ class Reports extends Component {
       onFilterBySearch,
       onFilterTurnOff,
     } = this.props;
+    const { searchWords } = this.state;
 
     const reasons = reportsList.map(item => item.reports.reason);
     const uniqReasons = [...new Set(reasons)];
@@ -38,7 +48,7 @@ class Reports extends Component {
             onClick={onFilterTurnOff}
           />
           <SearchBar
-            onChange={onFilterBySearch}
+            onChange={this.handleSearch}
             placeholder="Search by offer title"
           />
           <Dropdown
@@ -49,7 +59,10 @@ class Reports extends Component {
         </InstrumentsPanel>
 
         <div className={styles.Reports__table}>
-          <ReportsTable data={filteredData ? filteredData : reportsList} />
+          <ReportsTable
+            data={filteredData ? filteredData : reportsList}
+            searchWords={[searchWords]}
+          />
         </div>
       </div>
     );
