@@ -80,3 +80,7 @@ body {
   background-color: $colorGrayLight;
   box-shadow: none;
 }
+
+:global .search_highlight {
+  background-color: yellow;
+}
