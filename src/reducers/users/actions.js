@@ -1,23 +1,23 @@
 import types from './types';
 
-import { getReports as apiGetreports } from 'services/api';
+import { getUsers as apiGetUsers } from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
 
 export const getUsers = () => async (dispatch, getState) => {
-  //   const { limit, skip } = getState().reports.params;
-  //   dispatch(requestActions.start());
-  //   dispatch({ type: types.GET_REPORTS_START });
+  const { limit, skip } = getState().reports.params;
+  dispatch(requestActions.start());
+  dispatch({ type: types.GET_USERS_START });
 
-  //   try {
-  //     const response = await apiGetreports(limit, skip);
-  //     console.log(response);
-  //     dispatch(requestActions.success());
-  //     dispatch({ type: types.GET_REPORTS_SUCCESS, payload: { reportsList: response.data.data } });
-  //   } catch (error) {
-  //     dispatch(requestActions.fail(error));
-  //     dispatch({ type: types.GET_REPORTS_FAIL });
-  //   }
+  try {
+    const response = await apiGetUsers();
+    console.log(response);
+    dispatch(requestActions.success());
+    dispatch({ type: types.GET_USERS_SUCCESS, payload: { usersList: response.data.data } });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.GET_USERS_FAIL });
+  }
 };
 
 export const filterUsersByCategory = category => (dispatch, getState) => {
@@ -31,21 +31,24 @@ export const filterUsersByCategory = category => (dispatch, getState) => {
 };
 
 export const filterUsersBySearch = e => (dispatch, getState) => {
-  // const { usersList, selectedCategory } = getState().users;
+  const { usersList, selectedCategory } = getState().users;
 
-  // const searchTarget = e.target.value.toLowerCase();
-  // const filteredData = usersList.filter(item => {
-  //   const lowerTitle = item.offer.title.toLowerCase();
-  //   if (selectedCategory) {
-  //     return lowerTitle.includes(searchTarget) && item.reports.reason === selectedCategory;
-  //   }
-  //   return lowerTitle.includes(searchTarget);
-  // });
+  const searchTarget = e.target.value.toLowerCase();
+  const filteredData = usersList.filter(user => {
+    const lowerName = user.username.toLowerCase();
+    if (selectedCategory) {
+      return user.category === selectedCategory &&
+        lowerName.includes(searchTarget) ||
+        user.email.includes(searchTarget);
+    }
+    return lowerName.includes(searchTarget) ||
+      user.email.includes(searchTarget);
+  });
 
-  // dispatch({
-  //   type: types.FILTER_USERS_BY_SEARCH,
-  //   payload: { filteredData }
-  // });
+  dispatch({
+    type: types.FILTER_USERS_BY_SEARCH,
+    payload: { filteredData }
+  });
 };
 
 export const turnOffUsersFilter = () => ({

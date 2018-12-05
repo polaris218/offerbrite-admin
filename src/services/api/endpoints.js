@@ -8,6 +8,10 @@ export default {
   CHECK_ACCESS: `${API_URL}/auth/check-access`,
   GET_ACCESS_TOKEN: `${API_URL}/auth/token`,
 
+  GET_USERS: `${API_URL}/users/admin/allUsers`,
+
+  GET_COMPANIES: `${API_URL}/users/admin/allBusinessUsers`,
+
   GET_ADMINS: `${API_URL}/users/admin/all`,
   DELETE_ADMIN: `${API_URL}/users/admin`,
 

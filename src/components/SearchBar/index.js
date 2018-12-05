@@ -15,7 +15,7 @@ class SearchBar extends Component {
 
   render() {
     const { isFocused } = this.state;
-    const { placeholder, onChange } = this.props;
+    const { placeholder, value, onChange } = this.props;
 
     return (
       <div className={[
@@ -29,6 +29,7 @@ class SearchBar extends Component {
           onFocus={this.onToggleFocus}
           onBlur={this.onToggleFocus}
           onChange={onChange}
+          value={value}
         />
       </div>
     );

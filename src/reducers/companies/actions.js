@@ -1,23 +1,23 @@
 import types from './types';
 
-import { getReports as apiGetreports } from 'services/api';
+import { getCompanies as apiGetCompanies } from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
 
 export const getCompanies = () => async (dispatch, getState) => {
-  //   const { limit, skip } = getState().reports.params;
-  //   dispatch(requestActions.start());
-  //   dispatch({ type: types.GET_REPORTS_START });
+  const { limit, skip } = getState().reports.params;
+  dispatch(requestActions.start());
+  dispatch({ type: types.GET_COMPANIES_START });
 
-  //   try {
-  //     const response = await apiGetreports(limit, skip);
-  //     console.log(response);
-  //     dispatch(requestActions.success());
-  //     dispatch({ type: types.GET_REPORTS_SUCCESS, payload: { reportsList: response.data.data } });
-  //   } catch (error) {
-  //     dispatch(requestActions.fail(error));
-  //     dispatch({ type: types.GET_REPORTS_FAIL });
-  //   }
+  try {
+    const response = await apiGetCompanies(limit, skip);
+    console.log(response);
+    dispatch(requestActions.success());
+    // dispatch({ type: types.GET_COMPANIES_SUCCESS, payload: { companiesList: response.data.data } });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.GET_COMPANIES_FAIL });
+  }
 };
 
 export const filterCompaniesByCategory = category => (dispatch, getState) => {

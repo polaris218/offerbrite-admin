@@ -105,6 +105,14 @@ export const login = ({ email, password }) => axios({
   auth: { username: email, password }
 });
 
+export const getUsers = () => authRequest(endpoints.GET_USERS, {
+  method: 'GET',
+});
+
+export const getCompanies = () => authRequest(endpoints.GET_COMPANIES, {
+  method: 'GET',
+});
+
 export const getAdmins = () => authRequest(endpoints.GET_ADMINS, {
   method: 'GET',
 });

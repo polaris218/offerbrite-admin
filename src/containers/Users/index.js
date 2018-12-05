@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ReactTable from 'react-table';
+import { UsersTable } from 'components/Tables';
 import PageTitle from 'components/PageTitle';
 import SearchBar from 'components/SearchBar';
 import InstrumentsPanel from 'components/UI/InstrumentsPanel';
@@ -14,8 +14,26 @@ import styles from './styles.module.scss';
 import { actions as usersActions } from 'reducers/users';
 
 class Users extends Component {
+  state = {
+    searchWords: '',
+  }
+
   componentDidMount() {
     this.props.getUsers();
+  }
+
+  handleSearch = e => {
+    this.props.filterUsersBySearch(e);
+    this.handleOnChangeSearch(e.target.value);
+  }
+
+  handleReset = () => {
+    this.props.turnOffUsersFilter();
+    this.handleOnChangeSearch('')
+  }
+
+  handleOnChangeSearch = text => {
+    this.setState({ searchWords: text });
   }
 
   render() {
@@ -24,9 +42,8 @@ class Users extends Component {
       filteredData,
       selectedCategory,
       filterUsersByCategory,
-      filterUsersBySearch,
-      turnOffUsersFilter,
     } = this.props;
+    const { searchWords } = this.state;
 
     const categories = ['1', '2', '3', '4']; // TODO: replace by correct categories
 
@@ -36,18 +53,30 @@ class Users extends Component {
         <InstrumentsPanel>
           <FilterButton
             active={Boolean(filteredData)}
-            onClick={turnOffUsersFilter}
+            onClick={this.handleReset}
           />
           <SearchBar
-            onChange={filterUsersBySearch}
+            onChange={this.handleSearch}
             placeholder="Search by offer title"
+            value={searchWords}
           />
           <Dropdown
-            title={selectedCategory || 'Reason'}
+            title={selectedCategory || 'Country'}
+            values={categories}
+            onSelect={filterUsersByCategory}
+          />
+          <Dropdown
+            title={selectedCategory || 'Category'}
             values={categories}
             onSelect={filterUsersByCategory}
           />
         </InstrumentsPanel>
+        <div className={styles.Users__table}>
+          <UsersTable
+            data={filteredData ? filteredData : usersList}
+            searchWords={[searchWords]}
+          />
+        </div>
       </div>
     );
   }
