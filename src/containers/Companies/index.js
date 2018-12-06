@@ -2,13 +2,12 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ReactTable from 'react-table';
+import { CompaniesTable } from 'components/Tables';
 import PageTitle from 'components/PageTitle';
 import SearchBar from 'components/SearchBar';
 import InstrumentsPanel from 'components/UI/InstrumentsPanel';
 import Dropdown from 'components/UI/Dropdown';
 import FilterButton from 'components/UI/FilterButton';
-import Modal from 'components/UI/Modal';
 import styles from './styles.module.scss';
 
 import { actions as companiesActions } from 'reducers/companies';
@@ -27,18 +26,22 @@ class Companies extends Component {
     this.setState({ searchWords: e.target.value });
   }
 
+  hanndleResetFilter = () => {
+    this.props.turnOffCompaniesFilter();
+    this.setState({ searchWords: '' });
+  }
+
   render() {
     const {
       companiesList,
       filteredData,
       selectedCountry,
       filterCompaniesByCountry,
-      turnOffCompaniesFilter,
     } = this.props;
 
     const { searchWords } = this.state;
 
-    const countries = ['1', '2', '3', '4']; // TODO: replace by correct categories
+    const countries = [...new Set(companiesList.map(company => company.country))];
 
     return (
       <div className={styles.Companies}>
@@ -46,11 +49,12 @@ class Companies extends Component {
         <InstrumentsPanel>
           <FilterButton
             active={Boolean(filteredData)}
-            onClick={turnOffCompaniesFilter}
+            onClick={this.hanndleResetFilter}
           />
           <SearchBar
             onChange={this.handleSearch}
             placeholder="Search (brand name, website, email)"
+            value={searchWords}
           />
           <Dropdown
             title={selectedCountry || 'Country'}
@@ -58,6 +62,12 @@ class Companies extends Component {
             onSelect={filterCompaniesByCountry}
           />
         </InstrumentsPanel>
+        <div className={styles.Companies__table}>
+          <CompaniesTable
+            data={filteredData ? filteredData : companiesList}
+            searchWords={[searchWords]}
+          />
+        </div>
       </div>
     );
   }

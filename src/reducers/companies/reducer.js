@@ -7,7 +7,7 @@ const initialState = {
     skip: 0,
   },
   filteredData: null,
-  selectedCategory: '',
+  selectedCountry: '',
 };
 
 export default (state = initialState, action) => {
@@ -15,11 +15,11 @@ export default (state = initialState, action) => {
     case types.GET_COMPANIES_SUCCESS:
       return { ...state, companiesList: action.payload.companiesList };
 
-    case types.FILTER_COMPANIES_BY_CATEGORY:
-      const { reason, filteredData } = action.payload;
+    case types.FILTER_COMPANIES_BY_COUNTRY:
+      const { country, filteredData } = action.payload;
       return {
         ...state,
-        selectedCategory: reason,
+        selectedCountry: country,
         filteredData,
       };
 
@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         filteredData: null,
-        selectedCategory: '',
+        selectedCountry: '',
       };
 
     default:

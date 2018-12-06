@@ -9,13 +9,13 @@ const initialState = {
     { label: 'Categories', value: true },
   ],
   companies: [
-    { label: 'User id', value: true },
+    { label: 'Company id', value: true },
     { label: 'Name', value: true },
     { label: 'Email', value: true },
     { label: 'Country', value: true },
     { label: 'Phone', value: true },
     { label: 'Website', value: true },
-    { label: 'Profile status', value: false },
+    // { label: 'Profile status', value: false },
   ],
   offers: [
     { label: 'Title', value: true },
