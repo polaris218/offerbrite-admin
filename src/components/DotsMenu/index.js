@@ -19,17 +19,16 @@ class DotsMenu extends Component {
 
   handleClickEdit = () => {
     this.handleClose();
-    this.props.onEdit(this.props.id);
+    this.props.onEdit();
   }
 
   handleClickDelete = () => {
     this.handleClose();
-    this.props.onDelete(this.props.id);
+    this.props.onDelete();
   }
 
   render() {
     const { isMenuVisible } = this.state;
-    const { onEdit, onDelete, id } = this.props;
 
     const dotStyles = [
       styles.DotsMenu__dots__dot,

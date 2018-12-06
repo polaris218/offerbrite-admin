@@ -1,39 +1,40 @@
 import types from './types';
 
 const initialState = {
-  reportsList: [],
+  offersList: [],
   params: {
     limit: 100,
     skip: 0,
   },
   filteredData: null,
-  selectedReason: '',
+  selectedCategory: '',
+  selectedPrice: 0,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.GET_REPORTS_SUCCESS:
-      return { ...state, reportsList: action.payload.reportsList };
+    case types.GET_OFFERS_SUCCESS:
+      return { ...state, offersList: action.payload.offersList };
 
-    case types.ON_FILTER_BY_REASON:
+    case types.FILTER_OFFERS_BY_CATEGORY:
       const { reason, filteredData } = action.payload;
       return {
         ...state,
-        selectedReason: reason,
+        selectedCategory: reason,
         filteredData,
       };
 
-    case types.ON_FILTER_BY_SEARCH:
+    case types.FILTER_OFFERS_BY_SEARCH:
       return {
         ...state,
         filteredData: action.payload.filteredData,
       };
 
-    case types.TURN_OFF_REPORTS_FILTER:
+    case types.TURN_OFF_OFFERS_FILTER:
       return {
         ...state,
         filteredData: null,
-        selectedReason: '',
+        selectedCategory: '',
       };
 
     default:

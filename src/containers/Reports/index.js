@@ -13,38 +13,29 @@ import { actions as reportsActions } from 'reducers/reports';
 
 class Reports extends Component {
   state = {
-    filteredData: null,
-    selectedReason: '',
+    searchWords: ''
   }
 
   componentDidMount() {
     this.props.getReports();
   }
 
-  handleFilterByReason = reason => {
-    const filteredData = this.props.reportsList.filter(item => item.reports.reason === reason);
-    this.setState({ filteredData, selectedReason: reason });
-  }
-
   handleSearch = e => {
-    const searchTarget = e.target.value.toLowerCase();
-    const filteredData = this.props.reportsList.filter(item => {
-      const lowerTitle = item.offer.title.toLowerCase();
-      if (this.state.selectedReason) {
-        return lowerTitle.includes(searchTarget) && item.reports.reason === this.state.selectedReason;
-      }
-      return lowerTitle.includes(searchTarget);
-    });
-    this.setState({ filteredData });
-  }
-
-  handleOffFilter = () => {
-    this.setState({ filteredData: null, selectedReason: '' });
+    this.props.onFilterBySearch(e);
+    this.setState({ searchWords: e.target.value });
   }
 
   render() {
-    const { filteredData, selectedReason } = this.state;
-    const { reportsList } = this.props;
+    const {
+      reportsList,
+      filteredData,
+      selectedReason,
+      onFilterByReason,
+      onFilterBySearch,
+      onFilterTurnOff,
+    } = this.props;
+    const { searchWords } = this.state;
+
     const reasons = reportsList.map(item => item.reports.reason);
     const uniqReasons = [...new Set(reasons)];
 
@@ -54,21 +45,24 @@ class Reports extends Component {
         <InstrumentsPanel>
           <FilterButton
             active={Boolean(filteredData)}
-            onClick={this.handleOffFilter}
+            onClick={onFilterTurnOff}
           />
           <SearchBar
-            onChange={e => this.handleSearch(e)}
+            onChange={this.handleSearch}
             placeholder="Search by offer title"
           />
           <Dropdown
             title={selectedReason || 'Reason'}
             values={uniqReasons}
-            onSelect={this.handleFilterByReason}
+            onSelect={onFilterByReason}
           />
         </InstrumentsPanel>
 
         <div className={styles.Reports__table}>
-          <ReportsTable data={filteredData ? filteredData : reportsList} />
+          <ReportsTable
+            data={filteredData ? filteredData : reportsList}
+            searchWords={[searchWords]}
+          />
         </div>
       </div>
     );
@@ -77,10 +71,15 @@ class Reports extends Component {
 
 const mapStateToProps = state => ({
   reportsList: state.reports.reportsList,
+  filteredData: state.reports.filteredData,
+  selectedReason: state.reports.selectedReason,
 });
 
 const mapDispatchToProps = dispatch => ({
   getReports: () => dispatch(reportsActions.getReports()),
+  onFilterByReason: reason => dispatch(reportsActions.onFilterByReason(reason)),
+  onFilterBySearch: event => dispatch(reportsActions.onFilterBySearch(event)),
+  onFilterTurnOff: () => dispatch(reportsActions.onFilterTurnOff()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Reports);

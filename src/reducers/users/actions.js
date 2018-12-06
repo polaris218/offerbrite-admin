@@ -1,0 +1,56 @@
+import types from './types';
+
+import { getUsers as apiGetUsers } from 'services/api';
+
+import { actions as requestActions } from 'reducers/request';
+
+export const getUsers = () => async (dispatch, getState) => {
+  const { limit, skip } = getState().reports.params;
+  dispatch(requestActions.start());
+  dispatch({ type: types.GET_USERS_START });
+
+  try {
+    const response = await apiGetUsers();
+    console.log(response);
+    dispatch(requestActions.success());
+    dispatch({ type: types.GET_USERS_SUCCESS, payload: { usersList: response.data.data } });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.GET_USERS_FAIL });
+  }
+};
+
+export const filterUsersByCategory = category => (dispatch, getState) => {
+  // const { usersList } = getState().users;
+  // 
+  // const filteredData = usersList.filter(item => item.reports.reason === category);
+  // dispatch({
+  // type: types.FILTER_USERS_BY_CATEGORY,
+  // payload: { category, filteredData },
+  // });
+};
+
+export const filterUsersBySearch = e => (dispatch, getState) => {
+  const { usersList, selectedCategory } = getState().users;
+
+  const searchTarget = e.target.value.toLowerCase();
+  const filteredData = usersList.filter(user => {
+    const lowerName = user.username.toLowerCase();
+    if (selectedCategory) {
+      return user.category === selectedCategory &&
+        lowerName.includes(searchTarget) ||
+        user.email.includes(searchTarget);
+    }
+    return lowerName.includes(searchTarget) ||
+      user.email.includes(searchTarget);
+  });
+
+  dispatch({
+    type: types.FILTER_USERS_BY_SEARCH,
+    payload: { filteredData }
+  });
+};
+
+export const turnOffUsersFilter = () => ({
+  type: types.TURN_OFF_USERS_FILTER,
+});

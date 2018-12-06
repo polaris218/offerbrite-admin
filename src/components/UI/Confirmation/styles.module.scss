@@ -1,0 +1,41 @@
+@import '../../../resources.scss';
+
+.Confirmation {
+  display: flex;
+  width: 100%;
+  background-color: $colorWhite;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.5rem 1.5rem 1.5rem;
+
+  &__button {
+    width: 100px;
+    padding: 1.5rem;
+    border-radius: 4px;
+    transition: all .3s;
+    outline: none;
+    border: 1px solid $colorGray;
+    color: $colorGrayDark;
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: 3rem;
+    }
+  }
+
+  &__button_left {
+    &:hover {
+      border: 1px solid $colorPrimaryMedium;
+      background-color: $colorWhite;
+      color: $colorPrimaryMedium;
+    }
+  }
+
+  &__button_right {
+    &:hover {
+      border: 1px solid $colorPink;
+      background-color: $colorWhite;
+      color: $colorPink;
+    }
+  }
+}
