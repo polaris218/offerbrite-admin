@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ReactTable from 'react-table';
 import { AdminsTable } from 'components/Tables';
 import PageTitle from 'components/PageTitle';
 import TabBar from 'components/UI/TabBar';
@@ -11,7 +10,6 @@ import StaticTable from 'components/UI/StaticTable';
 import Checkbox from 'components/Checkbox';
 import Button from 'components/UI/Button';
 import Modal from 'components/UI/Modal';
-import DotsMenu from 'components/DotsMenu';
 import { AdminForm } from 'components/Forms';
 import styles from './styles.module.scss';
 
@@ -90,8 +88,6 @@ class Settings extends Component {
         data: createCheckboxes(offersTable, onChangeOffersTableSettings),
       },
     ];
-
-
 
     return (
       <div className={styles.Settings}>
