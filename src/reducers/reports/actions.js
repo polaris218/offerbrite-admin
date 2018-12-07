@@ -16,7 +16,12 @@ export const getReports = () => async (dispatch, getState) => {
     const response = await apiGetreports(limit, skip);
     console.log(response);
     dispatch(requestActions.success());
-    dispatch({ type: types.GET_REPORTS_SUCCESS, payload: { reportsList: response.data.data } });
+    dispatch({
+      type: types.GET_REPORTS_SUCCESS,
+      payload: {
+        reportsList: response.data.data.filter(report => report.offer !== null && report.user !== null),
+      }
+    });
   } catch (error) {
     dispatch(requestActions.fail(error));
     dispatch({ type: types.GET_REPORTS_FAIL });
