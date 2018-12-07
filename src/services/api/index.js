@@ -126,6 +126,10 @@ export const getOffers = () => authRequest(endpoints.GET_OFFERS, {
   method: 'GET',
 });
 
+export const deleteOffer = offerId => authRequest(endpoints.DELETE_OFFER(offerId), {
+  method: 'DELETE',
+});
+
 export const getAdmins = () => authRequest(endpoints.GET_ADMINS, {
   method: 'GET',
 });

@@ -146,7 +146,7 @@ class Table extends Component {
         <Modal
           isVisible={isDeleteModalVisible}
           onClose={this.onCloseModal}
-          header="Delete user"
+          header="Delete offer"
         >
           <Confirmation
             actionTitle="Delete"
@@ -157,7 +157,7 @@ class Table extends Component {
         <Modal
           isVisible={isEditFormVisible}
           onClose={this.onCloseModal}
-          header="Edit user"
+          header="Edit offer"
         >
           <UserForm
             onSubmit={this.handleUpdate}

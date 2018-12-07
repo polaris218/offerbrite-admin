@@ -2,6 +2,7 @@ import types from './types';
 
 import {
   getOffers as apiGetOffers,
+  deleteOffer as apiDeleteOffer,
 } from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
@@ -18,6 +19,24 @@ export const getOffers = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch(requestActions.fail(error));
     dispatch({ type: types.GET_OFFERS_FAIL });
+  }
+};
+
+export const deleteOffer = offerId => async dispatch => {
+  dispatch(requestActions.start());
+  dispatch({ type: types.DELETE_OFFER_START });
+
+  try {
+    const response = await apiDeleteOffer(offerId);
+    console.log(response);
+    if (response.data.status === 'OK') {
+      dispatch(getOffers());
+    }
+    dispatch(requestActions.success());
+    dispatch({ type: types.DELETE_OFFER_SUCCESS });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.DELETE_OFFER_FAIL });
   }
 };
 
