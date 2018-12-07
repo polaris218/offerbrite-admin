@@ -17,6 +17,9 @@ export default {
   GET_ADMINS: `${API_URL}/users/admin/all`,
   DELETE_ADMIN: `${API_URL}/users/admin`,
 
+  GET_OFFERS: `${API_URL}/users/admin/allOffers`,
+  DELETE_OFFER: offerId => `${API_URL}/users/admin/offer/${offerId}`,
+
   GET_REPORTS: (limit, skip) => `${API_URL}/reports?limit=${limit}&skip=${skip}`,
   DELETE_REPORT: reportId => `${API_URL}/users/admin/reports/${reportId}`,
 
