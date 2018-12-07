@@ -8,7 +8,7 @@ const initialState = {
   },
   filteredData: null,
   selectedCategory: '',
-  selectedPrice: 0,
+  selectedCountry: '',
 };
 
 export default (state = initialState, action) => {
@@ -17,11 +17,17 @@ export default (state = initialState, action) => {
       return { ...state, offersList: action.payload.offersList };
 
     case types.FILTER_OFFERS_BY_CATEGORY:
-      const { reason, filteredData } = action.payload;
       return {
         ...state,
-        selectedCategory: reason,
-        filteredData,
+        selectedCategory: action.payload.category,
+        filteredData: action.payload.filteredData,
+      };
+
+    case types.FILTER_OFFERS_BY_COUNTRY:
+      return {
+        ...state,
+        selectedCountry: action.payload.country,
+        filteredData: action.payload.filteredData,
       };
 
     case types.FILTER_OFFERS_BY_SEARCH:
@@ -35,6 +41,7 @@ export default (state = initialState, action) => {
         ...state,
         filteredData: null,
         selectedCategory: '',
+        selectedCountry: '',
       };
 
     default:

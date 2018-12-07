@@ -122,6 +122,10 @@ export const getCompanies = () => authRequest(endpoints.GET_COMPANIES, {
   method: 'GET',
 });
 
+export const getOffers = () => authRequest(endpoints.GET_OFFERS, {
+  method: 'GET',
+});
+
 export const getAdmins = () => authRequest(endpoints.GET_ADMINS, {
   method: 'GET',
 });
