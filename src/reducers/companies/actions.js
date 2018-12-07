@@ -1,6 +1,9 @@
 import types from './types';
 
-import { getCompanies as apiGetCompanies } from 'services/api';
+import {
+  getCompanies as apiGetCompanies,
+  deleteCompany as apiDeleteCompany,
+} from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
 
@@ -17,6 +20,24 @@ export const getCompanies = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch(requestActions.fail(error));
     dispatch({ type: types.GET_COMPANIES_FAIL });
+  }
+};
+
+export const deleteCompany = businessUserId => async dispatch => {
+  dispatch(requestActions.start());
+  dispatch({ type: types.DELETE_COMPANY_START });
+
+  try {
+    const response = await apiDeleteCompany(businessUserId);
+    console.log(response);
+    if (response.data.status === 'OK') {
+      dispatch(getCompanies());
+    }
+    dispatch(requestActions.success());
+    dispatch({ type: types.DELETE_COMPANY_SUCCESS });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.DELETE_COMPANY_FAIL });
   }
 };
 

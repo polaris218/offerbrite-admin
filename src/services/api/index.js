@@ -122,6 +122,10 @@ export const getCompanies = () => authRequest(endpoints.GET_COMPANIES, {
   method: 'GET',
 });
 
+export const deleteCompany = businessUserId => authRequest(endpoints.DELETE_COMPANY(businessUserId), {
+  method: 'DELETE',
+});
+
 export const getAdmins = () => authRequest(endpoints.GET_ADMINS, {
   method: 'GET',
 });
