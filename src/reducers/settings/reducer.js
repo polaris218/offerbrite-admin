@@ -18,13 +18,13 @@ const initialState = {
     // { label: 'Profile status', value: false },
   ],
   offers: [
+    { label: 'Offer id', value: true },
     { label: 'Title', value: true },
     { label: 'Description', value: false },
-    { label: 'User', value: false },
     { label: 'Category', value: true },
-    { label: 'Price-sale', value: true },
+    { label: 'Price', value: false },
+    { label: 'Discount', value: false },
     { label: 'Address', value: true },
-    { label: 'Picture', value: true },
   ],
 };
 

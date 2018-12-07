@@ -8,6 +8,7 @@ import DotsMenu from 'components/DotsMenu';
 import Modal from 'components/UI/Modal';
 import Confirmation from 'components/UI/Confirmation';
 import { UserForm } from 'components/Forms';
+import defaultImage from 'assets/images/question-mark.png';
 
 import { actions as offersActions } from 'reducers/offers';
 import { convertLocation } from 'services/helpers';
@@ -52,9 +53,17 @@ class Table extends Component {
 
     const columns = [
       {
-        Header: 'Picture',
+        Header: 'Offer id',
         accessor: 'id',
-        Cell: props => props.value,
+        width: 150,
+        Cell: props => (
+          <Highlighter
+            highlightClassName="search_highlight"
+            searchWords={searchWords}
+            autoEscape={true}
+            textToHighlight={props.value}
+          />
+        ),
         sortable: false,
       },
       {
@@ -70,24 +79,30 @@ class Table extends Component {
         accessor: 'title',
         headerClassName: 'Table__cell__header',
       },
-      // {
-      //   Header: 'Email',
-      //   accessor: 'email',
-      //   Cell: props => props.value ?
-      //     <Highlighter
-      //       highlightClassName="search_highlight"
-      //       searchWords={searchWords}
-      //       autoEscape={true}
-      //       textToHighlight={props.value}
-      //     /> :
-      //     props.value,
-      //   headerClassName: 'Table__cell__header',
-      // },
+      {
+        Header: 'Description',
+        accessor: 'description',
+        Cell: props => props.value,
+        headerClassName: 'Table__cell__header',
+      },
+      {
+        Header: 'Price',
+        accessor: 'fullPrice',
+        Cell: props => props.value,
+        headerClassName: 'Table__cell__header',
+      },
+      {
+        Header: 'Discount',
+        accessor: 'discount',
+        Cell: props => props.value,
+        headerClassName: 'Table__cell__header',
+      },
       {
         Header: 'Category',
         accessor: 'category',
         Cell: props => `${props.value[0].toUpperCase()}${props.value.slice(1)}`,
         headerClassName: 'Table__cell__header',
+        width: 180,
       },
       {
         Header: 'Address',
@@ -104,6 +119,7 @@ class Table extends Component {
             id={props.value}
           />
         ),
+        width: 100,
         accessor: 'id',
         sortable: false,
         style: { display: 'flex', justifyContent: 'flex-end' },

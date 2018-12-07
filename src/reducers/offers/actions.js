@@ -64,17 +64,17 @@ export const filterOffersBySearch = e => (dispatch, getState) => {
     const lowerTitle = offer.title.toLowerCase();
     const offerCountry = offer.locations[0].address.country;
     if (selectedCategory && selectedCountry) {
-      return lowerTitle.includes(searchTarget) &&
-        offer.category === selectedCategory.toLowerCase() &&
-        offerCountry === selectedCountry;
+      return offer.category === selectedCategory.toLowerCase() &&
+        offerCountry === selectedCountry &&
+        (lowerTitle.includes(searchTarget) || offer.id.includes(searchTarget));
     } else if (selectedCategory) {
-      return lowerTitle.includes(searchTarget) &&
-        offer.category === selectedCategory.toLowerCase();
+      return offer.category === selectedCategory.toLowerCase() &&
+        (lowerTitle.includes(searchTarget) || offer.id.includes(searchTarget));
     } else if (selectedCountry) {
-      return lowerTitle.includes(searchTarget) &&
-        offerCountry === selectedCountry;
+      return offerCountry === selectedCountry &&
+        (lowerTitle.includes(searchTarget) || offer.id.includes(searchTarget));
     }
-    return lowerTitle.includes(searchTarget);
+    return lowerTitle.includes(searchTarget) || offer.id.includes(searchTarget);
   });
 
   dispatch({
