@@ -1,14 +1,54 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Highlighter from 'react-highlight-words';
 import ReactTable from 'react-table';
 import DotsMenu from 'components/DotsMenu';
+import Modal from 'components/UI/Modal';
+import Confirmation from 'components/UI/Confirmation';
+import { UserForm } from 'components/Forms';
+
+import { actions as usersActions } from 'reducers/users';
 
 class Table extends Component {
+  state = {
+    isDeleteModalVisible: false,
+    isEditFormVisible: false,
+    userId: null,
+  }
+
+  onCloseModal = () => {
+    this.setState({
+      isDeleteModalVisible: false,
+      isEditFormVisible: false,
+      userId: null
+    });
+  }
+
+  onSetUpdateUser = user => {
+    this.props.onEdit(user);
+    this.setState({ isEditFormVisible: true, userId: user.id });
+  }
+
+  onSetDeleteUser = userId => {
+    this.setState({ isDeleteModalVisible: true, userId });
+  }
+
+  handleUpdate = () => {
+    this.onCloseModal();
+    this.props.updateUser();
+  }
+
+  handleDelete = userId => {
+    this.props.onDelete(userId);
+    this.onCloseModal();
+  }
+
   render() {
-    const { data, searchWords, settings } = this.props;
+    const { data, searchWords, settings, onChangeUserFormField, userToUpdate } = this.props;
+    const { isDeleteModalVisible, isEditFormVisible, userId } = this.state;
+
     const columns = [
       {
         Header: 'User id',
@@ -45,8 +85,8 @@ class Table extends Component {
       {
         Cell: props => (
           <DotsMenu
-            onEdit={() => alert(`edit id = ${props.value}`)}
-            onDelete={() => alert(`delete id = ${props.value}`)}
+            onEdit={() => this.onSetUpdateUser(props.original)}
+            onDelete={() => this.onSetDeleteUser(props.value)}
             id={props.value}
           />
         ),
@@ -67,23 +107,53 @@ class Table extends Component {
     });
 
     return (
-      <ReactTable
-        className="-highlight"
-        data={data}
-        columns={filteredColumns}
-        minRows={data.length}
-      />
+      <Fragment>
+        <ReactTable
+          className="-highlight"
+          data={data}
+          columns={filteredColumns}
+          minRows={data.length}
+        />
+        <Modal
+          isVisible={isDeleteModalVisible}
+          onClose={this.onCloseModal}
+          header="Delete user"
+        >
+          <Confirmation
+            actionTitle="Delete"
+            onCancel={this.onCloseModal}
+            onConfirm={() => this.handleDelete(userId)}
+          />
+        </Modal>
+        <Modal
+          isVisible={isEditFormVisible}
+          onClose={this.onCloseModal}
+          header="Edit user"
+        >
+          <UserForm
+            onSubmit={this.handleUpdate}
+            onChange={onChangeUserFormField}
+            values={userToUpdate}
+          />
+        </Modal>
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
   settings: state.settings.users,
-})
+  userToUpdate: state.users.userToUpdate,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onChangeUserFormField: (e, fieldSelector) => dispatch(usersActions.onChangeUserFormField(e, fieldSelector)),
+  updateUser: () => dispatch(usersActions.updateUser()),
+});
 
 Table.propTypes = {
   searchWords: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.arrayOf(PropTypes.object),
 };
 
-export const UsersTable = connect(mapStateToProps)(Table);
+export const UsersTable = connect(mapStateToProps, mapDispatchToProps)(Table);

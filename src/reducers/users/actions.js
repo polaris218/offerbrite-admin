@@ -1,6 +1,10 @@
 import types from './types';
 
-import { getUsers as apiGetUsers } from 'services/api';
+import {
+  getUsers as apiGetUsers,
+  deleteUser as apiDeleteUser,
+  updateUser as apiUpdateUser,
+} from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
 
@@ -17,6 +21,58 @@ export const getUsers = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch(requestActions.fail(error));
     dispatch({ type: types.GET_USERS_FAIL });
+  }
+};
+
+export const deleteUser = userId => async dispatch => {
+  dispatch(requestActions.start());
+  dispatch({ type: types.DELETE_USER_START });
+
+  try {
+    const response = await apiDeleteUser(userId);
+    console.log(response);
+    if (response.data.status === 'OK') {
+      dispatch(getUsers());
+    }
+    dispatch(requestActions.success());
+    dispatch({ type: types.DELETE_USER_SUCCESS });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.DELETE_USER_FAIL });
+  }
+};
+
+export const setUserToUpdate = user => ({
+  type: types.SET_USER_TO_UPDATE,
+  payload: { user },
+});
+
+export const onChangeUserFormField = (e, fieldSelector) => ({
+  type: types.ON_CHANGE_USER_FORM_FIELD,
+  payload: { text: e.target.value, fieldSelector },
+});
+
+export const updateUser = () => async (dispatch, getState) => {
+  const { id, email, username, isNotificationsEnabled, role } = getState().users.userToUpdate;
+  dispatch(requestActions.start());
+  dispatch({ type: types.UPDATE_USER_START });
+
+  try {
+    const response = await apiUpdateUser(id, {
+      email,
+      username,
+      isNotificationsEnabled,
+      role
+    });
+    console.log(response);
+    if (response.data.status === 'OK') {
+      dispatch(getUsers());
+    }
+    dispatch(requestActions.success());
+    dispatch({ type: types.UPDATE_USER_SUCCESS });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.UPDATE_USER_FAIL });
   }
 };
 

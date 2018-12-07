@@ -9,6 +9,8 @@ export default {
   GET_ACCESS_TOKEN: `${API_URL}/auth/token`,
 
   GET_USERS: `${API_URL}/users/admin/allUsers`,
+  DELETE_USER: userId => `${API_URL}/users/admin/users/${userId}`,
+  UPDATE_USER: userId => `${API_URL}/users/admin/users/${userId}`,
 
   GET_COMPANIES: `${API_URL}/users/admin/allBusinessUsers`,
 
