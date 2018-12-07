@@ -18,6 +18,7 @@ export default {
   DELETE_ADMIN: `${API_URL}/users/admin`,
 
   GET_REPORTS: (limit, skip) => `${API_URL}/reports?limit=${limit}&skip=${skip}`,
+  DELETE_REPORT: reportId => `${API_URL}/users/admin/reports/${reportId}`,
 
   CHECK_HEALTH: `${API_URL}/health-check`,
 };

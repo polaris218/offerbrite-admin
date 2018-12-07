@@ -33,6 +33,7 @@ class Reports extends Component {
       onFilterByReason,
       onFilterBySearch,
       onFilterTurnOff,
+      deleteReport,
     } = this.props;
     const { searchWords } = this.state;
 
@@ -62,6 +63,7 @@ class Reports extends Component {
           <ReportsTable
             data={filteredData ? filteredData : reportsList}
             searchWords={[searchWords]}
+            onDelete={deleteReport}
           />
         </div>
       </div>
@@ -77,6 +79,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getReports: () => dispatch(reportsActions.getReports()),
+  deleteReport: reportId => dispatch(reportsActions.deleteReport(reportId)),
   onFilterByReason: reason => dispatch(reportsActions.onFilterByReason(reason)),
   onFilterBySearch: event => dispatch(reportsActions.onFilterBySearch(event)),
   onFilterTurnOff: () => dispatch(reportsActions.onFilterTurnOff()),
