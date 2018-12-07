@@ -1,6 +1,9 @@
 import types from './types';
 
-import { getUsers as apiGetUsers } from 'services/api';
+import {
+  getUsers as apiGetUsers,
+  deleteUser as apiDeleteUser,
+} from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
 
@@ -17,6 +20,24 @@ export const getUsers = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch(requestActions.fail(error));
     dispatch({ type: types.GET_USERS_FAIL });
+  }
+};
+
+export const deleteUser = userId => async dispatch => {
+  dispatch(requestActions.start());
+  dispatch({ type: types.DELETE_USER_START });
+
+  try {
+    const response = await apiDeleteUser(userId);
+    console.log(response);
+    if (response.data.status === 'OK') {
+      dispatch(getUsers());
+    }
+    dispatch(requestActions.success());
+    dispatch({ type: types.DELETE_USER_SUCCESS });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.DELETE_USER_FAIL });
   }
 };
 

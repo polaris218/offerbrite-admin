@@ -42,6 +42,7 @@ class Users extends Component {
       filteredData,
       selectedCategory,
       filterUsersByCategory,
+      deleteUser,
     } = this.props;
     const { searchWords } = this.state;
 
@@ -75,6 +76,7 @@ class Users extends Component {
           <UsersTable
             data={filteredData ? filteredData : usersList}
             searchWords={[searchWords]}
+            onDelete={deleteUser}
           />
         </div>
       </div>
@@ -90,6 +92,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getUsers: () => dispatch(usersActions.getUsers()),
+  deleteUser: userId => dispatch(usersActions.deleteUser(userId)),
   filterUsersByCategory: category => dispatch(usersActions.filterUsersByCategory(category)),
   filterUsersBySearch: event => dispatch(usersActions.filterUsersBySearch(event)),
   turnOffUsersFilter: () => dispatch(usersActions.turnOffUsersFilter()),

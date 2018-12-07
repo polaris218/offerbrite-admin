@@ -109,6 +109,10 @@ export const getUsers = () => authRequest(endpoints.GET_USERS, {
   method: 'GET',
 });
 
+export const deleteUser = userId => authRequest(endpoints.DELETE_USER(userId), {
+  method: 'DELETE',
+});
+
 export const getCompanies = () => authRequest(endpoints.GET_COMPANIES, {
   method: 'GET',
 });

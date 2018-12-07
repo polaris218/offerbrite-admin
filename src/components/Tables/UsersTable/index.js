@@ -1,14 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Highlighter from 'react-highlight-words';
 import ReactTable from 'react-table';
 import DotsMenu from 'components/DotsMenu';
+import Modal from 'components/UI/Modal';
+import Confirmation from 'components/UI/Confirmation';
 
 class Table extends Component {
+  state = {
+    isDeleteModalVisible: false,
+    userId: null,
+  }
+
+  onCloseModal = () => {
+    this.setState({ isDeleteModalVisible: false, userId: null });
+  }
+
+  onSetDeleteUser = userId => {
+    this.setState({ isDeleteModalVisible: true, userId });
+  }
+
+  handleDelete = userId => {
+    this.props.onDelete(userId);
+    this.onCloseModal();
+  }
+
   render() {
     const { data, searchWords, settings } = this.props;
+    const { isDeleteModalVisible, userId } = this.state;
+
     const columns = [
       {
         Header: 'User id',
@@ -46,7 +68,7 @@ class Table extends Component {
         Cell: props => (
           <DotsMenu
             onEdit={() => alert(`edit id = ${props.value}`)}
-            onDelete={() => alert(`delete id = ${props.value}`)}
+            onDelete={() => this.onSetDeleteUser(props.value)}
             id={props.value}
           />
         ),
@@ -67,12 +89,25 @@ class Table extends Component {
     });
 
     return (
-      <ReactTable
-        className="-highlight"
-        data={data}
-        columns={filteredColumns}
-        minRows={data.length}
-      />
+      <Fragment>
+        <ReactTable
+          className="-highlight"
+          data={data}
+          columns={filteredColumns}
+          minRows={data.length}
+        />
+        <Modal
+          isVisible={isDeleteModalVisible}
+          onClose={this.onCloseModal}
+          header="Delete admin"
+        >
+          <Confirmation
+            actionTitle="Delete"
+            onCancel={this.onCloseModal}
+            onConfirm={() => this.handleDelete(userId)}
+          />
+        </Modal>
+      </Fragment>
     );
   }
 }
