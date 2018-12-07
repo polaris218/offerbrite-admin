@@ -8,6 +8,7 @@ const initialState = {
   },
   filteredData: null,
   selectedCategory: '',
+  userToUpdate: {},
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +35,21 @@ export default (state = initialState, action) => {
         ...state,
         filteredData: null,
         selectedCategory: '',
+      };
+
+    case types.SET_USER_TO_UPDATE:
+      return {
+        ...state,
+        userToUpdate: action.payload.user,
+      };
+
+    case types.ON_CHANGE_USER_FORM_FIELD:
+      return {
+        ...state,
+        userToUpdate: {
+          ...state.userToUpdate,
+          [action.payload.fieldSelector]: action.payload.text,
+        },
       };
 
     default:

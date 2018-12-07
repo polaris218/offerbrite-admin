@@ -43,6 +43,8 @@ class Users extends Component {
       selectedCategory,
       filterUsersByCategory,
       deleteUser,
+      setUserToUpdate,
+      onChangeUserFormField,
     } = this.props;
     const { searchWords } = this.state;
 
@@ -77,6 +79,7 @@ class Users extends Component {
             data={filteredData ? filteredData : usersList}
             searchWords={[searchWords]}
             onDelete={deleteUser}
+            onEdit={setUserToUpdate}
           />
         </div>
       </div>
@@ -93,6 +96,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getUsers: () => dispatch(usersActions.getUsers()),
   deleteUser: userId => dispatch(usersActions.deleteUser(userId)),
+  setUserToUpdate: user => dispatch(usersActions.setUserToUpdate(user)),
   filterUsersByCategory: category => dispatch(usersActions.filterUsersByCategory(category)),
   filterUsersBySearch: event => dispatch(usersActions.filterUsersBySearch(event)),
   turnOffUsersFilter: () => dispatch(usersActions.turnOffUsersFilter()),

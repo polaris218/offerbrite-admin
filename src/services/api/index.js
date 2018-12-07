@@ -113,6 +113,11 @@ export const deleteUser = userId => authRequest(endpoints.DELETE_USER(userId), {
   method: 'DELETE',
 });
 
+export const updateUser = (userId, data) => authRequest(endpoints.UPDATE_USER(userId), {
+  method: 'PUT',
+  data,
+});
+
 export const getCompanies = () => authRequest(endpoints.GET_COMPANIES, {
   method: 'GET',
 });
