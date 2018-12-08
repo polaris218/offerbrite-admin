@@ -139,6 +139,11 @@ export const deleteAdmin = adminId => authRequest(endpoints.DELETE_ADMIN, {
   data: { id: adminId },
 });
 
+export const updateAdmin = data => authRequest(endpoints.UPDATE_ADMIN, {
+  method: 'PUT',
+  data,
+});
+
 export const getReports = (limit, skip) => authRequest(endpoints.GET_REPORTS(limit, skip), {
   method: 'GET',
 });

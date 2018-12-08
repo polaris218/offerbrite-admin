@@ -3,6 +3,7 @@ import {
   getAdmins as apiGetAdmins,
   createNewAdmin as apiCreateNewAdmin,
   deleteAdmin as apiDeleteAdmin,
+  updateAdmin as apiUpdateAdmin,
 } from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
@@ -52,14 +53,49 @@ export const onChangeRole = role => ({
 
 export const deleteAdmin = adminId => async dispatch => {
   dispatch(requestActions.start());
+  dispatch({ type: types.DELETE_ADMIN_START });
 
   try {
     const response = await apiDeleteAdmin(adminId);
     if (response.data) {
+      dispatch({ type: types.DELETE_ADMIN_SUCCESS });
       dispatch(getAdmins());
     }
   } catch (error) {
     dispatch(requestActions.fail(error));
+    dispatch({ type: types.DELETE_ADMIN_FAIL });
+    console.log(error);
+  }
+}
+
+export const setAdminToUpdate = admin => {
+  const { username: name, email, role, id } = admin;
+  return {
+    type: types.SET_ADMIN_TO_UPDATE,
+    payload: {
+      name,
+      email,
+      role,
+      id,
+    },
+  }
+};
+
+export const updateAdmin = () => async (dispatch, getState) => {
+  const { email, name, role, password, id } = getState().admins.newAdmin;
+  dispatch(requestActions.start());
+  dispatch({ type: types.UPDATE_ADMIN_START });
+
+  try {
+    const response = await apiUpdateAdmin({ email, name, role, password, id });
+    console.log(response);
+    if (response.data) {
+      dispatch({ type: types.UPDATE_ADMIN_SUCCESS });
+      dispatch(getAdmins());
+    }
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.UPDATE_ADMIN_FAIL });
     console.log(error);
   }
 }
