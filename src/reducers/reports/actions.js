@@ -1,6 +1,9 @@
 import types from './types';
 
-import { getReports as apiGetreports } from 'services/api';
+import {
+  getReports as apiGetreports,
+  deleteReport as apiDeleteReport,
+} from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
 
@@ -13,10 +16,33 @@ export const getReports = () => async (dispatch, getState) => {
     const response = await apiGetreports(limit, skip);
     console.log(response);
     dispatch(requestActions.success());
-    dispatch({ type: types.GET_REPORTS_SUCCESS, payload: { reportsList: response.data.data } });
+    dispatch({
+      type: types.GET_REPORTS_SUCCESS,
+      payload: {
+        reportsList: response.data.data.filter(report => report.offer !== null && report.user !== null),
+      }
+    });
   } catch (error) {
     dispatch(requestActions.fail(error));
     dispatch({ type: types.GET_REPORTS_FAIL });
+  }
+};
+
+export const deleteReport = reportId => async dispatch => {
+  dispatch(requestActions.start());
+  dispatch({ type: types.DELETE_REPORT_START });
+  console.log('reportId', reportId);
+  try {
+    const response = await apiDeleteReport(reportId);
+    console.log('deleteReport', response);
+    if (response.data.status === 'OK') {
+      dispatch(getReports());
+    }
+    dispatch(requestActions.success());
+    dispatch({ type: types.DELETE_REPORT_SUCCESS });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.DELETE_REPORT_FAIL });
   }
 };
 

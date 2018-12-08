@@ -126,6 +126,14 @@ export const deleteCompany = businessUserId => authRequest(endpoints.DELETE_COMP
   method: 'DELETE',
 });
 
+export const getOffers = () => authRequest(endpoints.GET_OFFERS, {
+  method: 'GET',
+});
+
+export const deleteOffer = offerId => authRequest(endpoints.DELETE_OFFER(offerId), {
+  method: 'DELETE',
+});
+
 export const getAdmins = () => authRequest(endpoints.GET_ADMINS, {
   method: 'GET',
 });
@@ -137,4 +145,8 @@ export const deleteAdmin = adminId => authRequest(endpoints.DELETE_ADMIN, {
 
 export const getReports = (limit, skip) => authRequest(endpoints.GET_REPORTS(limit, skip), {
   method: 'GET',
+});
+
+export const deleteReport = reportId => authRequest(endpoints.DELETE_REPORT(reportId), {
+  method: 'DELETE',
 });

@@ -2,13 +2,12 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ReactTable from 'react-table';
+import { OffersTable } from 'components/Tables';
 import PageTitle from 'components/PageTitle';
 import SearchBar from 'components/SearchBar';
 import InstrumentsPanel from 'components/UI/InstrumentsPanel';
 import Dropdown from 'components/UI/Dropdown';
 import FilterButton from 'components/UI/FilterButton';
-import Modal from 'components/UI/Modal';
 import styles from './styles.module.scss';
 
 import { actions as offersActions } from 'reducers/offers';
@@ -27,44 +26,59 @@ class Offers extends Component {
     this.setState({ searchWords: e.target.value });
   }
 
+  handleReset = () => {
+    this.setState({ searchWords: '' });
+    this.props.turnOffOffersFilter();
+  }
+
   render() {
     const {
       offersList,
       filteredData,
       selectedCategory,
-      selectedPrice,
-      filterCompaniesByCategory,
-      filterOffersByPrice,
-      turnOffOffersFilter,
+      selectedCountry,
+      filterOffersByCategory,
+      filterOffersByCountry,
     } = this.props;
 
     const { searchWords } = this.state;
 
-    const categories = ['1', '2', '3', '4']; // TODO: replace by correct categories
-    const prices = ['10-20', '20-50'];
+    const categories = [...new Set(offersList.map(offer => (
+      `${offer.category[0].toUpperCase()}${offer.category.slice(1)}`)
+    ))];
+
+    const countries = [...new Set(offersList.map(offer => offer.locations[0].address.country))];
+
     return (
-      <div className={styles.Companies}>
+      <div className={styles.Offers}>
         <PageTitle title="Offers" />
         <InstrumentsPanel>
           <FilterButton
             active={Boolean(filteredData)}
-            onClick={turnOffOffersFilter}
+            onClick={this.handleReset}
           />
           <SearchBar
             onChange={this.handleSearch}
-            placeholder="Search (brand name, offer title)"
+            placeholder="Search by offer title"
+            value={searchWords}
           />
           <Dropdown
-            title={selectedCategory || 'Country'}
+            title={selectedCategory || 'Category'}
             values={categories}
-            onSelect={filterCompaniesByCategory}
+            onSelect={filterOffersByCategory}
           />
           <Dropdown
-            title={selectedPrice || 'Price'}
-            values={prices}
-            onSelect={filterOffersByPrice}
+            title={selectedCountry || 'Country'}
+            values={countries}
+            onSelect={filterOffersByCountry}
           />
         </InstrumentsPanel>
+        <div className={styles.Offers__table}>
+          <OffersTable
+            data={filteredData ? filteredData : offersList}
+            searchWords={[searchWords]}
+          />
+        </div>
       </div>
     );
   }
@@ -74,13 +88,13 @@ const mapStateToProps = state => ({
   offersList: state.offers.offersList,
   filteredData: state.offers.filteredData,
   selectedCategory: state.offers.selectedCategory,
-  selectedPrice: state.offers.selectedPrice,
+  selectedCountry: state.offers.selectedCountry,
 });
 
 const mapDispatchToProps = dispatch => ({
   getOffers: () => dispatch(offersActions.getOffers()),
   filterOffersByCategory: category => dispatch(offersActions.filterOffersByCategory(category)),
-  filterOffersByPrice: price => dispatch(offersActions.filterOffersByPrice(price)),
+  filterOffersByCountry: country => dispatch(offersActions.filterOffersByCountry(country)),
   filterOffersBySearch: event => dispatch(offersActions.filterOffersBySearch(event)),
   turnOffOffersFilter: () => dispatch(offersActions.turnOffOffersFilter()),
 });
