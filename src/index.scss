@@ -47,9 +47,9 @@ body {
 }
 
 // GLOBAL REACT-TABLE COMPONENT CUSTOMIZATION
-// :global .ReactTable .rt-table, .ReactTable .rt-tbody {
-//   overflow: visible;
-// }
+:global .ReactTable .rt-table, .ReactTable .rt-tbody {
+  overflow: visible;
+}
 
 :global .ReactTable .rt-thead.-header {
   box-shadow: none;
