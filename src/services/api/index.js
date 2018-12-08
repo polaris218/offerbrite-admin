@@ -126,6 +126,11 @@ export const deleteCompany = businessUserId => authRequest(endpoints.DELETE_COMP
   method: 'DELETE',
 });
 
+export const updateCompany = (businessUserId, data) => authRequest(endpoints.UPDATE_COMPANY(businessUserId), {
+  method: 'PUT',
+  data,
+});
+
 export const getOffers = () => authRequest(endpoints.GET_OFFERS, {
   method: 'GET',
 });

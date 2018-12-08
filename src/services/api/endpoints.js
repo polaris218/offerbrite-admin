@@ -14,6 +14,7 @@ export default {
 
   GET_COMPANIES: `${API_URL}/users/admin/allBusinessUsers`,
   DELETE_COMPANY: businessUserId => `${API_URL}/users/admin/businessUsers/${businessUserId}`,
+  UPDATE_COMPANY: businessUserId => `${API_URL}/users/admin/businessUsers/${businessUserId}`,
 
   GET_ADMINS: `${API_URL}/users/admin/all`,
   DELETE_ADMIN: `${API_URL}/users/admin`,
