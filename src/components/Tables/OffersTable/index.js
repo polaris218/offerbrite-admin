@@ -87,12 +87,14 @@ class Table extends Component {
       },
       {
         Header: 'Price',
+        width: 100,
         accessor: 'fullPrice',
         Cell: props => props.value,
         headerClassName: 'Table__cell__header',
       },
       {
         Header: 'Discount',
+        width: 100,
         accessor: 'discount',
         Cell: props => props.value,
         headerClassName: 'Table__cell__header',
@@ -107,6 +109,7 @@ class Table extends Component {
       {
         Header: 'Address',
         accessor: 'locations[0].address',
+        style: { overflow: 'hidden' },
         Cell: props => convertLocation(props.value),
         headerClassName: 'Table__cell__header',
       },
