@@ -9,6 +9,7 @@ const initialState = {
     selectedRole: 'admin',
     roles: ['admin', 'super-admin'],
   },
+  adminToUpdate: {},
 };
 
 export default (state = initialState, action) => {
@@ -35,6 +36,27 @@ export default (state = initialState, action) => {
           ...state.newAdmin,
           selectedRole: action.payload.role,
         }
+      };
+
+    case types.CREATE_NEW_ADMIN_SUCCESS:
+      return {
+        ...state,
+        newAdmin: initialState.newAdmin,
+      };
+
+    case types.SET_ADMIN_TO_UPDATE:
+      return {
+        ...state,
+        newAdmin: {
+          ...state.newAdmin,
+          ...action.payload,
+        },
+      };
+
+    case types.UPDATE_ADMIN_SUCCESS:
+      return {
+        ...state,
+        newAdmin: initialState.newAdmin,
       };
 
     default:

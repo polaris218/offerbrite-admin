@@ -1,19 +1,33 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import ReactTable from 'react-table';
 import Modal from 'components/UI/Modal';
 import Confirmation from 'components/UI/Confirmation';
 import DotsMenu from 'components/DotsMenu';
+import { AdminForm } from 'components/Forms';
 
-export class AdminsTable extends Component {
+import { actions as adminsActions } from 'reducers/admins';
+
+class Table extends Component {
   state = {
     isDeleteModalVisible: false,
+    isEditFormVisible: false,
     adminId: null,
   }
 
   onCloseModal = () => {
-    this.setState({ isDeleteModalVisible: false, adminId: null });
+    this.setState({
+      isDeleteModalVisible: false,
+      isEditFormVisible: false,
+      adminId: null,
+    });
+  }
+
+  onSetUpdateAdmin = admin => {
+    this.props.setAdminToUpdate(admin);
+    this.setState({ isEditFormVisible: true, adminId: admin.id });
   }
 
   onSetDeleteAdmin = adminId => {
@@ -25,9 +39,19 @@ export class AdminsTable extends Component {
     this.onCloseModal();
   }
 
+  handleUpdate = () => {
+    this.props.updateAdmin();
+    this.onCloseModal();
+  }
+
   render() {
-    const { data } = this.props;
-    const { isDeleteModalVisible, adminId } = this.state;
+    const {
+      data,
+      onChangeNewAdminTextField,
+      newAdmin,
+      onChangeRole,
+    } = this.props;
+    const { isDeleteModalVisible, isEditFormVisible, adminId } = this.state;
 
     const adminsTableColumns = [
       {
@@ -51,7 +75,7 @@ export class AdminsTable extends Component {
       {
         Cell: props => (
           <DotsMenu
-            onEdit={() => alert(`edit id = ${props.value}`)}
+            onEdit={() => this.onSetUpdateAdmin(props.original)}
             onDelete={() => this.onSetDeleteAdmin(props.value)}
             id={props.value}
           />
@@ -83,12 +107,38 @@ export class AdminsTable extends Component {
             onConfirm={() => this.handleDelete(adminId)}
           />
         </Modal>
+        <Modal
+          isVisible={isEditFormVisible}
+          onClose={this.onToggleAdminForm}
+          header="Edit admin"
+        >
+          <AdminForm
+            onSubmit={this.handleUpdate}
+            onChange={onChangeNewAdminTextField}
+            values={newAdmin}
+            admin={newAdmin}
+            onSelectRole={onChangeRole}
+          />
+        </Modal>
       </Fragment>
     );
   }
 }
 
-AdminsTable.propTypes = {
+const mapStateToProps = state => ({
+  newAdmin: state.admins.newAdmin,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onChangeRole: role => dispatch(adminsActions.onChangeRole(role)),
+  onChangeNewAdminTextField: (event, inputName) => dispatch(adminsActions.onChangeNewAdminTextField(event, inputName)),
+  setAdminToUpdate: admin => dispatch(adminsActions.setAdminToUpdate(admin)),
+  updateAdmin: () => dispatch(adminsActions.updateAdmin()),
+});
+
+Table.propTypes = {
   data: PropTypes.array,
   onDelete: PropTypes.func,
 };
+
+export const AdminsTable = connect(mapStateToProps, mapDispatchToProps)(Table);
