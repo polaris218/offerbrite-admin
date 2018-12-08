@@ -107,7 +107,7 @@ class Table extends Component {
       },
       {
         Header: 'Phone',
-        accessor: 'mobileNumber',
+        accessor: 'mobileNumbers[0]',
         Cell: props => props.value ?
           <Highlighter
             highlightClassName="search_highlight"

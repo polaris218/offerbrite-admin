@@ -23,6 +23,7 @@ class RadioButtons extends Component {
         {
           values.map((value, index) => (
             <div
+              key={index}
               className={styles.RadioButtons__button}
               onClick={() => this.handleClick(value, index)}
             >

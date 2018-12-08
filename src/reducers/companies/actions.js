@@ -94,11 +94,11 @@ export const filterCompaniesBySearch = e => (dispatch, getState) => {
       return company.country === selectedCountry &&
         (lowerName.includes(searchTarget) ||
           company.email.includes(searchTarget) ||
-          company.mobileNumber.includes(searchTarget));
+          company.mobileNumbers[0].includes(searchTarget));
     }
     return lowerName.includes(searchTarget) ||
       company.email.includes(searchTarget) ||
-      company.mobileNumber.includes(searchTarget);
+      company.mobileNumbers[0].includes(searchTarget);
   });
 
   dispatch({
