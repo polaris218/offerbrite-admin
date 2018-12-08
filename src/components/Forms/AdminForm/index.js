@@ -8,8 +8,7 @@ import styles from './styles.module.scss';
 
 export const AdminForm = ({ onSubmit, onChange, values, admin, onSelectRole }) => {
   const enabled = values.email.length > 3 &&
-    values.name.length > 0 &&
-    values.password.length > 0;
+    values.name.length > 0;
 
   return (
     <div className={styles.AdminForm}>

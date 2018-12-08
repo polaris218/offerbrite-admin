@@ -109,7 +109,7 @@ class Table extends Component {
         </Modal>
         <Modal
           isVisible={isEditFormVisible}
-          onClose={this.onToggleAdminForm}
+          onClose={this.onCloseModal}
           header="Edit admin"
         >
           <AdminForm
