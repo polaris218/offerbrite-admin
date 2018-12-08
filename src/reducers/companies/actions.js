@@ -57,6 +57,7 @@ export const onChangeCompanyFormField = (e, fieldTitle) => ({
 
 export const updateCompany = () => async (dispatch, getState) => {
   const { id, email, brandName, mobileNumbers } = getState().companies.companyToUpdate;
+  console.log(id, email, brandName, mobileNumbers);
   dispatch(requestActions.start());
   dispatch({ type: types.UPDATE_COMPANY_START });
 

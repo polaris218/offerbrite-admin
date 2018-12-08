@@ -21,16 +21,6 @@ export const CompanyForm = ({ onSubmit, onChange, values }) => {
           onChange={e => onChange(e, 'brandName')}
           value={values.brandName}
         />
-        {
-          values.mobileNumbers.map((number, index) => (
-            <Input
-              key={index}
-              placeholder="Mobile number"
-              onChange={e => onChange(e, `mobileNumbers_${index}`)}
-              value={number}
-            />
-          ))
-        }
         <Button
           disabled={!enabled}
           block
