@@ -1,14 +1,64 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Highlighter from 'react-highlight-words';
 import ReactTable from 'react-table';
 import DotsMenu from 'components/DotsMenu';
+import Modal from 'components/UI/Modal';
+import Confirmation from 'components/UI/Confirmation';
+import { CompanyForm } from 'components/Forms';
+
+import { actions as companiesActions } from 'reducers/companies';
 
 class Table extends Component {
+  state = {
+    isDeleteModalVisible: false,
+    isEditFormVisible: false,
+    businessUserId: null,
+  }
+
+  onCloseModal = () => {
+    this.setState({
+      isDeleteModalVisible: false,
+      isEditFormVisible: false,
+      businessUserId: null
+    });
+  }
+
+  onSetUpdateCompany = company => {
+    this.props.setCompanyToUpdate(company);
+    this.setState({ isEditFormVisible: true, businessUserId: company.id });
+  }
+
+  onSetDeleteCompany = businessUserId => {
+    this.setState({ isDeleteModalVisible: true, businessUserId });
+  }
+
+  handleUpdate = () => {
+    this.onCloseModal();
+    this.props.updateCompany();
+  }
+
+  handleDelete = businessUserId => {
+    this.props.onDelete(businessUserId);
+    this.onCloseModal();
+  }
+
   render() {
-    const { data, searchWords, settings } = this.props;
+    const {
+      data,
+      searchWords,
+      settings,
+      companyToUpdate,
+      onChangeCompanyFormField,
+    } = this.props;
+    const {
+      isDeleteModalVisible,
+      isEditFormVisible,
+      businessUserId,
+    } = this.state;
+
     const columns = [
       {
         Header: 'Company id',
@@ -84,8 +134,8 @@ class Table extends Component {
       {
         Cell: props => (
           <DotsMenu
-            onEdit={() => alert(`edit id = ${props.value}`)}
-            onDelete={() => alert(`delete id = ${props.value}`)}
+            onEdit={() => this.onSetUpdateCompany(props.original)}
+            onDelete={() => this.onSetDeleteCompany(props.value)}
             id={props.value}
           />
         ),
@@ -106,23 +156,54 @@ class Table extends Component {
     });
 
     return (
-      <ReactTable
-        className="-highlight"
-        data={data}
-        columns={filteredColumns}
-        minRows={data.length}
-      />
+      <Fragment>
+        <ReactTable
+          className="-highlight"
+          data={data}
+          columns={filteredColumns}
+          minRows={data.length}
+        />
+        <Modal
+          isVisible={isDeleteModalVisible}
+          onClose={this.onCloseModal}
+          header="Delete company"
+        >
+          <Confirmation
+            actionTitle="Delete"
+            onCancel={this.onCloseModal}
+            onConfirm={() => this.handleDelete(businessUserId)}
+          />
+        </Modal>
+        <Modal
+          isVisible={isEditFormVisible}
+          onClose={this.onCloseModal}
+          header="Edit company"
+        >
+          <CompanyForm
+            onSubmit={this.handleUpdate}
+            onChange={onChangeCompanyFormField}
+            values={companyToUpdate}
+          />
+        </Modal>
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
   settings: state.settings.companies,
-})
+  companyToUpdate: state.companies.companyToUpdate,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onChangeCompanyFormField: (e, fieldTitle) => dispatch(companiesActions.onChangeCompanyFormField(e, fieldTitle)),
+  setCompanyToUpdate: company => dispatch(companiesActions.setCompanyToUpdate(company)),
+  updateCompany: () => dispatch(companiesActions.updateCompany()),
+});
 
 Table.propTypes = {
   searchWords: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.arrayOf(PropTypes.object),
 };
 
-export const CompaniesTable = connect(mapStateToProps)(Table);
+export const CompaniesTable = connect(mapStateToProps, mapDispatchToProps)(Table);

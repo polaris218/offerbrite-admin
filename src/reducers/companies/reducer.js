@@ -8,6 +8,7 @@ const initialState = {
   },
   filteredData: null,
   selectedCountry: '',
+  companyToUpdate: {},
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +35,27 @@ export default (state = initialState, action) => {
         ...state,
         filteredData: null,
         selectedCountry: '',
+      };
+
+    case types.SET_COMPANY_TO_UPDATE:
+      return {
+        ...state,
+        companyToUpdate: action.payload.company,
+      };
+
+    case types.ON_CHANGE_COMPANY_FORM_FIELD:
+      return {
+        ...state,
+        companyToUpdate: {
+          ...state.companyToUpdate,
+          [action.payload.fieldTitle]: action.payload.text,
+        },
+      };
+
+    case types.UPDATE_COMPANY_SUCCESS:
+      return {
+        ...state,
+        companyToUpdate: initialState.companyToUpdate,
       };
 
     default:

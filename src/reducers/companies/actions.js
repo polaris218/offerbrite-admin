@@ -1,6 +1,10 @@
 import types from './types';
 
-import { getCompanies as apiGetCompanies } from 'services/api';
+import {
+  getCompanies as apiGetCompanies,
+  deleteCompany as apiDeleteCompany,
+  updateCompany as apiUpdateCompany,
+} from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
 
@@ -17,6 +21,56 @@ export const getCompanies = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch(requestActions.fail(error));
     dispatch({ type: types.GET_COMPANIES_FAIL });
+  }
+};
+
+export const deleteCompany = businessUserId => async dispatch => {
+  dispatch(requestActions.start());
+  dispatch({ type: types.DELETE_COMPANY_START });
+
+  try {
+    const response = await apiDeleteCompany(businessUserId);
+    console.log(response);
+    if (response.data.status === 'OK') {
+      dispatch(getCompanies());
+    }
+    dispatch(requestActions.success());
+    dispatch({ type: types.DELETE_COMPANY_SUCCESS });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.DELETE_COMPANY_FAIL });
+  }
+};
+
+export const setCompanyToUpdate = company => ({
+  type: types.SET_COMPANY_TO_UPDATE,
+  payload: { company },
+});
+
+export const onChangeCompanyFormField = (e, fieldTitle) => ({
+  type: types.ON_CHANGE_COMPANY_FORM_FIELD,
+  payload: {
+    text: e.target.value,
+    fieldTitle,
+  },
+});
+
+export const updateCompany = () => async (dispatch, getState) => {
+  const { id, email, brandName, mobileNumbers } = getState().companies.companyToUpdate;
+  dispatch(requestActions.start());
+  dispatch({ type: types.UPDATE_COMPANY_START });
+
+  try {
+    const response = await apiUpdateCompany(id, { email, brandName, mobileNumbers });
+    console.log(response);
+    if (response.data.status === 'OK') {
+      dispatch(getCompanies());
+    }
+    dispatch(requestActions.success());
+    dispatch({ type: types.UPDATE_COMPANY_SUCCESS });
+  } catch (error) {
+    dispatch(requestActions.fail(error));
+    dispatch({ type: types.UPDATE_COMPANY_FAIL });
   }
 };
 

@@ -37,6 +37,7 @@ class Companies extends Component {
       filteredData,
       selectedCountry,
       filterCompaniesByCountry,
+      deleteCompany,
     } = this.props;
 
     const { searchWords } = this.state;
@@ -66,6 +67,7 @@ class Companies extends Component {
           <CompaniesTable
             data={filteredData ? filteredData : companiesList}
             searchWords={[searchWords]}
+            onDelete={deleteCompany}
           />
         </div>
       </div>
@@ -81,6 +83,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getCompanies: () => dispatch(companiesActions.getCompanies()),
+  deleteCompany: businessUserId => dispatch(companiesActions.deleteCompany(businessUserId)),
   filterCompaniesByCountry: country => dispatch(companiesActions.filterCompaniesByCountry(country)),
   filterCompaniesBySearch: event => dispatch(companiesActions.filterCompaniesBySearch(event)),
   turnOffCompaniesFilter: () => dispatch(companiesActions.turnOffCompaniesFilter()),
