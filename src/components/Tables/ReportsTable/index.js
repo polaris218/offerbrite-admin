@@ -27,6 +27,7 @@ class Table extends Component {
   }
 
   onSetDeleteReport = offerId => {
+    console.log(offerId);
     this.setState({ isDeleteModalVisible: true, offerId });
   }
 
@@ -97,7 +98,7 @@ class Table extends Component {
             onDelete={() => this.onSetDeleteReport(props.original.reports.id)}
           />
         ),
-        accessor: 'offerId',
+        accessor: 'reports.id',
         sortable: false,
         style: { display: 'flex', justifyContent: 'flex-end' },
         headerClassName: 'Table__cell__header',

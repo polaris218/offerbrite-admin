@@ -7,7 +7,7 @@ import ReactTable from 'react-table';
 import DotsMenu from 'components/DotsMenu';
 import Modal from 'components/UI/Modal';
 import Confirmation from 'components/UI/Confirmation';
-import { UserForm } from 'components/Forms';
+import { OfferForm } from 'components/Forms';
 import defaultImage from 'assets/images/question-mark.png';
 
 import { actions as offersActions } from 'reducers/offers';
@@ -28,19 +28,19 @@ class Table extends Component {
     });
   }
 
-  // onSetUpdateUser = user => {
-  //   this.props.onEdit(user);
-  //   this.setState({ isEditFormVisible: true, offerId: user.id });
-  // }
+  onSetUpdateOffer = offerId => {
+    this.props.getOfferById(offerId);
+    this.setState({ isEditFormVisible: true, offerId: offerId });
+  }
 
   onSetDeleteOffer = offerId => {
     this.setState({ isDeleteModalVisible: true, offerId });
   }
 
-  // handleUpdate = () => {
-  //   this.onCloseModal();
-  //   this.props.updateUser();
-  // }
+  handleUpdate = () => {
+    this.onCloseModal();
+    // this.props.updateUser();
+  }
 
   handleDelete = offerId => {
     this.props.deleteOffer(offerId);
@@ -48,7 +48,15 @@ class Table extends Component {
   }
 
   render() {
-    const { data, searchWords, settings, onChangeUserFormField, userToUpdate } = this.props;
+    const {
+      data,
+      searchWords,
+      settings,
+      onChangeOfferFormField,
+      offerToUpdate,
+      categories,
+      onChangeOfferCategory,
+    } = this.props;
     const { isDeleteModalVisible, isEditFormVisible, offerId } = this.state;
 
     const columns = [
@@ -116,8 +124,7 @@ class Table extends Component {
       {
         Cell: props => (
           <DotsMenu
-            // onEdit={() => this.onSetUpdateOffer(props.original)}
-            onEdit={() => { }}
+            onEdit={() => this.onSetUpdateOffer(props.value)}
             onDelete={() => this.onSetDeleteOffer(props.value)}
             id={props.value}
           />
@@ -162,10 +169,12 @@ class Table extends Component {
           onClose={this.onCloseModal}
           header="Edit offer"
         >
-          <UserForm
+          <OfferForm
             onSubmit={this.handleUpdate}
-            onChange={onChangeUserFormField}
-            values={userToUpdate}
+            onChange={onChangeOfferFormField}
+            offer={offerToUpdate}
+            categories={categories}
+            onChangeCategory={onChangeOfferCategory}
           />
         </Modal>
       </Fragment>
@@ -175,12 +184,15 @@ class Table extends Component {
 
 const mapStateToProps = state => ({
   settings: state.settings.offers,
-  // offerToUpdate: state.offers.offerToUpdate,
+  offerToUpdate: state.offers.offerToUpdate,
+  categories: state.offers.categories,
 });
 
 const mapDispatchToProps = dispatch => ({
   deleteOffer: offerId => dispatch(offersActions.deleteOffer(offerId)),
-  // onChangeOfferFormField: (e, fieldSelector) => dispatch(offersActions.onChangeOfferFormField(e, fieldSelector)),
+  getOfferById: offerId => dispatch(offersActions.getOfferById(offerId)),
+  onChangeOfferFormField: (e, fieldTitle) => dispatch(offersActions.onChangeOfferFormField(e, fieldTitle)),
+  onChangeOfferCategory: category => dispatch(offersActions.onChangeOfferCategory(category)),
   // updateOffer: () => dispatch(offersActions.updateOffer()),
 });
 

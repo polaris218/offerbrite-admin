@@ -11,7 +11,7 @@ export const NotificationForm = ({ onSubmit }) => (
     <div className={styles.NotificationForm__form}>
       <Section header="Notice text">
         <Input placeholder="Header" label="Header (optional)" />
-        <Input placeholder="Text" label="Text" inputType="textarea" />
+        <Input placeholder="Text" label="Text" inputtype="textarea" />
       </Section>
       <Section header="Targeting">
 

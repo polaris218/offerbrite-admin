@@ -24,7 +24,7 @@
   }
 
   &__row_first {
-    width: 255px;
+    min-width: 255px;
     min-height: 48px;
     display: flex;
     align-items: center;
