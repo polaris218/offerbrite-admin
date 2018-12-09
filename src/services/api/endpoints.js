@@ -13,6 +13,7 @@ export default {
   UPDATE_USER: userId => `${API_URL}/users/admin/users/${userId}`,
 
   GET_COMPANIES: `${API_URL}/users/admin/allBusinessUsers`,
+  GET_BUSINESS_BY_ID: businessId => `${API_URL}/users/admin/business/${businessId}`,
   DELETE_COMPANY: businessUserId => `${API_URL}/users/admin/businessUsers/${businessUserId}`,
   UPDATE_COMPANY: businessUserId => `${API_URL}/users/admin/businessUsers/${businessUserId}`,
 
@@ -22,9 +23,13 @@ export default {
 
   GET_OFFERS: `${API_URL}/users/admin/allOffers`,
   DELETE_OFFER: offerId => `${API_URL}/users/admin/offer/${offerId}`,
+  GET_OFFER_BY_ID: offerId => `${API_URL}/users/admin/offer/${offerId}`,
+  UPDATE_OFFER: offerId => `${API_URL}/users/admin/offer/${offerId}`,
 
   GET_REPORTS: (limit, skip) => `${API_URL}/reports?limit=${limit}&skip=${skip}`,
   DELETE_REPORT: reportId => `${API_URL}/users/admin/reports/${reportId}`,
+
+  GET_CATEGORIES: `${API_URL}/categories?all=true`,
 
   CHECK_HEALTH: `${API_URL}/health-check`,
 };

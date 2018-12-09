@@ -94,6 +94,8 @@ const authRequest = async (url, options = {}) => {
 
 export const checkHealth = () => authRequest(endpoints.CHECK_HEALTH, { method: 'GET' });
 
+export const getCategories = () => axios.get(endpoints.GET_CATEGORIES);
+
 export const createNewAdmin = data => authRequest(endpoints.CREATE_NEW_ADMIN, {
   method: 'POST',
   data
@@ -122,6 +124,10 @@ export const getCompanies = () => authRequest(endpoints.GET_COMPANIES, {
   method: 'GET',
 });
 
+export const getBusinessById = businessId => authRequest(endpoints.GET_BUSINESS_BY_ID(businessId), {
+  method: 'GET',
+});
+
 export const deleteCompany = businessUserId => authRequest(endpoints.DELETE_COMPANY(businessUserId), {
   method: 'DELETE',
 });
@@ -135,8 +141,17 @@ export const getOffers = () => authRequest(endpoints.GET_OFFERS, {
   method: 'GET',
 });
 
+export const getOfferById = offerId => authRequest(endpoints.GET_OFFER_BY_ID(offerId), {
+  method: 'GET',
+});
+
 export const deleteOffer = offerId => authRequest(endpoints.DELETE_OFFER(offerId), {
   method: 'DELETE',
+});
+
+export const updateOffer = (offerId, data) => authRequest(endpoints.UPDATE_OFFER(offerId), {
+  method: 'PUT',
+  data,
 });
 
 export const getAdmins = () => authRequest(endpoints.GET_ADMINS, {

@@ -21,6 +21,7 @@ import styles from './styles.module.scss';
 import { actions as sessionActions } from 'reducers/session';
 import { actions as settingsActions } from 'reducers/settings';
 import { actions as reportsActions } from 'reducers/reports';
+import { actions as offersActions } from 'reducers/offers';
 
 class App extends Component {
 
@@ -36,6 +37,7 @@ class App extends Component {
         this.props.setSettingsFromStorage(storedSettings);
       }
       this.props.getReports();
+      this.props.getCategories();
     }
   }
 
@@ -85,6 +87,7 @@ const mapDispatchToProps = dispatch => ({
   bootstrap: () => dispatch(sessionActions.bootstrap()),
   setSettingsFromStorage: settings => dispatch(settingsActions.setSettingsFromStorage(settings)),
   getReports: () => dispatch(reportsActions.getReports()),
+  getCategories: () => dispatch(offersActions.getCategories()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

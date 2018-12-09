@@ -14,7 +14,7 @@ class Input extends Component {
 
   render() {
     const { isFocused } = this.state;
-    const { label, inputType } = this.props;
+    const { label, inputtype } = this.props;
 
     return (
       <div className={[
@@ -23,7 +23,7 @@ class Input extends Component {
       ].join(' ')}>
         {label && <div className={styles.Input__label}>{label}</div>}
         {
-          inputType === 'textarea' ?
+          inputtype === 'textarea' ?
             <textarea
               className={styles.Input__element}
               onFocus={this.onToggleFocus}
