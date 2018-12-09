@@ -6,6 +6,7 @@ import {
   getCategories as apiGetCategories,
   deleteOffer as apiDeleteOffer,
   getBusinessById as apiGetBusinessById,
+  updateOffer as apiUpdateOffer,
 } from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
@@ -156,3 +157,28 @@ export const filterOffersBySearch = e => (dispatch, getState) => {
 export const turnOffOffersFilter = () => ({
   type: types.TURN_OFF_OFFERS_FILTER,
 });
+
+export const resetOfferToUpdate = () => ({
+  type: types.RESET_OFFER_TO_UPDATE,
+});
+
+export const updateOffer = () => async (dispatch, getState) => {
+  const { offerToUpdate } = getState().offers;
+  const data = {
+    ...offerToUpdate,
+    discount: offerToUpdate.discount || 0,
+    fullPrice: offerToUpdate.discount || 0,
+  };
+  dispatch({ type: types.UPDATE_OFFER_START });
+
+  try {
+    const response = await apiUpdateOffer(offerToUpdate.id, data);
+    if (response.data.status === 'OK') {
+      dispatch(getOffers());
+      dispatch({ type: types.UPDATE_OFFER_SUCCESS });
+    }
+  } catch (error) {
+    console.log(error.response);
+    dispatch({ type: types.UPDATE_OFFER_FAIL });
+  }
+};

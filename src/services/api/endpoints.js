@@ -24,6 +24,8 @@ export default {
   GET_OFFERS: `${API_URL}/users/admin/allOffers`,
   DELETE_OFFER: offerId => `${API_URL}/users/admin/offer/${offerId}`,
   GET_OFFER_BY_ID: offerId => `${API_URL}/users/admin/offer/${offerId}`,
+  UPDATE_OFFER: offerId => `${API_URL}/users/admin/offer/${offerId}`,
+
   GET_REPORTS: (limit, skip) => `${API_URL}/reports?limit=${limit}&skip=${skip}`,
   DELETE_REPORT: reportId => `${API_URL}/users/admin/reports/${reportId}`,
 

@@ -24,6 +24,12 @@ export default (state = initialState, action) => {
         offerToUpdate: action.payload,
       };
 
+    case types.RESET_OFFER_TO_UPDATE:
+      return {
+        ...state,
+        offerToUpdate: {},
+      };
+
     case types.ON_CHANGE_OFFER_FORM_FIELD:
       return {
         ...state,

@@ -21,6 +21,7 @@ class Table extends Component {
   }
 
   onCloseModal = () => {
+    this.props.resetOfferToUpdate();
     this.setState({
       isDeleteModalVisible: false,
       isEditFormVisible: false,
@@ -38,8 +39,8 @@ class Table extends Component {
   }
 
   handleUpdate = () => {
+    this.props.updateOffer();
     this.onCloseModal();
-    // this.props.updateUser();
   }
 
   handleDelete = offerId => {
@@ -97,14 +98,14 @@ class Table extends Component {
         Header: 'Price',
         width: 100,
         accessor: 'fullPrice',
-        Cell: props => props.value,
+        Cell: props => props.value && props.value > 0 ? props.value : '',
         headerClassName: 'Table__cell__header',
       },
       {
         Header: 'Discount',
         width: 100,
         accessor: 'discount',
-        Cell: props => props.value,
+        Cell: props => props.value && props.value > 0 ? props.value : '',
         headerClassName: 'Table__cell__header',
       },
       {
@@ -193,7 +194,8 @@ const mapDispatchToProps = dispatch => ({
   getOfferById: offerId => dispatch(offersActions.getOfferById(offerId)),
   onChangeOfferFormField: (e, fieldTitle) => dispatch(offersActions.onChangeOfferFormField(e, fieldTitle)),
   onChangeOfferCategory: category => dispatch(offersActions.onChangeOfferCategory(category)),
-  // updateOffer: () => dispatch(offersActions.updateOffer()),
+  resetOfferToUpdate: () => dispatch(offersActions.resetOfferToUpdate()),
+  updateOffer: () => dispatch(offersActions.updateOffer()),
 });
 
 Table.propTypes = {

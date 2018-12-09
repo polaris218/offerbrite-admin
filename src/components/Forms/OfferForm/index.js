@@ -8,9 +8,9 @@ import styles from './styles.module.scss';
 
 import { convertLocation } from 'services/helpers';
 
-export const OfferForm = ({ onSubmit, onChange, offer, categories, onChangeCategory }) => {
-  // const enabled = values.email.length > 3 && values.username.length > 0;
-  const enabled = false;
+export const OfferForm = props => {
+  const { onSubmit, onChange, offer, categories, onChangeCategory } = props;
+
   return (
     <Fragment>
       {
@@ -44,11 +44,18 @@ export const OfferForm = ({ onSubmit, onChange, offer, categories, onChangeCateg
                   <div key={index}>{convertLocation(location.address)}</div>
                 ))
               }
-              {offer.fullPrice && <div>{`Price: ${offer.fullPrice}`}</div>}
-              {offer.discount && <div>{`Discount: ${offer.discount}`}</div>}
+              {
+                offer.fullPrice && offer.fullPrice > 0 ?
+                  <div>{`Price: ${offer.fullPrice}`}</div> :
+                  null
+              }
+              {
+                offer.discount && offer.discount > 0 ?
+                  <div>{`Discount: ${offer.discount}`}</div> :
+                  null
+              }
             </div>
             <Button
-              disabled={!enabled}
               block
               onClick={onSubmit}
             >

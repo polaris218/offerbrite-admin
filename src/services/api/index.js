@@ -149,6 +149,11 @@ export const deleteOffer = offerId => authRequest(endpoints.DELETE_OFFER(offerId
   method: 'DELETE',
 });
 
+export const updateOffer = (offerId, data) => authRequest(endpoints.UPDATE_OFFER(offerId), {
+  method: 'PUT',
+  data,
+});
+
 export const getAdmins = () => authRequest(endpoints.GET_ADMINS, {
   method: 'GET',
 });
