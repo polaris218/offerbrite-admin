@@ -7,9 +7,11 @@ import ReactTable from 'react-table';
 import DotsMenu from 'components/DotsMenu';
 import Modal from 'components/UI/Modal';
 import Confirmation from 'components/UI/Confirmation';
+import { OfferForm } from 'components/Forms';
 import styles from './styles.module.scss';
 
 import { actions as reportsActions } from 'reducers/reports';
+import { actions as offersActions } from 'reducers/offers';
 
 class Table extends Component {
   state = {
@@ -19,6 +21,7 @@ class Table extends Component {
   }
 
   onCloseModal = () => {
+    this.props.resetOfferToUpdate();
     this.setState({
       isDeleteModalVisible: false,
       isEditFormVisible: false,
@@ -26,9 +29,19 @@ class Table extends Component {
     });
   }
 
+  onSetUpdateOffer = offerId => {
+    this.props.getOfferById(offerId);
+    this.setState({ isEditFormVisible: true, offerId: offerId });
+  }
+
   onSetDeleteReport = offerId => {
     console.log(offerId);
     this.setState({ isDeleteModalVisible: true, offerId });
+  }
+
+  handleUpdate = () => {
+    this.props.updateOffer();
+    this.onCloseModal();
   }
 
   handleDelete = offerId => {
@@ -37,8 +50,15 @@ class Table extends Component {
   }
 
   render() {
-    const { searchWords, data } = this.props;
-    const { isDeleteModalVisible, offerId } = this.state;
+    const {
+      data,
+      searchWords,
+      onChangeOfferFormField,
+      offerToUpdate,
+      categories,
+      onChangeOfferCategory,
+    } = this.props;
+    const { isDeleteModalVisible, isEditFormVisible, offerId } = this.state;
 
     const columns = [
       {
@@ -94,7 +114,7 @@ class Table extends Component {
       {
         Cell: props => (
           <DotsMenu
-            onEdit={() => alert(`edit id = ${props.value}`)}
+            onEdit={() => this.onSetUpdateOffer(props.original.offer.id)}
             onDelete={() => this.onSetDeleteReport(props.original.reports.id)}
           />
         ),
@@ -124,13 +144,36 @@ class Table extends Component {
             onConfirm={() => this.handleDelete(offerId)}
           />
         </Modal>
+        <Modal
+          isVisible={isEditFormVisible}
+          onClose={this.onCloseModal}
+          header="Edit offer"
+        >
+          <OfferForm
+            onSubmit={this.handleUpdate}
+            onChange={onChangeOfferFormField}
+            offer={offerToUpdate}
+            categories={categories}
+            onChangeCategory={onChangeOfferCategory}
+          />
+        </Modal>
       </Fragment>
     )
   }
 }
 
+const mapStateToProps = state => ({
+  offerToUpdate: state.offers.offerToUpdate,
+  categories: state.offers.categories,
+});
+
 const mapDispatchToProps = dispatch => ({
   deleteReport: reportId => dispatch(reportsActions.deleteReport(reportId)),
+  getOfferById: offerId => dispatch(offersActions.getOfferById(offerId)),
+  onChangeOfferFormField: (e, fieldTitle) => dispatch(offersActions.onChangeOfferFormField(e, fieldTitle)),
+  onChangeOfferCategory: category => dispatch(offersActions.onChangeOfferCategory(category)),
+  resetOfferToUpdate: () => dispatch(offersActions.resetOfferToUpdate()),
+  updateOffer: () => dispatch(offersActions.updateOffer()),
 });
 
 Table.propTypes = {
@@ -138,4 +181,4 @@ Table.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
 };
 
-export const ReportsTable = connect(null, mapDispatchToProps)(Table);
+export const ReportsTable = connect(mapStateToProps, mapDispatchToProps)(Table);
