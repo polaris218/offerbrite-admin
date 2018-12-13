@@ -1,10 +1,12 @@
 import types from './types';
-import { TODAY, WEEK_AGO } from 'services/helpers';
+import { timeSelectors, TIME_PERIODS } from 'services/helpers';
 
 const initialState = {
   sessions: {
-    startDate: WEEK_AGO,
-    endDate: TODAY,
+    requestedTime: 'Last 7 days',
+    times: TIME_PERIODS,
+    startDate: timeSelectors.WEEK_AGO,
+    endDate: timeSelectors.YESTERDAY,
     data: [],
   },
 };
@@ -17,6 +19,15 @@ export default (state = initialState, action) => {
         sessions: {
           ...state.sessions,
           data: action.payload.data,
+        },
+      };
+
+    case types.ON_CHANGE_USER_SESSIONS_TIME:
+      return {
+        ...state,
+        sessions: {
+          ...state.sessions,
+          ...action.payload,
         },
       };
     default:

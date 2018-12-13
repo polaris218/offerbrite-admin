@@ -21,7 +21,6 @@ class Dropdown extends Component {
   render() {
     const { isOpened } = this.state;
     const { title, values } = this.props;
-
     return (
       <div className={styles.Dropdown}>
         <div

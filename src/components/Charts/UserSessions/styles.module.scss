@@ -1,0 +1,13 @@
+@import '../../../resources.scss';
+
+.Chart {
+  background-color: $colorWhite;
+  border: 1px solid $colorGray;
+  padding: 2rem;
+  border-radius: 5px;
+
+  &__dropdown {
+    display: flex;
+    margin-bottom: 2rem;
+  }
+}
