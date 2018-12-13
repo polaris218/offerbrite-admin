@@ -32,4 +32,6 @@ export default {
   GET_CATEGORIES: `${API_URL}/categories?all=true`,
 
   CHECK_HEALTH: `${API_URL}/health-check`,
+
+  ANALYTICS_GET_SESSIONS: (startDate, endDate) => `${API_URL}/ga-report/sessionsGraph/${startDate}/${endDate}`,
 };

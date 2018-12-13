@@ -175,3 +175,8 @@ export const getReports = (limit, skip) => authRequest(endpoints.GET_REPORTS(lim
 export const deleteReport = reportId => authRequest(endpoints.DELETE_REPORT(reportId), {
   method: 'DELETE',
 });
+
+export const analyticsGetSessions = (startDate, endDate) => authRequest(
+  endpoints.ANALYTICS_GET_SESSIONS(startDate, endDate), {
+  method: 'GET',
+});
