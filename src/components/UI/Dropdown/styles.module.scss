@@ -6,6 +6,10 @@
   cursor: pointer;
   height: 100%;
   font-size: 1.25rem;
+  
+  &_small {
+    font-size: 1rem;
+  }
 
   &__icon {
     color: inherit;
@@ -33,6 +37,11 @@
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     transition: all 0.3s;
+
+    &_small {
+      min-width: 180px;
+      min-height: 36px;
+    }
 
     &:hover {
       background-color: $colorGrayLight;

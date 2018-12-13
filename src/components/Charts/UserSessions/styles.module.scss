@@ -1,13 +1,39 @@
 @import '../../../resources.scss';
 
 .Chart {
+  width: 70%;
+  min-width: 650px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 550px;
   background-color: $colorWhite;
   border: 1px solid $colorGray;
-  padding: 2rem;
   border-radius: 5px;
 
-  &__dropdown {
+  &__header {
     display: flex;
-    margin-bottom: 2rem;
+    width: 100%;
+    min-width: 650px;
+    justify-content: space-between;
+    padding: 20px;
+    padding-right: 45px;
+  }
+
+  &__header__text {
+    font-weight: normal;
+    font-size: 1.25rem;
+  }
+
+  &__container {
+    width: 70%;
+    height: 100%;
+  }
+
+  &__data {
+    width: 30%;
+    height: 100%;
+    padding: 20px;
+    border-left: 1px solid $colorGray;
   }
 }

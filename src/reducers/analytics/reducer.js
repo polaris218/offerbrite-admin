@@ -9,6 +9,13 @@ const initialState = {
     endDate: timeSelectors.YESTERDAY,
     data: [],
   },
+  sessionsByDevice: {
+    requestedTime: 'Last 7 days',
+    times: TIME_PERIODS,
+    startDate: timeSelectors.WEEK_AGO,
+    endDate: timeSelectors.YESTERDAY,
+    data: [],
+  },
 };
 
 export default (state = initialState, action) => {
@@ -22,12 +29,13 @@ export default (state = initialState, action) => {
         },
       };
 
-    case types.ON_CHANGE_USER_SESSIONS_TIME:
+    case types.ON_CHANGE_REQUESTED_TIME:
+      const dataSelector = Object.keys(action.payload)[0];
       return {
         ...state,
-        sessions: {
-          ...state.sessions,
-          ...action.payload,
+        [dataSelector]: {
+          ...state[dataSelector],
+          ...action.payload[dataSelector],
         },
       };
     default:

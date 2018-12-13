@@ -34,4 +34,5 @@ export default {
   CHECK_HEALTH: `${API_URL}/health-check`,
 
   ANALYTICS_GET_SESSIONS: (startDate, endDate) => `${API_URL}/ga-report/sessionsGraph/${startDate}/${endDate}`,
+  ANALYTICS_GET_SESSIONS_BY_DEVICE: (startDate, endDate) => `${API_URL}/ga-report/sessiondevice/${startDate}/${endDate}`,
 };

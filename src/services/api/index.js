@@ -180,3 +180,8 @@ export const analyticsGetSessions = (startDate, endDate) => authRequest(
   endpoints.ANALYTICS_GET_SESSIONS(startDate, endDate), {
   method: 'GET',
 });
+
+export const analyticsGetSessionsByDevice = (startDate, endDate) => authRequest(
+  endpoints.ANALYTICS_GET_SESSIONS_BY_DEVICE(startDate, endDate), {
+  method: 'GET',
+});
