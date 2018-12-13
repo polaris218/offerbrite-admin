@@ -31,7 +31,6 @@ class App extends Component {
 
   componentDidUpdate(prevProps) {
     if (!prevProps.access.token && this.props.access.token) {
-      console.log('Authenticated!!!');
       const storedSettings = localStorage.getItem('settings');
       if (storedSettings) {
         this.props.setSettingsFromStorage(storedSettings);
@@ -42,37 +41,32 @@ class App extends Component {
   }
 
   render() {
+    const { access } = this.props;
+
     return (
       <BrowserRouter>
         <Switch>
+          <Route exact path="/admin/login" component={Login} />
           {
-            !this.props.access.token ?
-              <Fragment>
-                <Redirect exact from="/" to="/admin/login" />
-                <Route exact path="/admin/login" component={Login} />
-              </Fragment> :
-              <Route
-                path="/admin"
-                render={() => (
-                  <div className={styles.App}>
-                    <SideBar />
-                    <Spinner />
-                    <div className={styles.App__content}>
-                      <Header />
-                      <Content>
-                        <Route path="/admin/users" component={Users} />
-                        <Route path="/admin/companies" component={Companies} />
-                        <Route path="/admin/offers" component={Offers} />
-                        <Route path="/admin/notifications" component={Notifications} />
-                        <Route path="/admin/analytics" component={Analytics} />
-                        <Route path="/admin/settings" component={Settings} />
-                        <Route path="/admin/reports" component={Reports} />
-                      </Content>
-                    </div>
-                  </div>
-                )}
-              />
+            access.token &&
+            <div className={styles.App}>
+              <SideBar />
+              <Spinner />
+              <div className={styles.App__content}>
+                <Header />
+                <Content>
+                  <Route path="/admin/users" component={Users} />
+                  <Route path="/admin/companies" component={Companies} />
+                  <Route path="/admin/offers" component={Offers} />
+                  <Route path="/admin/notifications" component={Notifications} />
+                  <Route path="/admin/analytics" component={Analytics} />
+                  <Route path="/admin/settings" component={Settings} />
+                  <Route path="/admin/reports" component={Reports} />
+                </Content>
+              </div>
+            </div>
           }
+          <Redirect from="/admin" to="/admin/login" />
         </Switch>
       </BrowserRouter>
     );

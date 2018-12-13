@@ -13,6 +13,12 @@ import { actions as sessionActions } from 'reducers/session';
 
 class Login extends Component {
 
+  componentDidUpdate(prevProps) {
+    if (!prevProps.token && this.props.token && this.props.history.location.pathname === '/admin/login') {
+      this.props.history.push('/admin/users');
+    }
+  }
+  
   handleSubmit = e => {
     e.preventDefault();
     this.props.login();
@@ -65,12 +71,13 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-  const { email, password, rememberSession } = state.session;
+  const { email, password, rememberSession, access } = state.session;
 
   return {
     email,
     password,
     rememberSession,
+    token: access.token,
   };
 };
 
