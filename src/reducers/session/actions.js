@@ -60,8 +60,12 @@ export const login = () => async (dispatch, getState) => {
     console.log(response);
   } catch (error) {
     dispatch(requestActions.fail(error));
-    console.log(error.message);
-    console.log(error);
+    console.log(error.response);
+    if (error.response && error.response.data.message === 'Unauthorized') {
+      alert('Unauthorized');
+    } else {
+      alert('Something went wrong');
+    }
   }
 };
 
