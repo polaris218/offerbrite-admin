@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { UserSessions, UserSessionsByDevice, SessionsByCountry } from 'components/Charts';
+import { Graph, UserSessionsByDevice, SessionsByCountry } from 'components/Charts';
 import { AnalyticsScreenTable } from 'components/Tables';
 import styles from './styles.module.scss';
 
@@ -20,22 +20,34 @@ class UserAnalytics extends Component {
   render() {
     const {
       sessions,
+      usersGraph,
+      userStats,
       sessionsByDevice,
       sessionsByCountry,
       screenSupport,
       onChangeRequestedTime,
-      userStats,
+      onChangeGraphMode,
+      selectedGraphMode,
+      graphModes,
     } = this.props;
+
+    let graphData = sessions.data;
+    if (selectedGraphMode === 'Users') {
+      graphData = usersGraph.data;
+    }
 
     return (
       <Fragment>
         <div className={styles.UserAnalytics__row}>
-          <UserSessions
-            data={sessions.data}
+          <Graph
+            data={graphData}
             onChangeTime={onChangeRequestedTime}
             times={sessions.times}
             time={sessions.requestedTime}
             userStats={userStats}
+            onChangeGraph={onChangeGraphMode}
+            activeMode={selectedGraphMode}
+            graphModes={graphModes}
           />
           <UserSessionsByDevice
             data={sessionsByDevice.data}
@@ -63,7 +75,10 @@ class UserAnalytics extends Component {
 }
 
 const mapStateToProps = state => ({
+  graphModes: state.analytics.graphModes,
+  selectedGraphMode: state.analytics.selectedGraphMode,
   sessions: state.analytics.sessions,
+  usersGraph: state.analytics.usersGraph,
   sessionsByDevice: state.analytics.sessionsByDevice,
   sessionsByCountry: state.analytics.sessionsByCountry,
   screenSupport: state.analytics.screenSupport,
@@ -78,6 +93,7 @@ const mapDispatchToProps = dispatch => ({
   getUsersGraph: () => dispatch(analyticsActions.getUsersGraph()),
   getScreenSupport: () => dispatch(analyticsActions.getScreenSupport()),
   onChangeRequestedTime: (time, dataSelector) => dispatch(analyticsActions.onChangeRequestedTime(time, dataSelector)),
+  onChangeGraphMode: mode => dispatch(analyticsActions.onChangeGraphMode(mode)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAnalytics);

@@ -177,7 +177,7 @@ export const deleteReport = reportId => authRequest(endpoints.DELETE_REPORT(repo
 });
 
 export const analyticsGetSessions = (startDate, endDate) => authRequest(
-  endpoints.ANALYTICS_GET_SESSIONS(startDate, endDate), {
+  endpoints.ANALYTICS_GET_SESSIONS_GRAPH(startDate, endDate), {
   method: 'GET',
 });
 
@@ -198,6 +198,11 @@ export const analyticsGetUserStats = (startDate, endDate) => authRequest(
 
 export const analyticsGetUsersGraph = (startDate, endDate) => authRequest(
   endpoints.ANALYTICS_GET_USERS_GRAPH(startDate, endDate), {
+  method: 'GET',
+});
+
+export const analyticsGetSessionDurationGraph = (startDate, endDate) => authRequest(
+  endpoints.ANALYTICS_GET_SESSION_DURATION_GRAPH(startDate, endDate), {
   method: 'GET',
 });
 

@@ -4,6 +4,7 @@ import {
   analyticsGetSessionsByDevice,
   analyticsGetUserStats,
   analyticsGetUsersGraph,
+  analyticsGetSessionDurationGraph,
   analyticsGetSessionsByCountry,
   analyticsGetScreenSupport,
 } from 'services/api';
@@ -138,21 +139,44 @@ export const getUsersGraph = () => async (dispatch, getState) => {
   try {
     const response = await analyticsGetUsersGraph(startDate, endDate);
     console.log('Users Graph', response);
-  //  if (response.status === 200 && response.data) {
-  //     const data = formatDataByDevice(response.data, requestedTime);
-  //     dispatch({
-  //       type: types.GET_USERS_GRAPH_SUCCESS,
-  //       payload: { data },
-  //     });
-  //   } else if (!response.data) {
-  //     alert('No data for this period');
-  //   }
+    if (response.status === 200 && response.data) {
+      const data = formatDataByTime(response.data, requestedTime);
+      dispatch({
+        type: types.GET_USERS_GRAPH_SUCCESS,
+        payload: { data },
+      });
+    } else if (!response.data) {
+      alert('No data for this period');
+    }
   } catch (error) {
     console.log(error)
     console.log(error.response);
     dispatch({ type: types.GET_USERS_GRAPH_FAIL });
   }
 };
+
+// export const getUsersGraph = () => async (dispatch, getState) => {
+//   const { startDate, endDate, requestedTime } = getState().analytics.usersGraph;
+//   dispatch({ type: types.GET_USERS_GRAPH_START });
+
+//   try {
+//     const response = await analyticsGetUsersGraph(startDate, endDate);
+//     console.log('Users Graph', response);
+//     if (response.status === 200 && response.data) {
+//       const data = formatDataByTime(response.data, requestedTime);
+//       dispatch({
+//         type: types.GET_USERS_GRAPH_SUCCESS,
+//         payload: { data },
+//       });
+//     } else if (!response.data) {
+//       alert('No data for this period');
+//     }
+//   } catch (error) {
+//     console.log(error)
+//     console.log(error.response);
+//     dispatch({ type: types.GET_USERS_GRAPH_FAIL });
+//   }
+// };
 
 export const getScreenSupport = () => async (dispatch, getState) => {
   const { startDate, endDate } = getState().analytics.screenSupport;
@@ -192,6 +216,7 @@ export const onChangeRequestedTime = (requestedTime, dataSelector) => dispatch =
     case "sessions":
       dispatch(getSessions());
       dispatch(getUserStats());
+      dispatch(getUsersGraph());
       break;
     case "sessionsByDevice":
       dispatch(getSessionsByDevice());
@@ -206,3 +231,8 @@ export const onChangeRequestedTime = (requestedTime, dataSelector) => dispatch =
       dispatch(getSessions());
   }
 };
+
+export const onChangeGraphMode = mode => ({
+  type: types.ON_CHANGE_GRAPH_MODE,
+  payload: { mode },
+});

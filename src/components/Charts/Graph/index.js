@@ -13,7 +13,8 @@ import Dropdown from 'components/UI/Dropdown';
 import StatBox from 'components/UI/StatBox';
 import styles from './styles.module.scss';
 
-export const UserSessions = ({ data, userStats, onChangeTime, time, times }) => {
+export const Graph = props => {
+  const { data, userStats, onChangeTime, time, times, onChangeGraph, activeMode, graphModes } = props;
   const { data: statData, previousData } = userStats;
   
   const formattedStats = Object.keys(statData).map(key => {
@@ -41,7 +42,12 @@ export const UserSessions = ({ data, userStats, onChangeTime, time, times }) => 
   <div className={styles.Chart}>      
     <div className={styles.Chart__container}>
       <div className={styles.Chart__header}>
-        <h3 className={styles.Chart__header__text}>User sessions</h3>
+        <Dropdown
+          title={activeMode}
+          values={graphModes}
+          onSelect={onChangeGraph}
+          small
+        />
         <Dropdown
           title={time}
           values={times}
@@ -52,7 +58,13 @@ export const UserSessions = ({ data, userStats, onChangeTime, time, times }) => 
       </div>
       <ResponsiveContainer width="100%" minWidth={600} height="80%">
         <LineChart data={data} margin={{ top: 5, right: 50, bottom: 5, left: 0 }}>
-          <Line type="linear" dataKey="count" name="sessions" stroke="#FFB018" strokeWidth={3} />
+          <Line
+            type="linear"
+            dataKey="count"
+            name={activeMode === 'Users' ? 'users' : 'sessions'}
+            stroke="#FFB018"
+            strokeWidth={3}
+          />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <XAxis dataKey="date" />
           <YAxis />

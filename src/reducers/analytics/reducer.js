@@ -2,6 +2,12 @@ import types from './types';
 import { timeSelectors, TIME_PERIODS } from 'services/helpers';
 
 const initialState = {
+  graphModes: [
+    'Sessions',
+    'Users',
+    'Session duration',
+  ],
+  selectedGraphMode: 'Sessions',
   sessions: {
     requestedTime: 'Last 7 days',
     times: TIME_PERIODS,
@@ -45,6 +51,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case types.ON_CHANGE_GRAPH_MODE:
+      return {
+        ...state,
+        selectedGraphMode: action.payload.mode,
+      };
+
     case types.GET_SESSIONS_SUCCESS:
       return {
         ...state,
