@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 import Dropdown from 'components/UI/Dropdown';
 import StatBox from 'components/UI/StatBox';
+import ChartTooltipWithTime from 'components/UI/ChartTooltipWithTime';
 import styles from './styles.module.scss';
 
 export const Graph = props => {
@@ -36,7 +37,11 @@ export const Graph = props => {
       percent,
     };
   });
-  console.log('formattedStats', formattedStats);
+
+  let tooltip = <Tooltip />;
+  if (activeMode === 'Session duration') {
+    tooltip = <Tooltip content={<ChartTooltipWithTime />} />;
+  }
 
   return (
   <div className={styles.Chart}>      
@@ -68,7 +73,7 @@ export const Graph = props => {
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <XAxis dataKey="date" />
           <YAxis />
-          <Tooltip />
+          {tooltip}
         </LineChart>
       </ResponsiveContainer>
     </div>

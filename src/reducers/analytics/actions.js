@@ -16,6 +16,7 @@ import {
   findTimes,
   findTimesForComparison,
   formatUserStats,
+  makeTimeFromSeconds,
 } from 'services/helpers';
 
 export const getSessions = () => async (dispatch, getState) => {
@@ -69,7 +70,6 @@ export const getSessionsByCountry = () => async (dispatch, getState) => {
 
   try {
     const response = await analyticsGetSessionsByCountry(startDate, endDate);
-    console.log('SessionsByCountry', response);
     if (response.status === 200 && response.data) {
       const data = response.data.map(session => ({
         country: session.dimensions[0],
@@ -95,20 +95,15 @@ export const getUserStats = () => async (dispatch, getState) => {
 
   try {
     const response = await analyticsGetUserStats(startDate, endDate);
-    console.log(response);
     if (response.status === 200 && response.data) {
       const data = formatUserStats(response.data, requestedTime);
-      console.log('data', data);
       dispatch({
         type: types.GET_USER_STATS_SUCCESS,
         payload: { data },
       });
       const { startDate: previousStartDate, endDate: previousEndDate } = findTimesForComparison(requestedTime);
-      console.log('previousStartDate', previousStartDate);
-      console.log('previousEndDate', previousEndDate);
       try {
         const previousResponse = await analyticsGetUserStats(previousStartDate, previousEndDate);
-        console.log('previousResponse',previousResponse)
         if (previousResponse.status === 200 && previousResponse.data) {
           const previousData = formatUserStats(previousResponse.data, requestedTime);
           dispatch({
@@ -133,12 +128,11 @@ export const getUserStats = () => async (dispatch, getState) => {
 };
 
 export const getUsersGraph = () => async (dispatch, getState) => {
-  const { startDate, endDate, requestedTime } = getState().analytics.usersGraph;
+  const { startDate, endDate, requestedTime } = getState().analytics.sessions;
   dispatch({ type: types.GET_USERS_GRAPH_START });
 
   try {
     const response = await analyticsGetUsersGraph(startDate, endDate);
-    console.log('Users Graph', response);
     if (response.status === 200 && response.data) {
       const data = formatDataByTime(response.data, requestedTime);
       dispatch({
@@ -155,28 +149,31 @@ export const getUsersGraph = () => async (dispatch, getState) => {
   }
 };
 
-// export const getUsersGraph = () => async (dispatch, getState) => {
-//   const { startDate, endDate, requestedTime } = getState().analytics.usersGraph;
-//   dispatch({ type: types.GET_USERS_GRAPH_START });
+export const getSessionDurationGraph = () => async (dispatch, getState) => {
+  const { startDate, endDate, requestedTime } = getState().analytics.sessions;
+  dispatch({ type: types.GET_SESSION_DURATION_GRAPH_START });
 
-//   try {
-//     const response = await analyticsGetUsersGraph(startDate, endDate);
-//     console.log('Users Graph', response);
-//     if (response.status === 200 && response.data) {
-//       const data = formatDataByTime(response.data, requestedTime);
-//       dispatch({
-//         type: types.GET_USERS_GRAPH_SUCCESS,
-//         payload: { data },
-//       });
-//     } else if (!response.data) {
-//       alert('No data for this period');
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     console.log(error.response);
-//     dispatch({ type: types.GET_USERS_GRAPH_FAIL });
-//   }
-// };
+  try {
+    const response = await analyticsGetSessionDurationGraph(startDate, endDate);
+    if (response.status === 200 && response.data) {
+      const data = formatDataByTime(response.data, requestedTime);
+      const formattedData = data.map(session => ({
+        ...session,
+        time: makeTimeFromSeconds(parseInt(session.count)),
+      }));
+      dispatch({
+        type: types.GET_SESSION_DURATION_GRAPH_SUCCESS,
+        payload: { data: formattedData },
+      });
+    } else if (!response.data) {
+      alert('No data for this period');
+    }
+  } catch (error) {
+    console.log(error)
+    console.log(error.response);
+    dispatch({ type: types.GET_SESSION_DURATION_GRAPH_FAIL });
+  }
+};
 
 export const getScreenSupport = () => async (dispatch, getState) => {
   const { startDate, endDate } = getState().analytics.screenSupport;
@@ -217,6 +214,7 @@ export const onChangeRequestedTime = (requestedTime, dataSelector) => dispatch =
       dispatch(getSessions());
       dispatch(getUserStats());
       dispatch(getUsersGraph());
+      dispatch(getSessionDurationGraph());
       break;
     case "sessionsByDevice":
       dispatch(getSessionsByDevice());

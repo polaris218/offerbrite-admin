@@ -13,6 +13,7 @@ class UserAnalytics extends Component {
     this.props.getSessionsByDevice();
     this.props.getUserStats();
     this.props.getUsersGraph();
+    this.props.getSessionDurationGraph();
     this.props.getSessionsByCountry();
     this.props.getScreenSupport();
   }
@@ -21,6 +22,7 @@ class UserAnalytics extends Component {
     const {
       sessions,
       usersGraph,
+      sessionDurationGraph,
       userStats,
       sessionsByDevice,
       sessionsByCountry,
@@ -34,6 +36,8 @@ class UserAnalytics extends Component {
     let graphData = sessions.data;
     if (selectedGraphMode === 'Users') {
       graphData = usersGraph.data;
+    } else if (selectedGraphMode === 'Session duration') {
+      graphData = sessionDurationGraph.data;
     }
 
     return (
@@ -79,6 +83,7 @@ const mapStateToProps = state => ({
   selectedGraphMode: state.analytics.selectedGraphMode,
   sessions: state.analytics.sessions,
   usersGraph: state.analytics.usersGraph,
+  sessionDurationGraph: state.analytics.sessionDurationGraph,
   sessionsByDevice: state.analytics.sessionsByDevice,
   sessionsByCountry: state.analytics.sessionsByCountry,
   screenSupport: state.analytics.screenSupport,
@@ -91,6 +96,7 @@ const mapDispatchToProps = dispatch => ({
   getSessionsByCountry: () => dispatch(analyticsActions.getSessionsByCountry()),
   getUserStats: () => dispatch(analyticsActions.getUserStats()),
   getUsersGraph: () => dispatch(analyticsActions.getUsersGraph()),
+  getSessionDurationGraph: () => dispatch(analyticsActions.getSessionDurationGraph()),
   getScreenSupport: () => dispatch(analyticsActions.getScreenSupport()),
   onChangeRequestedTime: (time, dataSelector) => dispatch(analyticsActions.onChangeRequestedTime(time, dataSelector)),
   onChangeGraphMode: mode => dispatch(analyticsActions.onChangeGraphMode(mode)),

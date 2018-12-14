@@ -34,10 +34,9 @@ const initialState = {
     previousData: null,
   },
   usersGraph: {
-    requestedTime: 'Last 7 days',
-    times: TIME_PERIODS,
-    startDate: timeSelectors.WEEK_AGO,
-    endDate: timeSelectors.YESTERDAY,
+    data: [],
+  },
+  sessionDurationGraph: {
     data: [],
   },
   screenSupport: {
@@ -116,6 +115,15 @@ export default (state = initialState, action) => {
         ...state,
         usersGraph: {
           ...state.usersGraph,
+          data: action.payload.data,
+        },
+      };
+
+    case types.GET_SESSION_DURATION_GRAPH_SUCCESS:
+      return {
+        ...state,
+        sessionDurationGraph: {
+          ...state.sessionDurationGraph,
           data: action.payload.data,
         },
       };
