@@ -19,6 +19,7 @@ export const SessionsByCountry = ({ data, totalSessions, onChangeTime, time, tim
     {
       data.map(session => (
         <ProgressBar
+          key={session.country}
           label={session.country}
           count={session.count}
           percent={session.count / totalSessions * 100}

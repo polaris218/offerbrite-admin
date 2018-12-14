@@ -5,9 +5,17 @@ import {
   analyticsGetUserStats,
   analyticsGetUsersGraph,
   analyticsGetSessionsByCountry,
+  analyticsGetScreenSupport,
 } from 'services/api';
 
-import { formatDataByTime, formatDataByDevice, findTimes, findTimesForComparison, formatUserStats } from 'services/helpers';
+import {
+  formatDataByTime,
+  formatDataByDevice,
+  formatUserAppScreenData,
+  findTimes,
+  findTimesForComparison,
+  formatUserStats,
+} from 'services/helpers';
 
 export const getSessions = () => async (dispatch, getState) => {
   const { startDate, endDate, requestedTime } = getState().analytics.sessions;
@@ -146,6 +154,28 @@ export const getUsersGraph = () => async (dispatch, getState) => {
   }
 };
 
+export const getScreenSupport = () => async (dispatch, getState) => {
+  const { startDate, endDate } = getState().analytics.screenSupport;
+  dispatch({ type: types.GET_SCREEN_SUPPORT_START });
+
+  try {
+    const response = await analyticsGetScreenSupport(startDate, endDate);
+    if (response.status === 200 && response.data) {
+      const data = formatUserAppScreenData(response.data);
+      dispatch({
+        type: types.GET_SCREEN_SUPPORT_SUCCESS,
+        payload: { data },
+      });
+    } else if (!response.data) {
+      alert('No data for this period');
+    }
+  } catch (error) {
+    console.log(error)
+    console.log(error.response);
+    dispatch({ type: types.GET_SCREEN_SUPPORT_FAIL });
+  }
+};
+
 export const onChangeRequestedTime = (requestedTime, dataSelector) => dispatch => {
   const { startDate, endDate } = findTimes(requestedTime);
   dispatch({
@@ -168,6 +198,9 @@ export const onChangeRequestedTime = (requestedTime, dataSelector) => dispatch =
       break;
     case "sessionsByCountry":
       dispatch(getSessionsByCountry());
+      break;
+    case "screenSupport":
+      dispatch(getScreenSupport());
       break;
     default:
       dispatch(getSessions());

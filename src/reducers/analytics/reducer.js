@@ -34,6 +34,13 @@ const initialState = {
     endDate: timeSelectors.YESTERDAY,
     data: [],
   },
+  screenSupport: {
+    requestedTime: 'Last 7 days',
+    times: TIME_PERIODS,
+    startDate: timeSelectors.WEEK_AGO,
+    endDate: timeSelectors.YESTERDAY,
+    data: [],
+  },
 };
 
 export default (state = initialState, action) => {
@@ -97,6 +104,15 @@ export default (state = initialState, action) => {
         ...state,
         usersGraph: {
           ...state.usersGraph,
+          data: action.payload.data,
+        },
+      };
+
+    case types.GET_SCREEN_SUPPORT_SUCCESS:
+      return {
+        ...state,
+        screenSupport: {
+          ...state.screenSupport,
           data: action.payload.data,
         },
       };

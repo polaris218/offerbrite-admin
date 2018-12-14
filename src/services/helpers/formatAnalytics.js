@@ -100,3 +100,14 @@ export const formatUserStats = data => {
     'Session duration': sessionDuration,
   };
 };
+
+export const formatUserAppScreenData = data => data.map(screen => {
+  const [ views, uniqViews, avgDuration, exitPercent ] = screen.metrics[0].values;
+  return {
+    name: screen.dimensions[0],
+    views,
+    uniqViews,
+    avgDuration: makeTimeFromSeconds(parseInt(avgDuration)),
+    exitPercent: `${Number(exitPercent).toFixed(1)}%`,
+  };
+});

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { UserSessions, UserSessionsByDevice, SessionsByCountry } from 'components/Charts';
+import { AnalyticsScreenTable } from 'components/Tables';
 import styles from './styles.module.scss';
 
 import { actions as analyticsActions } from 'reducers/analytics';
@@ -13,6 +14,7 @@ class UserAnalytics extends Component {
     this.props.getUserStats();
     this.props.getUsersGraph();
     this.props.getSessionsByCountry();
+    this.props.getScreenSupport();
   }
 
   render() {
@@ -20,6 +22,7 @@ class UserAnalytics extends Component {
       sessions,
       sessionsByDevice,
       sessionsByCountry,
+      screenSupport,
       onChangeRequestedTime,
       userStats,
     } = this.props;
@@ -41,6 +44,12 @@ class UserAnalytics extends Component {
             time={sessionsByDevice.requestedTime}
           />
         </div>
+        <AnalyticsScreenTable
+          data={screenSupport.data}
+          onChangeTime={onChangeRequestedTime}
+          times={screenSupport.times}
+          time={screenSupport.requestedTime}
+        />
         <SessionsByCountry
           data={sessionsByCountry.data}
           totalSessions={sessionsByCountry.data.reduce((prev, cur) => prev + cur.count, 0)}
@@ -57,6 +66,7 @@ const mapStateToProps = state => ({
   sessions: state.analytics.sessions,
   sessionsByDevice: state.analytics.sessionsByDevice,
   sessionsByCountry: state.analytics.sessionsByCountry,
+  screenSupport: state.analytics.screenSupport,
   userStats: state.analytics.userStats,
 });
 
@@ -66,6 +76,7 @@ const mapDispatchToProps = dispatch => ({
   getSessionsByCountry: () => dispatch(analyticsActions.getSessionsByCountry()),
   getUserStats: () => dispatch(analyticsActions.getUserStats()),
   getUsersGraph: () => dispatch(analyticsActions.getUsersGraph()),
+  getScreenSupport: () => dispatch(analyticsActions.getScreenSupport()),
   onChangeRequestedTime: (time, dataSelector) => dispatch(analyticsActions.onChangeRequestedTime(time, dataSelector)),
 });
 

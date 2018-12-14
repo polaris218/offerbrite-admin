@@ -200,3 +200,8 @@ export const analyticsGetUsersGraph = (startDate, endDate) => authRequest(
   endpoints.ANALYTICS_GET_USERS_GRAPH(startDate, endDate), {
   method: 'GET',
 });
+
+export const analyticsGetScreenSupport = (startDate, endDate) => authRequest(
+  endpoints.ANALYTICS_GET_SCREEN_SUPPORT(startDate, endDate), {
+  method: 'GET',
+});
