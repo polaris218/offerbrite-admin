@@ -16,6 +16,13 @@ const initialState = {
     endDate: timeSelectors.YESTERDAY,
     data: [],
   },
+  sessionsByCountry: {
+    requestedTime: 'Last 7 days',
+    times: TIME_PERIODS,
+    startDate: timeSelectors.WEEK_AGO,
+    endDate: timeSelectors.YESTERDAY,
+    data: [],
+  },
   userStats: {
     data: {},
     previousData: null,
@@ -45,6 +52,15 @@ export default (state = initialState, action) => {
         ...state,
         sessionsByDevice: {
           ...state.sessionsByDevice,
+          data: action.payload.data,
+        },
+      };
+
+    case types.GET_SESSIONS_BY_COUNTRY_SUCCESS:
+      return {
+        ...state,
+        sessionsByCountry: {
+          ...state.sessionsByCountry,
           data: action.payload.data,
         },
       };

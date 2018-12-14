@@ -1,0 +1,32 @@
+@import '../../../resources.scss';
+
+.ProgressBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $colorGray;
+  }
+
+  &__label {
+    flex: 2;
+    text-align: center;
+    font-size: 1.25rem;
+  }
+
+  &__bar {
+    flex: 6;
+
+    &__symbol {
+      display: none;
+    }
+  }
+
+  &__description {
+    flex: 2;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+}

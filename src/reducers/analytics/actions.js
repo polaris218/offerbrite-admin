@@ -4,6 +4,7 @@ import {
   analyticsGetSessionsByDevice,
   analyticsGetUserStats,
   analyticsGetUsersGraph,
+  analyticsGetSessionsByCountry,
 } from 'services/api';
 
 import { formatDataByTime, formatDataByDevice, findTimes, findTimesForComparison, formatUserStats } from 'services/helpers';
@@ -50,6 +51,32 @@ export const getSessionsByDevice = () => async (dispatch, getState) => {
     console.log(error)
     console.log(error.response);
     dispatch({ type: types.GET_SESSIONS_BY_DEVICE_FAIL });
+  }
+};
+
+export const getSessionsByCountry = () => async (dispatch, getState) => {
+  const { startDate, endDate } = getState().analytics.sessionsByCountry;
+  dispatch({ type: types.GET_SESSIONS_BY_COUNTRY_START });
+
+  try {
+    const response = await analyticsGetSessionsByCountry(startDate, endDate);
+    console.log('SessionsByCountry', response);
+    if (response.status === 200 && response.data) {
+      const data = response.data.map(session => ({
+        country: session.dimensions[0],
+        count: Number(session.metrics[0].values[0]),
+      }));
+      dispatch({
+        type: types.GET_SESSIONS_BY_COUNTRY_SUCCESS,
+        payload: { data },
+      });
+    } else if (!response.data) {
+      alert('No data for this period');
+    }
+  } catch (error) {
+    console.log(error)
+    console.log(error.response);
+    dispatch({ type: types.GET_SESSIONS_BY_COUNTRY_FAIL });
   }
 };
 
@@ -138,6 +165,9 @@ export const onChangeRequestedTime = (requestedTime, dataSelector) => dispatch =
       break;
     case "sessionsByDevice":
       dispatch(getSessionsByDevice());
+      break;
+    case "sessionsByCountry":
+      dispatch(getSessionsByCountry());
       break;
     default:
       dispatch(getSessions());

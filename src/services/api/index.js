@@ -186,6 +186,11 @@ export const analyticsGetSessionsByDevice = (startDate, endDate) => authRequest(
   method: 'GET',
 });
 
+export const analyticsGetSessionsByCountry = (startDate, endDate) => authRequest(
+  endpoints.ANALYTICS_GET_SESSIONS_BY_COUNTRY(startDate, endDate), {
+  method: 'GET',
+});
+
 export const analyticsGetUserStats = (startDate, endDate) => authRequest(
   endpoints.ANALYTICS_GET_USER_STATS(startDate, endDate), {
   method: 'GET',
