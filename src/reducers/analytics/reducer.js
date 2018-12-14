@@ -18,7 +18,7 @@ const initialState = {
   },
   userStats: {
     data: {},
-    previousData: {},
+    previousData: null,
   },
   usersGraph: {
     requestedTime: 'Last 7 days',
@@ -64,6 +64,15 @@ export default (state = initialState, action) => {
         userStats: {
           ...state.userStats,
           previousData: action.payload.previousData,
+        },
+      };
+
+    case types.GET_USER_PREVIOUS_STATS_FAIL:
+      return {
+        ...state,
+        userStats: {
+          ...state.userStats,
+          previousData: null,
         },
       };
 

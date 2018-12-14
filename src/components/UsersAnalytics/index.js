@@ -15,7 +15,7 @@ class UserAnalytics extends Component {
   }
 
   render() {
-    const { sessions, sessionsByDevice, onChangeRequestedTime } = this.props;
+    const { sessions, sessionsByDevice, onChangeRequestedTime, userStats } = this.props;
 
     return (
       <div className={styles.UserAnalytics__row}>
@@ -24,6 +24,7 @@ class UserAnalytics extends Component {
           onChangeTime={onChangeRequestedTime}
           times={sessions.times}
           time={sessions.requestedTime}
+          userStats={userStats}
         />
         <UserSessionsByDevice
           data={sessionsByDevice.data}
@@ -40,6 +41,7 @@ class UserAnalytics extends Component {
 const mapStateToProps = state => ({
   sessions: state.analytics.sessions,
   sessionsByDevice: state.analytics.sessionsByDevice,
+  userStats: state.analytics.userStats,
 });
 
 const mapDispatchToProps = dispatch => ({

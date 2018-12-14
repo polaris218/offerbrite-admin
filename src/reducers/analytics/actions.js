@@ -79,6 +79,8 @@ export const getUserStats = () => async (dispatch, getState) => {
             type: types.GET_USER_PREVIOUS_STATS_SUCCESS,
             payload: { previousData },
           });
+        } else {
+          dispatch({ type: types.GET_USER_PREVIOUS_STATS_FAIL });
         }
       } catch (error) {
         console.log(error)

@@ -93,10 +93,10 @@ export const formatUserStats = data => {
   const sessionDuration = makeTimeFromSeconds(seconds);
 
   return {
-    users: Number(values[0]),
-    sessions: Number(values[1]),
-    newUsers: Number(values[2]),
+    Users: Number(values[0]),
+    Sessions: Number(values[1]),
+    'New users': Number(values[2]),
     sessionInSeconds: seconds,
-    sessionDuration,
+    'Session duration': sessionDuration,
   };
 };

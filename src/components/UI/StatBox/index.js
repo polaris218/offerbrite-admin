@@ -19,7 +19,11 @@ const StatBox = ({ label, value, icon, additionalValue }) => (
       </div>
       {
         additionalValue &&
-        <div className={styles.StatBox__data__additionalValue}>
+        <div className={
+          additionalValue.includes('↓')
+          ? styles.StatBox__data__additionalValue_red
+          : styles.StatBox__data__additionalValue_green
+        }>
           {additionalValue}
         </div>
       }
