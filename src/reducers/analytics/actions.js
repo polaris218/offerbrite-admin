@@ -4,7 +4,7 @@ import {
   analyticsGetSessionsByDevice,
 } from 'services/api';
 
-import { formatDataByTime, findTimes } from 'services/helpers';
+import { formatDataByTime, formatDataByDevice, findTimes } from 'services/helpers';
 
 export const getSessions = () => async (dispatch, getState) => {
   const { startDate, endDate, requestedTime } = getState().analytics.sessions;
@@ -35,13 +35,14 @@ export const getSessionsByDevice = () => async (dispatch, getState) => {
 
   try {
     const response = await analyticsGetSessionsByDevice(startDate, endDate);
-    if (response.status === 200) {
-      console.log(response.data);
-      // const data = formatDataByTime(response.data, requestedTime);
-      // dispatch({
-      //   type: types.GET_SESSIONS_BY_DEVICE_SUCCESS,
-      //   payload: { data },
-      // });
+   if (response.status === 200 && response.data) {
+      const data = formatDataByDevice(response.data, requestedTime);
+      dispatch({
+        type: types.GET_SESSIONS_BY_DEVICE_SUCCESS,
+        payload: { data },
+      });
+    } else if (!response.data) {
+      alert('No data for this period');
     }
   } catch (error) {
     console.log(error)
@@ -65,6 +66,9 @@ export const onChangeRequestedTime = (requestedTime, dataSelector) => dispatch =
   switch (dataSelector) {
     case "sessions":
       dispatch(getSessions());
+      break;
+    case "sessionsByDevice":
+      dispatch(getSessionsByDevice());
       break;
     default:
       dispatch(getSessions());

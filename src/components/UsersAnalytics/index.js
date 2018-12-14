@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { UserSessions } from 'components/Charts';
+import { UserSessions, UserSessionsByDevice } from 'components/Charts';
+import styles from './styles.module.scss';
 
 import { actions as analyticsActions } from 'reducers/analytics';
 
@@ -12,21 +13,31 @@ class UserAnalytics extends Component {
   }
 
   render() {
-    const { sessions, onChangeRequestedTime } = this.props;
+    const { sessions, sessionsByDevice, onChangeRequestedTime } = this.props;
 
     return (
-      <UserSessions
-        data={sessions.data}
-        onChangeTime={onChangeRequestedTime}
-        times={sessions.times}
-        time={sessions.requestedTime}
-      />
+      <div className={styles.UserAnalytics__row}>
+        <UserSessions
+          data={sessions.data}
+          onChangeTime={onChangeRequestedTime}
+          times={sessions.times}
+          time={sessions.requestedTime}
+        />
+        <UserSessionsByDevice
+          data={sessionsByDevice.data}
+          onChangeTime={onChangeRequestedTime}
+          times={sessionsByDevice.times}
+          time={sessionsByDevice.requestedTime}
+        />
+      </div>
+      
     );
   }
 }
 
 const mapStateToProps = state => ({
   sessions: state.analytics.sessions,
+  sessionsByDevice: state.analytics.sessionsByDevice,
 });
 
 const mapDispatchToProps = dispatch => ({

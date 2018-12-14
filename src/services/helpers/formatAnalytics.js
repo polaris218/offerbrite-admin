@@ -70,3 +70,12 @@ export const formatDataByTime = (data, period) => {
       return formatByAllTime(data);
   }
 };
+
+export const formatDataByDevice = data => {
+  const hundredPercent = data.reduce((prev, cur) => prev + Number(cur.metrics[0].values[0]), 0);
+  return data.map(session => ({
+    device: session.dimensions[0],
+    count: session.metrics[0].values[0],
+    percent: `${Math.floor(Number(session.metrics[0].values[0]) / hundredPercent * 100)}%`,
+  }))
+};

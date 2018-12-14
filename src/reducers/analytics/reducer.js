@@ -29,6 +29,15 @@ export default (state = initialState, action) => {
         },
       };
 
+    case types.GET_SESSIONS_BY_DEVICE_SUCCESS:
+      return {
+        ...state,
+        sessionsByDevice: {
+          ...state.sessionsByDevice,
+          data: action.payload.data,
+        },
+      };
+
     case types.ON_CHANGE_REQUESTED_TIME:
       const dataSelector = Object.keys(action.payload)[0];
       return {

@@ -39,5 +39,4 @@ export const UserSessions = ({ data, onChangeTime, time, times }) => (
       
     </div>
   </div>
-  
 );
