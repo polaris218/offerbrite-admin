@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Progress } from 'react-sweet-progress';
 import Tooltip from 'react-tooltip-lite';
 import 'react-sweet-progress/lib/style.css';
-
 import styles from './styles.module.scss';
 
 class ProgressBar extends Component {
