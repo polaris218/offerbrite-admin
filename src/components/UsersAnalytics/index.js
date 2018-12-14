@@ -10,6 +10,8 @@ class UserAnalytics extends Component {
   componentDidMount() {
     this.props.getSessions();
     this.props.getSessionsByDevice();
+    this.props.getUserStats();
+    this.props.getUsersGraph();
   }
 
   render() {
@@ -43,6 +45,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getSessions: () => dispatch(analyticsActions.getSessions()),
   getSessionsByDevice: () => dispatch(analyticsActions.getSessionsByDevice()),
+  getUserStats: () => dispatch(analyticsActions.getUserStats()),
+  getUsersGraph: () => dispatch(analyticsActions.getUsersGraph()),
   onChangeRequestedTime: (time, dataSelector) => dispatch(analyticsActions.onChangeRequestedTime(time, dataSelector)),
 });
 

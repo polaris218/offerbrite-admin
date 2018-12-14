@@ -1,6 +1,13 @@
 import moment from 'moment';
 
-import { timeSelectors, parsers, TIME_PERIODS } from 'services/helpers';
+import { analyticsGetUserStats } from 'services/api';
+import {
+  timeSelectors,
+  parsers,
+  TIME_PERIODS,
+  findTimesForComparison,
+  makeTimeFromSeconds,
+} from 'services/helpers';
 
 const { WEEK_AGO, MONTH_AGO, YEAR_AGO, BEGGINING } = timeSelectors;
 const { byDay, byWeekDay, byDate, byMonth, byYear } = parsers;
@@ -78,4 +85,18 @@ export const formatDataByDevice = data => {
     count: session.metrics[0].values[0],
     percent: `${Math.floor(Number(session.metrics[0].values[0]) / hundredPercent * 100)}%`,
   }))
+};
+
+export const formatUserStats = data => {  
+  const { values } = data[0].metrics[0];
+  const seconds = Math.floor(parseInt(values[3]) / Number(values[1]));
+  const sessionDuration = makeTimeFromSeconds(seconds);
+
+  return {
+    users: Number(values[0]),
+    sessions: Number(values[1]),
+    newUsers: Number(values[2]),
+    sessionInSeconds: seconds,
+    sessionDuration,
+  };
 };

@@ -2,9 +2,11 @@ import types from './types';
 import {
   analyticsGetSessions,
   analyticsGetSessionsByDevice,
+  analyticsGetUserStats,
+  analyticsGetUsersGraph,
 } from 'services/api';
 
-import { formatDataByTime, formatDataByDevice, findTimes } from 'services/helpers';
+import { formatDataByTime, formatDataByDevice, findTimes, findTimesForComparison, formatUserStats } from 'services/helpers';
 
 export const getSessions = () => async (dispatch, getState) => {
   const { startDate, endDate, requestedTime } = getState().analytics.sessions;
@@ -51,6 +53,70 @@ export const getSessionsByDevice = () => async (dispatch, getState) => {
   }
 };
 
+export const getUserStats = () => async (dispatch, getState) => {
+  const { startDate, endDate, requestedTime } = getState().analytics.sessions;
+  dispatch({ type: types.GET_USER_STATS_START });
+
+  try {
+    const response = await analyticsGetUserStats(startDate, endDate);
+    console.log(response);
+    if (response.status === 200 && response.data) {
+      const data = formatUserStats(response.data, requestedTime);
+      console.log('data', data);
+      dispatch({
+        type: types.GET_USER_STATS_SUCCESS,
+        payload: { data },
+      });
+      const { startDate: previousStartDate, endDate: previousEndDate } = findTimesForComparison(requestedTime);
+      console.log('previousStartDate', previousStartDate);
+      console.log('previousEndDate', previousEndDate);
+      try {
+        const previousResponse = await analyticsGetUserStats(previousStartDate, previousEndDate);
+        console.log('previousResponse',previousResponse)
+        if (previousResponse.status === 200 && previousResponse.data) {
+          const previousData = formatUserStats(previousResponse.data, requestedTime);
+          dispatch({
+            type: types.GET_USER_PREVIOUS_STATS_SUCCESS,
+            payload: { previousData },
+          });
+        }
+      } catch (error) {
+        console.log(error)
+        console.log(error.response);
+      }
+    } else if (!response.data) {
+      alert('No data for this period');
+    }
+  } catch (error) {
+    console.log(error)
+    console.log(error.response);
+    dispatch({ type: types.GET_USER_STATS_FAIL });
+  }
+};
+
+export const getUsersGraph = () => async (dispatch, getState) => {
+  const { startDate, endDate, requestedTime } = getState().analytics.usersGraph;
+  dispatch({ type: types.GET_USERS_GRAPH_START });
+
+  try {
+    const response = await analyticsGetUsersGraph(startDate, endDate);
+    console.log('Users Graph', response);
+  //  if (response.status === 200 && response.data) {
+  //     const data = formatDataByDevice(response.data, requestedTime);
+  //     dispatch({
+  //       type: types.GET_USERS_GRAPH_SUCCESS,
+  //       payload: { data },
+  //     });
+  //   } else if (!response.data) {
+  //     alert('No data for this period');
+  //   }
+  } catch (error) {
+    console.log(error)
+    console.log(error.response);
+    dispatch({ type: types.GET_USERS_GRAPH_FAIL });
+  }
+};
+
 export const onChangeRequestedTime = (requestedTime, dataSelector) => dispatch => {
   const { startDate, endDate } = findTimes(requestedTime);
   dispatch({
@@ -66,6 +132,7 @@ export const onChangeRequestedTime = (requestedTime, dataSelector) => dispatch =
   switch (dataSelector) {
     case "sessions":
       dispatch(getSessions());
+      dispatch(getUserStats());
       break;
     case "sessionsByDevice":
       dispatch(getSessionsByDevice());

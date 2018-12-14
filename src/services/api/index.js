@@ -185,3 +185,13 @@ export const analyticsGetSessionsByDevice = (startDate, endDate) => authRequest(
   endpoints.ANALYTICS_GET_SESSIONS_BY_DEVICE(startDate, endDate), {
   method: 'GET',
 });
+
+export const analyticsGetUserStats = (startDate, endDate) => authRequest(
+  endpoints.ANALYTICS_GET_USER_STATS(startDate, endDate), {
+  method: 'GET',
+});
+
+export const analyticsGetUsersGraph = (startDate, endDate) => authRequest(
+  endpoints.ANALYTICS_GET_USERS_GRAPH(startDate, endDate), {
+  method: 'GET',
+});

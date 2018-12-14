@@ -35,4 +35,6 @@ export default {
 
   ANALYTICS_GET_SESSIONS: (startDate, endDate) => `${API_URL}/ga-report/sessionsGraph/${startDate}/${endDate}`,
   ANALYTICS_GET_SESSIONS_BY_DEVICE: (startDate, endDate) => `${API_URL}/ga-report/sessiondevice/${startDate}/${endDate}`,
+  ANALYTICS_GET_USER_STATS: (startDate, endDate) => `${API_URL}/ga-report/userstata/${startDate}/${endDate}`,
+  ANALYTICS_GET_USERS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/usersGraph/${startDate}/${endDate}`,
 };

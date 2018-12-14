@@ -16,6 +16,17 @@ const initialState = {
     endDate: timeSelectors.YESTERDAY,
     data: [],
   },
+  userStats: {
+    data: {},
+    previousData: {},
+  },
+  usersGraph: {
+    requestedTime: 'Last 7 days',
+    times: TIME_PERIODS,
+    startDate: timeSelectors.WEEK_AGO,
+    endDate: timeSelectors.YESTERDAY,
+    data: [],
+  },
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +45,33 @@ export default (state = initialState, action) => {
         ...state,
         sessionsByDevice: {
           ...state.sessionsByDevice,
+          data: action.payload.data,
+        },
+      };
+
+    case types.GET_USER_STATS_SUCCESS:
+      return {
+        ...state,
+        userStats: {
+          ...state.userStats,
+          data: action.payload.data,
+        },
+      };
+
+    case types.GET_USER_PREVIOUS_STATS_SUCCESS:
+      return {
+        ...state,
+        userStats: {
+          ...state.userStats,
+          previousData: action.payload.previousData,
+        },
+      };
+
+    case types.GET_USERS_GRAPH_SUCCESS:
+      return {
+        ...state,
+        usersGraph: {
+          ...state.usersGraph,
           data: action.payload.data,
         },
       };

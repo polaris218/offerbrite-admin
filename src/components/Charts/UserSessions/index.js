@@ -27,7 +27,7 @@ export const UserSessions = ({ data, onChangeTime, time, times }) => (
       </div>
       <ResponsiveContainer width="100%" minWidth={600} height="80%">
         <LineChart data={data} margin={{ top: 5, right: 50, bottom: 5, left: 0 }}>
-          <Line type="linear" dataKey="count" name="sessions" stroke="#FFB018" />
+          <Line type="linear" dataKey="count" name="sessions" stroke="#FFB018" strokeWidth={3} />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <XAxis dataKey="date" />
           <YAxis />

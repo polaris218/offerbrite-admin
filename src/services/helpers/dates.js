@@ -57,3 +57,50 @@ export const findTimes = timePeriod => {
       };
   }
 };
+
+export const findTimesForComparison = requestedTime => {
+  const { WEEK_AGO, YESTERDAY, MONTH_AGO, YEAR_AGO, BEGGINING } = timeSelectors;
+  switch (requestedTime) {
+    case TIME_PERIODS[0]:
+      return {
+        startDate: YESTERDAY,
+        endDate: YESTERDAY,
+      };
+    case TIME_PERIODS[1]:
+      return {
+        startDate: moment(WEEK_AGO).subtract(7, 'd').format(DATE_FORMAT),
+        endDate: WEEK_AGO,
+      };
+    case TIME_PERIODS[2]:
+      return {
+        startDate: moment(MONTH_AGO).subtract(30, 'd').format(DATE_FORMAT),
+        endDate: MONTH_AGO,
+      };
+    case TIME_PERIODS[3]:
+      return {
+        startDate: moment(YEAR_AGO).subtract(12, 'M').format(DATE_FORMAT),
+        endDate: YEAR_AGO,
+      };
+    default:
+      return {
+        startDate: BEGGINING,
+        endDate: YESTERDAY,
+      };
+  }
+};
+
+export const makeTimeFromSeconds = seconds => {
+  const time = {
+    hours: `${Math.floor(moment.duration(seconds,'seconds').asHours())}`,
+    minutes: `${moment.duration(seconds,'seconds').minutes()}`,
+    seconds: `${moment.duration(seconds,'seconds').seconds()}`,
+  };
+  return Object.values(time)
+    .map(timePart => {
+      if (timePart.length === 1) {
+        return `0${timePart}`;
+      }
+      return timePart;
+    })
+    .join(':');
+};
