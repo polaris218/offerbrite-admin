@@ -32,4 +32,13 @@ export default {
   GET_CATEGORIES: `${API_URL}/categories?all=true`,
 
   CHECK_HEALTH: `${API_URL}/health-check`,
+
+  ANALYTICS_GET_SESSIONS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/sessionsGraph/${startDate}/${endDate}`,
+  ANALYTICS_GET_USERS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/usersGraph/${startDate}/${endDate}`,
+  ANALYTICS_GET_SESSION_DURATION_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/sessionDurationGraph/${startDate}/${endDate}`,
+  
+  ANALYTICS_GET_USER_STATS: (startDate, endDate) => `${API_URL}/ga-report/userstata/${startDate}/${endDate}`,
+  ANALYTICS_GET_SESSIONS_BY_DEVICE: (startDate, endDate) => `${API_URL}/ga-report/sessiondevice/${startDate}/${endDate}`,
+  ANALYTICS_GET_SESSIONS_BY_COUNTRY: (startDate, endDate) => `${API_URL}/ga-report/country/${startDate}/${endDate}`,
+  ANALYTICS_GET_SCREEN_SUPPORT: (startDate, endDate) => `${API_URL}/ga-report/screensuport/${startDate}/${endDate}`,
 };

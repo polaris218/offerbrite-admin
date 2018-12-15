@@ -1,0 +1,26 @@
+@import '../../../resources.scss';
+
+.Chart {
+  width: 70%;
+  min-width: 650px;
+  margin-top: 2rem;
+  background-color: $colorWhite;
+  border: 1px solid $colorGray;
+  border-radius: 5px;
+  padding-bottom: 1rem;
+  padding: 10px 20px;
+
+  &__header {
+    display: flex;
+    width: 100%;
+    min-width: 650px;
+    justify-content: space-between;
+    align-items: center;
+    // padding: 10px 20px;
+  }
+
+  &__header__text {
+    font-weight: normal;
+    font-size: 1.25rem;
+  }
+}

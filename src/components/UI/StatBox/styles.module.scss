@@ -1,0 +1,41 @@
+@import '../../../resources.scss';
+
+.StatBox {
+  display: flex;
+  flex: 1;
+  padding: 0.5rem 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $colorGray;
+  }
+
+  &__icon {
+    margin-right: 1rem;
+  }
+
+  &__data {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__label {
+      font-size: 1rem;
+      color:  $colorGray;
+    }
+
+    &__value {
+      font-size: 2.5rem;
+    }
+
+    &__additionalValue_green {
+      color: $colorGreen;
+      font-size: 1rem;
+    }
+
+    &__additionalValue_red {
+      color: $colorPink;
+      font-size: 1rem;
+    }
+  }
+}
