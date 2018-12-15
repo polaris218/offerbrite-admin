@@ -1,12 +1,10 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
 import PageTitle from 'components/PageTitle';
 import TabBar from 'components/UI/TabBar';
 import Tab from 'components/UI/Tab';
 import UsersAnalytics from 'components/UsersAnalytics';
-import styles from './styles.module.scss';
+import BusinessAnalytics from 'components/BusinessAnalytics';
 
 const tabs = {
   _1: 'Users',
@@ -24,8 +22,9 @@ class Analytics extends Component {
 
   render() {
     const { activeTab } = this.state;
+
     return (
-      <div className={styles.Analytics}>
+      <div style={{ paddingBottom: 50 }}>
         <PageTitle title="Analytics" />
         <TabBar>
           <Tab
@@ -42,19 +41,11 @@ class Analytics extends Component {
         {
           activeTab === tabs._1 ?
             <UsersAnalytics /> :
-            null
+            <BusinessAnalytics />
         }
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-
-});
-
-const mapDispatchToProps = dispatch => ({
-  
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Analytics);
+export default Analytics;

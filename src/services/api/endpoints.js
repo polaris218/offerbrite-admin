@@ -33,12 +33,21 @@ export default {
 
   CHECK_HEALTH: `${API_URL}/health-check`,
 
-  ANALYTICS_GET_SESSIONS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/sessionsGraph/${startDate}/${endDate}`,
-  ANALYTICS_GET_USERS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/usersGraph/${startDate}/${endDate}`,
-  ANALYTICS_GET_SESSION_DURATION_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/sessionDurationGraph/${startDate}/${endDate}`,
+  ANALYTICS_USER_GET_SESSIONS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/sessionsGraph/${startDate}/${endDate}`,
+  ANALYTICS_USER_GET_USERS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/usersGraph/${startDate}/${endDate}`,
+  ANALYTICS_USER_GET_SESSION_DURATION_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/sessionDurationGraph/${startDate}/${endDate}`,
   
-  ANALYTICS_GET_USER_STATS: (startDate, endDate) => `${API_URL}/ga-report/userstata/${startDate}/${endDate}`,
-  ANALYTICS_GET_SESSIONS_BY_DEVICE: (startDate, endDate) => `${API_URL}/ga-report/sessiondevice/${startDate}/${endDate}`,
-  ANALYTICS_GET_SESSIONS_BY_COUNTRY: (startDate, endDate) => `${API_URL}/ga-report/country/${startDate}/${endDate}`,
-  ANALYTICS_GET_SCREEN_SUPPORT: (startDate, endDate) => `${API_URL}/ga-report/screensuport/${startDate}/${endDate}`,
+  ANALYTICS_USER_GET_USER_STATS: (startDate, endDate) => `${API_URL}/ga-report/userstata/${startDate}/${endDate}`,
+  ANALYTICS_USER_GET_SESSIONS_BY_DEVICE: (startDate, endDate) => `${API_URL}/ga-report/sessiondevice/${startDate}/${endDate}`,
+  ANALYTICS_USER_GET_SESSIONS_BY_COUNTRY: (startDate, endDate) => `${API_URL}/ga-report/country/${startDate}/${endDate}`,
+  ANALYTICS_USER_GET_SCREEN_SUPPORT: (startDate, endDate) => `${API_URL}/ga-report/screensuport/${startDate}/${endDate}`,
+  
+  ANALYTICS_BUSINESS_GET_SESSIONS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/sessionsGraphBusiness/${startDate}/${endDate}`,
+  ANALYTICS_BUSINESS_GET_USERS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/usersGraphBusiness/${startDate}/${endDate}`,
+  ANALYTICS_BUSINESS_GET_SESSION_DURATION_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/sessionDurationGraphBusiness/${startDate}/${endDate}`,
+  
+  ANALYTICS_BUSINESS_GET_USER_STATS: (startDate, endDate) => `${API_URL}/ga-report/userstataBusiness/${startDate}/${endDate}`,
+  ANALYTICS_BUSINESS_GET_SESSIONS_BY_DEVICE: (startDate, endDate) => `${API_URL}/ga-report/sessiondeviceBusiness/${startDate}/${endDate}`,
+  ANALYTICS_BUSINESS_GET_SESSIONS_BY_COUNTRY: (startDate, endDate) => `${API_URL}/ga-report/countryBusiness/${startDate}/${endDate}`,
+  ANALYTICS_BUSINESS_GET_SCREEN_SUPPORT: (startDate, endDate) => `${API_URL}/ga-report/screensuportBusiness/${startDate}/${endDate}`,
 };

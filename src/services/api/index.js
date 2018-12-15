@@ -5,6 +5,8 @@ import endpoints from './endpoints';
 import { store } from '../../index';
 import { actions as sessionActions } from 'reducers/session';
 
+export * from './analytics';
+
 export const getAccessToken = refreshToken => axios({
   url: endpoints.GET_ACCESS_TOKEN,
   headers: { Authorization: `Bearer ${refreshToken}` },
@@ -74,7 +76,7 @@ const validateTokens = async () => {
   }
 };
 
-const authRequest = async (url, options = {}) => {
+export const authRequest = async (url, options = {}) => {
   try {
     const accessToken = await validateTokens();
     if (accessToken) {
@@ -174,39 +176,4 @@ export const getReports = (limit, skip) => authRequest(endpoints.GET_REPORTS(lim
 
 export const deleteReport = reportId => authRequest(endpoints.DELETE_REPORT(reportId), {
   method: 'DELETE',
-});
-
-export const analyticsGetSessions = (startDate, endDate) => authRequest(
-  endpoints.ANALYTICS_GET_SESSIONS_GRAPH(startDate, endDate), {
-  method: 'GET',
-});
-
-export const analyticsGetSessionsByDevice = (startDate, endDate) => authRequest(
-  endpoints.ANALYTICS_GET_SESSIONS_BY_DEVICE(startDate, endDate), {
-  method: 'GET',
-});
-
-export const analyticsGetSessionsByCountry = (startDate, endDate) => authRequest(
-  endpoints.ANALYTICS_GET_SESSIONS_BY_COUNTRY(startDate, endDate), {
-  method: 'GET',
-});
-
-export const analyticsGetUserStats = (startDate, endDate) => authRequest(
-  endpoints.ANALYTICS_GET_USER_STATS(startDate, endDate), {
-  method: 'GET',
-});
-
-export const analyticsGetUsersGraph = (startDate, endDate) => authRequest(
-  endpoints.ANALYTICS_GET_USERS_GRAPH(startDate, endDate), {
-  method: 'GET',
-});
-
-export const analyticsGetSessionDurationGraph = (startDate, endDate) => authRequest(
-  endpoints.ANALYTICS_GET_SESSION_DURATION_GRAPH(startDate, endDate), {
-  method: 'GET',
-});
-
-export const analyticsGetScreenSupport = (startDate, endDate) => authRequest(
-  endpoints.ANALYTICS_GET_SCREEN_SUPPORT(startDate, endDate), {
-  method: 'GET',
 });

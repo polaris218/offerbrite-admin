@@ -64,6 +64,11 @@ $hamburger-active-hover-opacity: $hamburger-hover-opacity;
       @content;
     }
   }
+  @if $breakpoint == lgm {
+    @media only screen and (max-width: 1600px) {
+      @content;
+    }
+  }
   @if $breakpoint == xl {
     @media only screen and (max-width: 1920px) {
       @content;

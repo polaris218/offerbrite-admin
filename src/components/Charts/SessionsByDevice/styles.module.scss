@@ -11,6 +11,10 @@
   border: 1px solid $colorGray;
   border-radius: 5px;
 
+  @include respond(lgm) {
+    margin-top: 2rem;
+  }
+
   &__header {
     display: flex;
     width: 100%;

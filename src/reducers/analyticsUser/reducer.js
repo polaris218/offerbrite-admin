@@ -50,13 +50,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.ON_CHANGE_GRAPH_MODE:
+    case types.USER_ON_CHANGE_GRAPH_MODE:
       return {
         ...state,
         selectedGraphMode: action.payload.mode,
       };
 
-    case types.GET_SESSIONS_SUCCESS:
+    case types.USER_GET_SESSIONS_SUCCESS:
       return {
         ...state,
         sessions: {
@@ -65,7 +65,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case types.GET_SESSIONS_BY_DEVICE_SUCCESS:
+    case types.USER_GET_SESSIONS_BY_DEVICE_SUCCESS:
       return {
         ...state,
         sessionsByDevice: {
@@ -74,7 +74,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case types.GET_SESSIONS_BY_COUNTRY_SUCCESS:
+    case types.USER_GET_SESSIONS_BY_COUNTRY_SUCCESS:
       return {
         ...state,
         sessionsByCountry: {
@@ -83,7 +83,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case types.GET_USER_STATS_SUCCESS:
+    case types.USER_GET_USER_STATS_SUCCESS:
       return {
         ...state,
         userStats: {
@@ -92,7 +92,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case types.GET_USER_PREVIOUS_STATS_SUCCESS:
+    case types.USER_GET_USER_PREVIOUS_STATS_SUCCESS:
       return {
         ...state,
         userStats: {
@@ -101,7 +101,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case types.GET_USER_PREVIOUS_STATS_FAIL:
+    case types.USER_GET_USER_PREVIOUS_STATS_FAIL:
       return {
         ...state,
         userStats: {
@@ -110,7 +110,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case types.GET_USERS_GRAPH_SUCCESS:
+    case types.USER_GET_USERS_GRAPH_SUCCESS:
       return {
         ...state,
         usersGraph: {
@@ -119,7 +119,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case types.GET_SESSION_DURATION_GRAPH_SUCCESS:
+    case types.USER_GET_SESSION_DURATION_GRAPH_SUCCESS:
       return {
         ...state,
         sessionDurationGraph: {
@@ -128,7 +128,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case types.GET_SCREEN_SUPPORT_SUCCESS:
+    case types.USER_GET_SCREEN_SUPPORT_SUCCESS:
       return {
         ...state,
         screenSupport: {
@@ -137,7 +137,7 @@ export default (state = initialState, action) => {
         },
       };
 
-    case types.ON_CHANGE_REQUESTED_TIME:
+    case types.USER_ON_CHANGE_REQUESTED_TIME:
       const dataSelector = Object.keys(action.payload)[0];
       return {
         ...state,

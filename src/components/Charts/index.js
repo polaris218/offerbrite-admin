@@ -1,3 +1,3 @@
 export * from './Graph';
-export * from './UserSessionsByDevice';
+export * from './SessionsByDevice';
 export * from './SessionsByCountry';

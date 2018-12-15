@@ -4,7 +4,8 @@ import { reducer as requestReducer } from './request';
 import { reducer as usersReducer } from './users';
 import { reducer as companiesReducer } from './companies';
 import { reducer as offersReducer } from './offers';
-import { reducer as analyticsReducer } from './analytics';
+import { reducer as analyticsUserReducer } from './analyticsUser';
+import { reducer as analyticsBusinessReducer } from './analyticsBusiness';
 import { reducer as settingsReducer } from './settings';
 import { reducer as adminsReducer } from './admins';
 import { reducer as reportsReducer } from './reports';
@@ -15,7 +16,8 @@ export default combineReducers({
   users: usersReducer,
   companies: companiesReducer,
   offers: offersReducer,
-  analytics: analyticsReducer,
+  analyticsUser: analyticsUserReducer,
+  analyticsBusiness: analyticsBusinessReducer,
   settings: settingsReducer,
   admins: adminsReducer,
   reports: reportsReducer,
