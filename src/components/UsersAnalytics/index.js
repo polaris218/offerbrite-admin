@@ -41,8 +41,8 @@ class UserAnalytics extends Component {
     }
 
     return (
-      <Fragment>
-        <div className={styles.UserAnalytics__row}>
+      <div className={styles.UserAnalytics}>
+        
           <Graph
             data={graphData}
             onChangeTime={onChangeRequestedTime}
@@ -59,7 +59,7 @@ class UserAnalytics extends Component {
             times={sessionsByDevice.times}
             time={sessionsByDevice.requestedTime}
           />
-        </div>
+        
         <AnalyticsScreenTable
           data={screenSupport.data}
           onChangeTime={onChangeRequestedTime}
@@ -73,7 +73,7 @@ class UserAnalytics extends Component {
           times={sessionsByCountry.times}
           time={sessionsByCountry.requestedTime}
         />
-      </Fragment>
+      </div>
     );
   }
 }
