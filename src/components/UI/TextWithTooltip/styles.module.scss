@@ -7,6 +7,6 @@
   &__icon {
     color: $colorGray;
     margin-left: 0.7rem;
-    font-size: 2rem;
+    @include fontSize(xl);
   }
 }

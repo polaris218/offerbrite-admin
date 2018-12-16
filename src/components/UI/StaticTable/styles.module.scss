@@ -2,12 +2,12 @@
 
 .Table {
   display: flex;
-  background-color: $colorWhite;
-  border-radius: 4px;
+  @include backgroundWhite;
+  @include borderRadiusLight;
   
   &__column {
     flex: 1;
-    border: 1px solid $colorGray;
+    @include borderLight;
     
     &:first-of-type {
       border-top-left-radius: 4px;
@@ -37,5 +37,4 @@
   &__column__cell {
     padding: 1rem 3.5rem;
   }
-  
 }

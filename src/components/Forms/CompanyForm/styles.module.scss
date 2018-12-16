@@ -1,7 +1,7 @@
 @import '../../../resources.scss';
 
 .CompanyForm {
-  background-color: $colorWhite;
+  @include backgroundWhite;
 
   &__header {
     background-color: $colorGray;

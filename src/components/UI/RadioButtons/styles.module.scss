@@ -3,12 +3,11 @@
 .RadioButtons {
   display: flex;
   flex-direction: column;
-  font-size: 1.5rem;
+  @include fontSize(lg);
   
   &__button {
     display: flex;
     align-items: center;
-    // flex-shrink: 1;
     margin: 10px 0;
     cursor: pointer;
 
@@ -16,7 +15,7 @@
 
   &__icon {
     color: $colorPrimaryMedium;
-    font-size: 2rem;
+    @include fontSize(xl);
     margin-right: 1rem;
   }
 }

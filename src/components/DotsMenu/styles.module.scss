@@ -15,9 +15,7 @@
     cursor: pointer;
     
     &__dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
+      @include circle(5px);
     }
 
     &__dot_active {
@@ -46,7 +44,7 @@
       width: 1rem;
       height: 1rem;
       transform: rotate(45deg);
-      background-color: $colorWhite;
+      @include backgroundWhite;
     }
 
     &__item {
@@ -83,7 +81,7 @@
 
     &__item__icon {
       margin-right: 1rem;
-      font-size: 1.5rem;
+      @include fontSize(lg);
     }
   }
 }

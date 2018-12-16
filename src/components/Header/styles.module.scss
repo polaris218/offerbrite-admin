@@ -18,14 +18,12 @@
 
   &__dropdown__row {
     width: 14.5rem;
-    display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    @include flexBetweenCenter;
     padding: 1.5rem 2.5rem;
-    border-radius: 4px;
-    border: 1px solid $colorGray;
-    transition: all 0.2s;
+    @include borderLight;
+    @include borderRadiusLight;
+    @include transition;
     background-color: $colorGrayLight;
 
     &:first-of-type {

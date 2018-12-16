@@ -7,26 +7,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: $colorWhite;
-  border: 1px solid $colorGray;
-  border-radius: 5px;
+  @include backgroundWhite;
+  @include borderLight;
+  @include borderRadius;
 
   @include respond(lgm) {
-    margin-top: 2rem;
+    margin-top: $contentMarginTop;
   }
 
   &__header {
-    display: flex;
-    width: 100%;
-    min-width: 400px;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
+    @include fullWidthWithMin(400px);
+    @include flexBetweenCenter;
+    @include graphPadding;
   }
 
   &__header__text {
-    font-weight: normal;
-    font-size: 1.25rem;
+    @include graphHeaderFont;
   }
 
   &__data {

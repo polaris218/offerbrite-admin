@@ -9,7 +9,7 @@
   &__description {
     max-width: 50rem;
     color: $colorGrayMedium;
-    font-size: 1.25rem;
+    @include fontSize(md);
     line-height: 1.75rem;
     margin-bottom: $contentMarginTop;
   }

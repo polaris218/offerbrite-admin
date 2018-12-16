@@ -77,14 +77,14 @@ body {
 :global .ReactTable .rt-td {
   padding: 1.25rem 1.5rem;
   background-color: $colorWhite;
-  font-size: 1.25rem;
+  @include fontSize(md);
   border-right: 0;
 }
 
 :global .ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td {
   padding: 1.25rem 1.5rem;
   text-align: left;
-  font-size: 1.25rem;
+  @include fontSize(md);
 }
 
 :global .ReactTable .rt-tbody .rt-td {

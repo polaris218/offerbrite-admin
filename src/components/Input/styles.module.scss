@@ -7,8 +7,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 4px;
-  
+  @include borderRadiusLight;
+
   &_focused {
     border: 1px solid $colorPrimary;
   }
@@ -18,21 +18,20 @@
   }
 
   &__label {
-    font-size: 0.75rem;
+    @include fontSize(xs);
     color: $colorGrayMedium;
     padding: 5px 15px 0;
   }
 
   &__element {
-    height: 100%;
-    width: 100%;
+    @include fullSize;
     outline: none;
     border: 0;
-    transition: all 0.3s;
+    @include transition;
     padding: 5px 15px;
-    font-size: 1.25rem;
+    @include fontSize(md);
     color: inherit;
-    border-radius: 4px;
+    @include borderRadiusLight;
 
     &::placeholder {
       color: $colorGray;

@@ -32,7 +32,7 @@
   &__title {
     margin-left: 1.5rem;
     color: $colorWhite;
-    font-size: 1.5rem;
+    @include fontSize(lg);
   }
 }
 

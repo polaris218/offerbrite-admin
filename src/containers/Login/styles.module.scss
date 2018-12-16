@@ -3,16 +3,14 @@
 .Login {
   &__logo {
     margin-top: 2.5rem;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include flexCenter;
   }
 
   &__header {
     color: $colorPrimary;
     text-transform: uppercase;
-    font-size: 1.25rem;
+    @include fontSize(md);
     letter-spacing: 4px;
     margin-top: -20px;
   }
@@ -22,12 +20,10 @@
     padding: 3rem 0;
     width: 30%;
     min-width: 320px;
-    background-color: $colorWhite;
-    border-radius: 4px;
-    display: flex;
+    @include backgroundWhite;
+    @include borderRadiusLight;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+    @include flexCenter;
     box-shadow: 0 0.5rem 0.5rem rgba($colorGray, 0.5);
   }
 

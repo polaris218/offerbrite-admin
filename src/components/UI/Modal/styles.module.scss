@@ -6,25 +6,23 @@
   left: 50%;
   z-index: 2000;
   transform: translate(-50%, -50%);
-  border-radius: 4px;
+  @include borderRadiusLight;
 
   &__header {
     background-color: $colorGrayLight;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    @include flexBetweenCenter;
     border-bottom: 1px solid $colorGray;
   }
 
   &__header__text {
     padding: 1rem 1.5rem;
-    font-size: 1.25rem;
+    @include fontSize(md);
   }
 
   &__header__closeBtn {
     padding: 1rem 1.25rem;
     cursor: pointer;
-    transition: all .2s;
+    @include transition;
 
     &:hover {
       background-color: $colorGray;
@@ -32,7 +30,7 @@
     
     &__button {
       color: $colorPrimary;
-      font-size: 2rem;
+      @include fontSize(xl);
     }
   }
 }

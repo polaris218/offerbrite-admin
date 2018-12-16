@@ -8,7 +8,6 @@ import DotsMenu from 'components/DotsMenu';
 import Modal from 'components/UI/Modal';
 import Confirmation from 'components/UI/Confirmation';
 import { OfferForm } from 'components/Forms';
-import styles from './styles.module.scss';
 
 import { actions as reportsActions } from 'reducers/reports';
 import { actions as offersActions } from 'reducers/offers';

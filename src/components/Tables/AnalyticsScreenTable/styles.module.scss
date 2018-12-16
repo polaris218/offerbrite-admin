@@ -1,24 +1,19 @@
 @import '../../../resources.scss';
 
 .Table {
-  width: 100%;
-  min-width: 650px;
-  margin-top: 2rem;
-  background-color: $colorWhite;
-  border: 1px solid $colorGray;
-  border-radius: 5px;
+  @include fullWidthWithMin($graphMinWidth);
+  margin-top: $contentMarginTop;
+  @include backgroundWhite;
+  @include borderLight;
+  @include borderRadius;
 
   &__header {
-    display: flex;
-    width: 100%;
-    min-width: 650px;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
+    @include fullWidthWithMin($graphMinWidth);
+    @include flexBetweenCenter;
+    @include graphPadding;
   }
 
   &__header__text {
-    font-weight: normal;
-    font-size: 1.25rem;
+    @include graphHeaderFont;
   }
 }

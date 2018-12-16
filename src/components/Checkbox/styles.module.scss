@@ -7,13 +7,13 @@
 
   flex-shrink: 1;
   &__box {
-    font-size: 2rem;
+    @include fontSize(xl);
     color: $colorPrimary;
     margin-bottom: -2px;
   }
   
   &__label {
-    padding: 10px 20px;
-    font-size: 1.25rem;
+    @include graphPadding;
+    @include fontSize(md);
   }
 }

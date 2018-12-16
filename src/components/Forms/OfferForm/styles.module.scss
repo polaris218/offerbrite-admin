@@ -1,7 +1,7 @@
 @import '../../../resources.scss';
 
 .OfferForm {
-  background-color: $colorWhite;
+  @include backgroundWhite;
 
   &__image {
     width: 100%;

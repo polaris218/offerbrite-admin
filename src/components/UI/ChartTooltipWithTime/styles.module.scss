@@ -1,8 +1,8 @@
 @import '../../../resources.scss';
 
 .Tooltip {
-  background-color: $colorWhite;
-  border: 1px solid $colorGray;
+  @include backgroundWhite;
+  @include borderLight;
   padding: 12px;
 
   &__value {

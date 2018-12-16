@@ -3,13 +3,11 @@
 .SideBar {
   min-height: 100vh;
   background-color: $colorPrimary;
-  transition: all 0.5s;
+  @include transition;
 
   &__header {
     padding: 10px 13%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flexCenter;
     min-height: 74px;
   }
 

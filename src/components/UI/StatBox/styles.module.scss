@@ -20,22 +20,22 @@
     justify-content: center;
 
     &__label {
-      font-size: 1rem;
-      color:  $colorGray;
+      @include fontSize(sm);
+      color: $colorGray;
     }
 
     &__value {
-      font-size: 2.5rem;
+      @include fontSize(xxl);
     }
 
     &__additionalValue_green {
       color: $colorGreen;
-      font-size: 1rem;
+      @include fontSize(sm);
     }
 
     &__additionalValue_red {
       color: $colorPink;
-      font-size: 1rem;
+      @include fontSize(sm);
     }
   }
 }

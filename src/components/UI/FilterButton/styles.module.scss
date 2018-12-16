@@ -3,19 +3,17 @@
 .Button {
   width: 150px;
   height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 4px;
+  @include flexCenter;
+  @include borderRadiusLight;
   background-color: $colorGray;
-  transition: all .3s;
+  @include transition;
   outline: none;
-  border: 1px solid $colorGray;
+  @include borderLight;
   color: $colorGrayDark;
 
   &_active {
     border: 1px solid $colorPink;
-    background-color: $colorWhite;
+    @include backgroundWhite;
     color: $colorPink;
     cursor: pointer;
   }

@@ -1,7 +1,7 @@
 @import '../../../resources.scss';
 
 .NotificationForm {
-  background-color: $colorWhite;
+  @include backgroundWhite;
 
   &__form {
     width: 60rem;
