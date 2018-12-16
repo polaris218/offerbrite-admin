@@ -83,6 +83,32 @@ class Table extends Component {
         headerClassName: 'Table__cell__header',
       },
       {
+        Header: 'Country',
+        accessor: 'country',
+        Cell: props => props.value ?
+          <Highlighter
+            highlightClassName="search_highlight"
+            searchWords={searchWords}
+            autoEscape={true}
+            textToHighlight={props.value}
+          /> :
+          props.value,
+        headerClassName: 'Table__cell__header',
+      },
+      {
+        Header: 'Categories',
+        accessor: 'categories',
+        Cell: props => props.value ?
+          <Highlighter
+            highlightClassName="search_highlight"
+            searchWords={searchWords}
+            autoEscape={true}
+            textToHighlight={`${props.value[0].toUpperCase()}${props.value.slice(1)}`}
+          /> :
+          props.value,
+        headerClassName: 'Table__cell__header',
+      },
+      {
         Cell: props => (
           <DotsMenu
             onEdit={() => this.onSetUpdateUser(props.original)}

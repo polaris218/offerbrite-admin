@@ -77,25 +77,44 @@ export const updateUser = () => async (dispatch, getState) => {
 };
 
 export const filterUsersByCategory = category => (dispatch, getState) => {
-  // const { usersList } = getState().users;
-  // 
-  // const filteredData = usersList.filter(item => item.reports.reason === category);
-  // dispatch({
-  // type: types.FILTER_USERS_BY_CATEGORY,
-  // payload: { category, filteredData },
-  // });
+  const { usersList } = getState().users;
+  
+  const filteredData = usersList.filter(user => user.categories === category.toLowerCase());
+  dispatch({
+    type: types.FILTER_USERS_BY_CATEGORY,
+    payload: { category, filteredData },
+  });
+};
+
+export const filterUsersByCountry = country => (dispatch, getState) => {
+  const { usersList } = getState().users;
+
+  const filteredData = usersList.filter(user => user.country === country);
+  dispatch({
+    type: types.FILTER_USERS_BY_COUNTRY,
+    payload: { country, filteredData },
+  });
 };
 
 export const filterUsersBySearch = e => (dispatch, getState) => {
-  const { usersList, selectedCategory } = getState().users;
+  const { usersList, selectedCategory, selectedCountry } = getState().users;
 
   const searchTarget = e.target.value.toLowerCase();
   const filteredData = usersList.filter(user => {
     const lowerName = user.username.toLowerCase();
-    if (selectedCategory) {
+    if (selectedCategory && selectedCountry) {
       return user.category === selectedCategory &&
-        lowerName.includes(searchTarget) ||
-        user.email.includes(searchTarget);
+        user.country === selectedCountry &&
+        (lowerName.includes(searchTarget) ||
+        user.email.includes(searchTarget));
+    } else if (selectedCategory) {
+      return user.category === selectedCategory &&
+        (lowerName.includes(searchTarget) ||
+        user.email.includes(searchTarget));
+    } else if (selectedCountry) {
+      return user.country === selectedCountry &&
+        (lowerName.includes(searchTarget) ||
+        user.email.includes(searchTarget));
     }
     return lowerName.includes(searchTarget) ||
       user.email.includes(searchTarget);

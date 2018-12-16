@@ -8,6 +8,7 @@ const initialState = {
   },
   filteredData: null,
   selectedCategory: '',
+  selectedCountry: '',
   userToUpdate: {},
 };
 
@@ -17,11 +18,17 @@ export default (state = initialState, action) => {
       return { ...state, usersList: action.payload.usersList };
 
     case types.FILTER_USERS_BY_CATEGORY:
-      const { reason, filteredData } = action.payload;
       return {
         ...state,
-        selectedCategory: reason,
-        filteredData,
+        selectedCategory: action.payload.category,
+        filteredData: action.payload.filteredData,
+      };
+
+    case types.FILTER_USERS_BY_COUNTRY:
+      return {
+        ...state,
+        selectedCountry: action.payload.country,
+        filteredData: action.payload.filteredData,
       };
 
     case types.FILTER_USERS_BY_SEARCH:
@@ -35,6 +42,7 @@ export default (state = initialState, action) => {
         ...state,
         filteredData: null,
         selectedCategory: '',
+        selectedCountry: '',
       };
 
     case types.SET_USER_TO_UPDATE:
