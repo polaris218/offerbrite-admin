@@ -4,10 +4,14 @@
   @include backgroundWhite;
 
   &__form {
-    width: 60rem;
+    width: 580px;
   }
 
   &__dropdowns {
+    @include flexBetweenCenter;
+  }
+
+  &__pickers {
     @include flexBetweenCenter;
   }
 

@@ -20,10 +20,13 @@ class Dropdown extends Component {
 
   render() {
     const { isOpened } = this.state;
-    const { title, values, small, label } = this.props;
+    const { title, values, small, label, width } = this.props;
 
     return (
-      <div className={[styles.Dropdown, small ? styles.Dropdown_small : null].join(' ')}>
+      <div
+        className={[styles.Dropdown, small ? styles.Dropdown_small : null].join(' ')}
+        style={width ? { width } : null}
+      >
         <div
           onClick={this.onToggle}
           className={[

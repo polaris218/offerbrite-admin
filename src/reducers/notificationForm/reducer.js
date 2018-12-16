@@ -7,8 +7,8 @@ const initialState = {
   countries: [],
   selectedCategory: 'All',
   categories: [],
-  date: '',
-  time: '12:00',
+  date: new Date(),
+  time: new Date(),
 };
 
 export default (state = initialState, action) => {
@@ -41,6 +41,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         selectedCategory: action.payload.category,
+      };
+
+    case types.ON_CHANGE_NOTIFICATION_DATE:
+      return {
+        ...state,
+        date: action.payload.date,
+      };
+
+    case types.ON_CHANGE_NOTIFICATION_TIME:
+      return {
+        ...state,
+        time: action.payload.time,
       };
 
     default:

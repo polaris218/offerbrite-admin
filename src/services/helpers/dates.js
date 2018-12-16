@@ -2,6 +2,10 @@ import moment from 'moment';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
+export const TIME_CONSTANTS = {
+  MONTH: 2592000000,
+};
+
 export const TIME_PERIODS = [
   'Today',
   'Last 7 days',

@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Input from 'components/Input';
+import Datepicker from 'components/Datepicker';
 import Button from 'components/UI/Button';
 import Dropdown from 'components/UI/Dropdown';
 import Section from 'components/UI/Section';
 import styles from './styles.module.scss';
 
+import { TIME_CONSTANTS } from 'services/helpers';
 import { actions as notificationFormActions } from 'reducers/notificationForm';
 
 class Notification extends Component {
@@ -70,8 +72,27 @@ class Notification extends Component {
             </div>
           </Section>
           <Section header="Notification settings">
+            <div className={styles.NotificationForm__pickers}>
+              <Datepicker
+                selected={date}
+                dateFormat="yyyy/MM/dd"
+                onChange={onChangeNotificationDate}
+                minDate={new Date()}
+                maxDate={new Date(Date.now() + TIME_CONSTANTS.MONTH)}
+              />
+              <Datepicker
+                selected={time}
+                onChange={onChangeNotificationTime}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={15}
+                dateFormat="HH:mm"
+                timeFormat="HH:mm"
+                timeCaption="Time"
+              />
+            </div>
             <div className={styles.NotificationForm__form__button}>
-              <Button block onClick={this.handleSubmit}>
+              <Button block onClick={this.handleSubmit} disabled={message.length === 0}>
                 Send
               </Button>
             </div>
