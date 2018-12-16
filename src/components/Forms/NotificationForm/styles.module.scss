@@ -7,6 +7,10 @@
     width: 60rem;
   }
 
+  &__dropdowns {
+    @include flexBetweenCenter;
+  }
+
   &__form__button {
     max-width: 50%;
     margin: 0 auto;

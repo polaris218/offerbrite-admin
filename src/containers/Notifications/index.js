@@ -41,9 +41,7 @@ class Notifications extends Component {
             onClose={this.onToggleForm}
             header="Create notification"
           >
-            <NotificationForm
-              onSubmit={() => { }}
-            />
+            <NotificationForm onClose={this.onToggleForm} />
           </Modal>
         </div>
       </div>

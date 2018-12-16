@@ -4,6 +4,7 @@ import { reducer as requestReducer } from './request';
 import { reducer as usersReducer } from './users';
 import { reducer as companiesReducer } from './companies';
 import { reducer as offersReducer } from './offers';
+import { reducer as notificationFormReducer } from './notificationForm';
 import { reducer as analyticsUserReducer } from './analyticsUser';
 import { reducer as analyticsBusinessReducer } from './analyticsBusiness';
 import { reducer as settingsReducer } from './settings';
@@ -16,6 +17,7 @@ export default combineReducers({
   users: usersReducer,
   companies: companiesReducer,
   offers: offersReducer,
+  notificationForm: notificationFormReducer,
   analyticsUser: analyticsUserReducer,
   analyticsBusiness: analyticsBusinessReducer,
   settings: settingsReducer,
