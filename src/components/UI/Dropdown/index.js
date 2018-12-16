@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { MdArrowDropDown } from 'react-icons/md';
@@ -20,7 +20,7 @@ class Dropdown extends Component {
 
   render() {
     const { isOpened } = this.state;
-    const { title, values, small } = this.props;
+    const { title, values, small, label } = this.props;
 
     return (
       <div className={[styles.Dropdown, small ? styles.Dropdown_small : null].join(' ')}>
@@ -32,7 +32,14 @@ class Dropdown extends Component {
             isOpened ? styles.Dropdown__row_first_opened : styles.Dropdown__row_first_closed,
           ].join(' ')}
         >
-          {title}
+          {
+            label ?
+            <div>
+              <div className={styles.Dropdown__label}>{label}</div>
+              {title}
+            </div> :
+            title
+          }
           <div className={[
             styles.Dropdown__icon__wrapper,
             isOpened ? styles.Dropdown__icon__wrapper_rotated : null
@@ -45,7 +52,10 @@ class Dropdown extends Component {
             styles.Dropdown__list,
             !isOpened ? styles.Dropdown__list_closed : null,
           ].join(' ')}
-          style={!isOpened ? { height: 0 } : { height: `${values.length * 48}px` }}
+          style={!isOpened ?
+            { height: 0, overflowY: 'hidden' } :
+            { height: `${values.length * 48}px`, overflowY: values.length > 5 ? 'scroll' : 'hidden' }
+          }
         >
           {
             values.map((value, index) => (
