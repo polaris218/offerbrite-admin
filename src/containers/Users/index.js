@@ -41,6 +41,8 @@ class Users extends Component {
       usersList,
       filteredData,
       selectedCategory,
+      selectedCountry,
+      filterUsersByCountry,
       filterUsersByCategory,
       deleteUser,
       setUserToUpdate,
@@ -48,7 +50,19 @@ class Users extends Component {
     } = this.props;
     const { searchWords } = this.state;
 
-    const categories = ['1', '2', '3', '4']; // TODO: replace by correct categories
+    const categories = [...new Set(usersList.map(user => {
+      if (user.hasOwnProperty('categories')) {
+        return user.categories;
+      }
+      return null;
+    }))].filter(category => !!category).map(str => `${str[0].toUpperCase()}${str.slice(1)}`);
+
+    const countries = [...new Set(usersList.map(user => {
+      if (user.hasOwnProperty('country')) {
+        return user.country;
+      }
+      return null;
+    }))].filter(country => !!country);
 
     return (
       <div className={styles.Users}>
@@ -64,9 +78,9 @@ class Users extends Component {
             value={searchWords}
           />
           <Dropdown
-            title={selectedCategory || 'Country'}
-            values={categories}
-            onSelect={filterUsersByCategory}
+            title={selectedCountry || 'Country'}
+            values={countries}
+            onSelect={filterUsersByCountry}
           />
           <Dropdown
             title={selectedCategory || 'Category'}
@@ -91,6 +105,7 @@ const mapStateToProps = state => ({
   usersList: state.users.usersList,
   filteredData: state.users.filteredData,
   selectedCategory: state.users.selectedCategory,
+  selectedCountry: state.users.selectedCountry,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -98,6 +113,7 @@ const mapDispatchToProps = dispatch => ({
   deleteUser: userId => dispatch(usersActions.deleteUser(userId)),
   setUserToUpdate: user => dispatch(usersActions.setUserToUpdate(user)),
   filterUsersByCategory: category => dispatch(usersActions.filterUsersByCategory(category)),
+  filterUsersByCountry: country => dispatch(usersActions.filterUsersByCountry(country)),
   filterUsersBySearch: event => dispatch(usersActions.filterUsersBySearch(event)),
   turnOffUsersFilter: () => dispatch(usersActions.turnOffUsersFilter()),
 });
