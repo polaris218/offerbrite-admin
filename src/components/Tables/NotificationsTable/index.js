@@ -5,6 +5,7 @@ import ReactTable from 'react-table';
 import DotsMenu from 'components/DotsMenu';
 import Modal from 'components/UI/Modal';
 import Confirmation from 'components/UI/Confirmation';
+import { getUtcOffset } from 'services/helpers';
 
 export class NotificationsTable extends Component {
   state = {
@@ -35,9 +36,11 @@ export class NotificationsTable extends Component {
     const columns = [
       {
         Header: 'Text',
-        accessor: 'text',
+        accessor: 'message',
         Cell: ({ value }) => value,
         sortable: false,
+        width: 400,
+        style: { overflow: 'hidden'}
       },
       {
         Header: 'Title',
@@ -60,13 +63,19 @@ export class NotificationsTable extends Component {
       {
         Header: 'Date',
         accessor: 'date',
-        Cell: props => props.value,
+        Cell: ({ value }) => value.split('T')[0],
         headerClassName: 'Table__cell__header',
       },
       {
         Header: 'Time',
         accessor: 'time',
-        Cell: props => props.value,
+        Cell: ({ value }) => {
+          const time = value.split(':');
+          if (time[1].length === 1) {
+            return `${Number(time[0]) - getUtcOffset()}:0${time[1]}`;
+          }
+          return value;
+        },
         headerClassName: 'Table__cell__header',
       },
       {
@@ -77,6 +86,7 @@ export class NotificationsTable extends Component {
             id={props.value}
           />
         ),
+        width: 60,
         accessor: 'id',
         sortable: false,
         style: { display: 'flex', justifyContent: 'flex-end' },
@@ -90,7 +100,7 @@ export class NotificationsTable extends Component {
           className="-highlight"
           data={data}
           columns={columns}
-          minRows={data.length}
+          minRows={data.length > 20 ? 20 : data.length}
         />
         <Modal
           isVisible={isDeleteModalVisible}

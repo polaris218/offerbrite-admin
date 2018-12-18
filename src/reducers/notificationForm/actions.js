@@ -62,15 +62,19 @@ export const sendNotification = () => async (dispatch, getState) => {
   date = getDateFromString(date);
   time = getTimeFromString(time);
 
+  console.log(date, time)
+
   try {
     const response = await apiSendNotification(query, {
       title, text, date, time
     });
+    console.log(response);
     if (response.status === 200) {
       dispatch({ type: types.SEND_NOTIFICATION_SUCCESS });
+      console.log(response);
       dispatch(getNotifications());
     }
-    console.log(response);
+    
   } catch (error) {
     console.log(error);
     console.log(error.response);
@@ -87,7 +91,7 @@ export const getNotifications = () => async dispatch => {
     if (response.status === 200) {
       dispatch({
         type: types.GET_NOTIFICATIONS_SUCCESS,
-        payload: { notifications: response.data },
+        payload: { notifications: response.data.data },
       });
       dispatch(requestActions.success());
     }

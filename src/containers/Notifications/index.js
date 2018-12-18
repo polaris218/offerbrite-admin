@@ -43,10 +43,12 @@ class Notifications extends Component {
           </div>
           {
             notificationsList.length > 0 &&
-            <NotificationsTable
-              data={notificationsList}
-              onDelete={deleteNotification}
-            />
+            <div className={styles.Notifications__table}>
+              <NotificationsTable
+                data={notificationsList}
+                onDelete={deleteNotification}
+              />
+            </div>
           }
           <Modal
             isVisible={isFormVisible}

@@ -114,5 +114,8 @@ export const getDateFromString = dateString => (
 );
 
 export const getTimeFromString = dateString => (
-  `${dateString.getHours()}:${dateString.getMinutes()}`
+  // const utcOffsetInHours = new Date().getTimezoneOffset() / 60;
+  `${dateString.getHours() + getUtcOffset()}:${dateString.getMinutes()}`
 );
+
+export const getUtcOffset = () => new Date().getTimezoneOffset() / 60;
