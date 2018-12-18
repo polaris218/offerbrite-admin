@@ -177,3 +177,25 @@ export const getReports = (limit, skip) => authRequest(endpoints.GET_REPORTS(lim
 export const deleteReport = reportId => authRequest(endpoints.DELETE_REPORT(reportId), {
   method: 'DELETE',
 });
+
+export const sendNotification = (query, data) => authRequest(endpoints.SEND_NOTIFICATION(query), {
+  method: 'POST',
+  data,
+});
+
+export const getNotifications = () => authRequest(endpoints.GET_NOTIFICATIONS, {
+  method: 'GET',
+});
+
+export const getNotificationById = notificationId => authRequest(endpoints.GET_NOTIFICATION_BY_ID(notificationId), {
+  method: 'GET',
+});
+
+export const deleteNotification = notificationId => authRequest(endpoints.DELETE_NOTIFICATION(notificationId), {
+  method: 'DELETE',
+});
+
+export const updateNotification = (notificationId, data) => authRequest(endpoints.UPDATE_ADMIN(notificationId), {
+  method: 'PUT',
+  data,
+});

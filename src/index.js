@@ -9,6 +9,7 @@ import * as serviceWorker from './serviceWorker';
 import App from 'components/App';
 import reducers from 'reducers';
 import '../node_modules/react-table/react-table.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import 'index.scss';
 
 const middleware = [reduxThunk, logger];

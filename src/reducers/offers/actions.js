@@ -10,6 +10,7 @@ import {
 } from 'services/api';
 
 import { actions as requestActions } from 'reducers/request';
+import { setInitialCategories } from 'reducers/notificationForm/actions';
 
 export const getOffers = () => async (dispatch, getState) => {
   dispatch(requestActions.start());
@@ -68,6 +69,7 @@ export const getCategories = () => async dispatch => {
     const response = await apiGetCategories();
     if (response.data.docs) {
       dispatch({ type: types.GET_CATEGORIES_SUCCESS, payload: { categories: response.data.docs } });
+      dispatch(setInitialCategories(response.data.docs));
     }
   } catch (error) {
     dispatch(requestActions.fail(error));

@@ -12,6 +12,7 @@ import Modal from 'components/UI/Modal';
 import styles from './styles.module.scss';
 
 import { actions as usersActions } from 'reducers/users';
+import { actions as notificationFormActions } from 'reducers/notificationForm';
 
 class Users extends Component {
   state = {
@@ -47,6 +48,7 @@ class Users extends Component {
       deleteUser,
       setUserToUpdate,
       onChangeUserFormField,
+      setInitialCountries,
     } = this.props;
     const { searchWords } = this.state;
 
@@ -63,6 +65,8 @@ class Users extends Component {
       }
       return null;
     }))].filter(country => !!country);
+    
+    setInitialCountries(countries);
 
     return (
       <div className={styles.Users}>
@@ -116,6 +120,7 @@ const mapDispatchToProps = dispatch => ({
   filterUsersByCountry: country => dispatch(usersActions.filterUsersByCountry(country)),
   filterUsersBySearch: event => dispatch(usersActions.filterUsersBySearch(event)),
   turnOffUsersFilter: () => dispatch(usersActions.turnOffUsersFilter()),
+  setInitialCountries: countries => dispatch(notificationFormActions.setInitialCountries(countries)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

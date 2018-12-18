@@ -44,7 +44,7 @@ class App extends Component {
     const { access } = this.props;
 
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path="/admin/login" component={Login} />
           {

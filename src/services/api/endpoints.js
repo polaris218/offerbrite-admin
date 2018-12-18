@@ -33,6 +33,12 @@ export default {
 
   CHECK_HEALTH: `${API_URL}/health-check`,
 
+  SEND_NOTIFICATION: query => `${API_URL}/notification/send${query}`,
+  GET_NOTIFICATIONS: `${API_URL}/notification/list`,
+  GET_NOTIFICATION_BY_ID: notificationId => `${API_URL}/notification/${notificationId}`,
+  UPDATE_NOTIFICATION: notificationId => `${API_URL}/notification/${notificationId}`,
+  DELETE_NOTIFICATION: notificationId => `${API_URL}/notification/${notificationId}`,
+
   ANALYTICS_USER_GET_SESSIONS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/sessionsGraph/${startDate}/${endDate}`,
   ANALYTICS_USER_GET_USERS_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/usersGraph/${startDate}/${endDate}`,
   ANALYTICS_USER_GET_SESSION_DURATION_GRAPH: (startDate, endDate) => `${API_URL}/ga-report/sessionDurationGraph/${startDate}/${endDate}`,

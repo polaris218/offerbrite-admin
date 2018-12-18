@@ -2,6 +2,10 @@ import moment from 'moment';
 
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
+export const TIME_CONSTANTS = {
+  MONTH: 2592000000,
+};
+
 export const TIME_PERIODS = [
   'Today',
   'Last 7 days',
@@ -104,3 +108,14 @@ export const makeTimeFromSeconds = seconds => {
     })
     .join(':');
 };
+
+export const getDateFromString = dateString => (
+  `${dateString.getFullYear()}-${dateString.getMonth() + 1}-${dateString.getDate()}`
+);
+
+export const getTimeFromString = dateString => (
+  // const utcOffsetInHours = new Date().getTimezoneOffset() / 60;
+  `${dateString.getHours() + getUtcOffset()}:${dateString.getMinutes()}`
+);
+
+export const getUtcOffset = () => new Date().getTimezoneOffset() / 60;
