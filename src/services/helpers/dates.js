@@ -108,3 +108,11 @@ export const makeTimeFromSeconds = seconds => {
     })
     .join(':');
 };
+
+export const getDateFromString = dateString => (
+  `${dateString.getFullYear()}-${dateString.getMonth() + 1}-${dateString.getDate()}`
+);
+
+export const getTimeFromString = dateString => (
+  `${dateString.getHours()}:${dateString.getMinutes()}`
+);

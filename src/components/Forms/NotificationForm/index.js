@@ -15,14 +15,14 @@ import { actions as notificationFormActions } from 'reducers/notificationForm';
 class Notification extends Component {
 
   handleSubmit = () => {
-    // this.props.onSubmit();
+    this.props.sendNotification();
     this.props.onClose();
   }
 
   render() {
     const {
       title,
-      message,
+      text,
       selectedCountry,
       countries,
       selectedCategory,
@@ -34,7 +34,6 @@ class Notification extends Component {
       onChangeNotificationCategory,
       onChangeNotificationDate,
       onChangeNotificationTime,
-      sendNotification,
     } = this.props;
 
     return (
@@ -51,8 +50,8 @@ class Notification extends Component {
               placeholder="Text"
               label="Text"
               inputtype="textarea"
-              onChange={e => onChangeNotificationText(e, 'message')}
-              value={message}
+              onChange={e => onChangeNotificationText(e, 'text')}
+              value={text}
             />
           </Section>
           <Section header="Targeting">
@@ -92,7 +91,7 @@ class Notification extends Component {
               />
             </div>
             <div className={styles.NotificationForm__form__button}>
-              <Button block onClick={this.handleSubmit} disabled={message.length === 0}>
+              <Button block onClick={this.handleSubmit} disabled={text.length === 0}>
                 Send
               </Button>
             </div>
@@ -106,7 +105,7 @@ class Notification extends Component {
 
 const mapStateToProps = state => ({
   title: state.notificationForm.title,
-  message: state.notificationForm.message,
+  text: state.notificationForm.text,
   selectedCountry: state.notificationForm.selectedCountry,
   countries: state.notificationForm.countries,
   selectedCategory: state.notificationForm.selectedCategory,

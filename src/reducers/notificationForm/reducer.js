@@ -2,17 +2,31 @@ import types from './types';
 
 const initialState = {
   title: '',
-  message: '',
+  text: '',
   selectedCountry: 'All',
   countries: [],
   selectedCategory: 'All',
   categories: [],
   date: new Date(),
   time: new Date(),
+  notificationsList: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case types.GET_NOTIFICATIONS_SUCCESS:
+      return {
+        ...state,
+        notificationsList: action.payload.notifications,
+      };
+
+    case types.SEND_NOTIFICATION_SUCCESS:
+      return {
+        ...initialState,
+        categories: state.categories,
+        countries: state.countries,
+      };
+
     case types.SET_INITIAL_COUNTRIES:
       return {
         ...state,
